@@ -1,0 +1,39 @@
+/*
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.kanban-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 80px;
+    padding: 30px;
+    width: 100%;
+    max-width: 800px;
+    background: linear-gradient(to left bottom, lightgreen, lightblue);
+}
+
+.task-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    padding: 20px;
+}
+
+.task-container > * {
+    margin: 10px;
+    background: rgba(255, 255, 255, .3);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}*/
