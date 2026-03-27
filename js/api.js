@@ -6,7 +6,9 @@ export let state = {
 export function loadState() {
   const saved = localStorage.getItem("state");
   if (saved) {
-    state = JSON.parse(saved);
+    const parsed = JSON.parse(saved);
+    state.columns = parsed.columns || [];
+    state.tasks = parsed.tasks || [];
   }
 }
 
