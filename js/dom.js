@@ -33,7 +33,6 @@ export function renderCols(col, state) {
     state.tasks = state.tasks.filter((t) => t.taskColId !== col.id);
     saveState();
     colDiv.remove();
-    //console.log(state);
   });
 }
 
@@ -69,7 +68,6 @@ export function renderTasks(colDiv, col, state) {
       const taskDiv = document.createElement("div");
       taskDiv.classList.add("task"); // za cleanup
       taskDiv.dataset.id = task.id;
-      //console.log(taskDiv.dataset.id);
 
       const h3 = document.createElement("h3");
       h3.innerText = task.nameTask;
@@ -85,10 +83,9 @@ export function renderTasks(colDiv, col, state) {
 
       taskDiv.append(h3, p, deleteBtn, editBtn);
       colDiv.appendChild(taskDiv);
-      //2
+
       deleteBtn.addEventListener("click", () => {
-        const taskId = task.id;
-        state.tasks = state.tasks.filter((t) => t.id !== taskId);
+        state.tasks = state.tasks.filter((t) => t.id !== task.id);
         saveState();
         taskDiv.remove();
       });
