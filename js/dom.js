@@ -38,7 +38,7 @@ export function renderCols(col, state) {
   });
 }
 
-export function renderTaskForm(taskForm, col, state) {
+export function renderTaskForm(taskForm, col, colDiv, state) {
   // TODO styling: taskForm.classList.add("add-task");
   const taskNameIn = document.createElement("input");
   taskNameIn.type = "text";
