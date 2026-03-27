@@ -96,7 +96,7 @@ export function renderTasks(colDiv, col, state) {
       deleteBtn.innerText = "X";
 
       const editBtn = document.createElement("button");
-      editBtn.innerText = "Edit";
+      editBtn.innerText = "Edituj";
 
       taskDiv.append(h3, p, deleteBtn, editBtn);
       colDiv.appendChild(taskDiv);
@@ -107,19 +107,33 @@ export function renderTasks(colDiv, col, state) {
         taskDiv.remove();
       });
 
-      /*
       editBtn.addEventListener("click", () => {
         const inputH3 = document.createElement("input");
-        inputH3.value = h3El.innerText;
+        inputH3.value = h3.innerText;
 
         const inputP = document.createElement("input");
-        inputP.value = pEl.innerText;
+        inputP.value = p.innerText;
 
-        h3El.replaceWith(inputH3);
-        pEl.replaceWith(inputP);
+        h3.replaceWith(inputH3);
+        p.replaceWith(inputP);
+
+        taskDiv.addEventListener("keydown", (e) => {
+          if (e.key === "Enter") {
+            task.nameTask = inputH3.value;
+            task.content = inputP.value;
+
+            saveState();
+
+            h3.innerText = task.nameTask;
+            p.innerText = task.content;
+
+            inputH3.replaceWith(h3);
+            inputP.replaceWith(p);
+          }
+        });
 
         //add save option for for inputH3 and inputP
-        console.log(h3El, pEl);
-      });*/
+        console.log();
+      });
     });
 }
