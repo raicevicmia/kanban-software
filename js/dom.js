@@ -14,8 +14,11 @@ export function renderCols(col, state) {
   const colDiv = document.createElement("div");
   colDiv.id = `${col.id}`;
 
-  const h3 = document.createElement("h3");
-  h3.innerText = col.nameCol;
+  const h2 = document.createElement("h2");
+  h2.innerText = col.nameCol;
+
+  const renameColBtn = document.createElement("button");
+  renameColBtn.innerText = "Preimenuj";
 
   const delColBtn = document.createElement("button");
   delColBtn.innerText = "Ukloni";
@@ -23,10 +26,24 @@ export function renderCols(col, state) {
   const taskForm = document.createElement("form");
   renderTaskForm(taskForm, col, state);
 
-  colDiv.append(h3, delColBtn, taskForm);
+  colDiv.append(h2, renameColBtn, delColBtn, taskForm);
   renderTasks(colDiv, col, state);
 
   columnContainerEl.appendChild(colDiv);
+
+  renameColBtn.addEventListener("click", () => {
+    const input = document.createElement("input");
+    input.value = col.nameCol;
+    h2.replaceWith(input);
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        col.nameCol = input.value;
+        saveState();
+        h2.innerText = col.nameCol;
+        input.replaceWith(h2);
+      }
+    });
+  });
 
   delColBtn.addEventListener("click", () => {
     state.columns = state.columns.filter((c) => c.id !== col.id);
@@ -89,7 +106,7 @@ export function renderTasks(colDiv, col, state) {
         saveState();
         taskDiv.remove();
       });
-      //2
+
       /*
       editBtn.addEventListener("click", () => {
         const inputH3 = document.createElement("input");
