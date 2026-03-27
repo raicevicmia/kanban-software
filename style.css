@@ -1,39 +1,38 @@
-/*
 * {
     margin: 0px;
     padding: 0px;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
 }
 
-.container{
+/*
+body {
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 100vh;
+    background: linear-gradient(to left bottom, rgb(188, 228, 188), lightblue);
+}
+
+.container{
+  width: 95%;
+  max-width: 1200px;
+  padding: 20px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+}
+
+h1 {
+  color: white;
+  margin-bottom: 20px;
+  text-align: center;
 }
 
 .kanban-container{
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 80px;
-    padding: 30px;
-    width: 100%;
-    max-width: 800px;
-    background: linear-gradient(to left bottom, lightgreen, lightblue);
+    gap: 20px;
 }
-
-.task-container{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 100%;
-    padding: 20px;
-}
-
-.task-container > * {
-    margin: 10px;
-    background: rgba(255, 255, 255, .3);
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    padding: 20px;
-}*/
+*/
