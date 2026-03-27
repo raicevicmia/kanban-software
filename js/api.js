@@ -19,7 +19,7 @@ export function saveState() {
 export function addCol(newColName) {
   if (!newColName) return;
   const newCol = {
-    id: state.columns.length,
+    id: Date.now(),
     nameCol: newColName,
   };
   state.columns.push(newCol);
@@ -34,7 +34,7 @@ export function addTask(taskNameIn, taskDescrIn, col) {
   if (!taskDescr) return;
 
   const newTask = {
-    id: state.tasks.length,
+    id: Date.now(),
     nameTask: taskName,
     content: taskDescr,
     taskColId: col.id,

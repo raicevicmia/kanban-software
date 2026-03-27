@@ -1,10 +1,7 @@
 import { state, loadState, addCol } from "./api.js";
 import { render, addColFormEl, addColInputEl } from "./dom.js";
-//localStorage.clear();
 
 loadState();
-console.log(state);
-
 render(state);
 
 addColFormEl.addEventListener("submit", (e) => {
@@ -13,3 +10,6 @@ addColFormEl.addEventListener("submit", (e) => {
   render(state);
   addColInputEl.value = "";
 });
+
+//localStorage.clear();
+console.log(state);

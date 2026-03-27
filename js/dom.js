@@ -17,18 +17,18 @@ export function renderCols(col, state) {
   const h3 = document.createElement("h3");
   h3.innerText = col.nameCol;
 
-  const deleteBtn = document.createElement("button");
-  deleteBtn.innerText = "Ukloni";
+  const delColBtn = document.createElement("button");
+  delColBtn.innerText = "Ukloni";
 
   const taskForm = document.createElement("form");
   renderTaskForm(taskForm, col, state);
 
-  colDiv.append(h3, deleteBtn, taskForm);
+  colDiv.append(h3, delColBtn, taskForm);
   renderTasks(colDiv, col, state);
 
   columnContainerEl.appendChild(colDiv);
 
-  deleteBtn.addEventListener("click", () => {
+  delColBtn.addEventListener("click", () => {
     state.columns = state.columns.filter((c) => c.id !== col.id);
     state.tasks = state.tasks.filter((t) => t.taskColId !== col.id);
     saveState();
