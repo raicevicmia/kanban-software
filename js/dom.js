@@ -21,7 +21,7 @@ export function renderCols(col, state) {
   deleteBtn.innerText = "Ukloni";
 
   const taskForm = document.createElement("form");
-  renderTaskForm(taskForm, col, colDiv, state);
+  renderTaskForm(taskForm, col, state);
 
   colDiv.append(h3, deleteBtn, taskForm);
   renderTasks(colDiv, col, state);
@@ -33,12 +33,11 @@ export function renderCols(col, state) {
     state.tasks = state.tasks.filter((t) => t.taskColId !== col.id);
     saveState();
     colDiv.remove();
-
     //console.log(state);
   });
 }
 
-export function renderTaskForm(taskForm, col, colDiv, state) {
+export function renderTaskForm(taskForm, col, state) {
   // TODO styling: taskForm.classList.add("add-task");
   const taskNameIn = document.createElement("input");
   taskNameIn.type = "text";
