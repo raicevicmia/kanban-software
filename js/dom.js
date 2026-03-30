@@ -1,4 +1,4 @@
-import { addTask, saveState } from "./api.js";
+import { addTask, moveTaskToColumn, saveState } from "./api.js";
 
 export const addColFormEl = document.querySelector(".add-column");
 export const addColInputEl = document.getElementById("addCol");
@@ -10,9 +10,9 @@ export function render(state) {
 }
 
 export function renderCols(col, state) {
-  // TODO styling:  colDiv.classList.add("column");
   const colDiv = document.createElement("div");
-  colDiv.id = `${col.id}`;
+  colDiv.classList.add("column");
+  colDiv.id = col.id;
 
   const h2 = document.createElement("h2");
   h2.innerText = col.nameCol;
@@ -51,6 +51,19 @@ export function renderCols(col, state) {
     saveState();
     colDiv.remove();
   });
+
+  colDiv.addEventListener("dragover", (e) => {
+    e.preventDefault();
+  });
+
+  colDiv.addEventListener("drop", (e) => {
+    e.preventDefault();
+
+    const taskId = Number(e.dataTransfer.getData("text/plain"));
+    moveTaskToColumn(taskId, col.id);
+    console.log(state);
+    render(state);
+  });
 }
 
 export function renderTaskForm(taskForm, col, state) {
@@ -85,6 +98,7 @@ export function renderTasks(colDiv, col, state) {
       const taskDiv = document.createElement("div");
       taskDiv.classList.add("task"); // za cleanup
       taskDiv.dataset.id = task.id;
+      taskDiv.setAttribute("draggable", "true");
 
       const h3 = document.createElement("h3");
       h3.innerText = task.nameTask;
@@ -134,6 +148,10 @@ export function renderTasks(colDiv, col, state) {
 
         //add save option for for inputH3 and inputP
         console.log();
+      });
+
+      taskDiv.addEventListener("dragstart", (e) => {
+        e.dataTransfer.setData("text/plain", task.id);
       });
     });
 }

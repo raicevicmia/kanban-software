@@ -45,3 +45,11 @@ export function addTask(taskNameIn, taskDescrIn, col) {
   //console.log(`Novi task za ${col.nameCol}:`, taskName);
   //console.log(state);
 }
+
+export function moveTaskToColumn(taskId, newColId) {
+  const task = state.tasks.find((t) => t.id === taskId);
+  if (!task) return;
+
+  task.taskColId = newColId;
+  saveState();
+}
