@@ -1,7 +1,7 @@
 import { addTask, moveTaskToColumn, saveState } from "./api.js";
 
 export const addColFormEl = document.querySelector(".add-column");
-export const addColInputEl = document.getElementById("addCol");
+export const addColInputEl = document.getElementById("add-col");
 export const columnContainerEl = document.querySelector(".column-container");
 
 export function render(state) {
@@ -12,42 +12,40 @@ export function render(state) {
 export function renderCols(col, state) {
   const colDiv = document.createElement("div");
   colDiv.classList.add("column");
-  colDiv.id = col.id;
 
-  const h2 = document.createElement("h2");
-  h2.innerText = col.nameCol;
+  const h1 = document.createElement("h1");
+  h1.innerText = col.title;
 
   const renameColBtn = document.createElement("button");
   renameColBtn.innerText = "Preimenuj";
 
   const delColBtn = document.createElement("button");
-  delColBtn.innerText = "Ukloni";
+  delColBtn.innerText = "X";
 
   const taskForm = document.createElement("form");
   renderTaskForm(taskForm, col, state);
 
-  colDiv.append(h2, renameColBtn, delColBtn, taskForm);
-  renderTasks(colDiv, col, state);
+  colDiv.append(h1, renameColBtn, delColBtn, taskForm);
+  renderTasks(colDiv, col);
 
   columnContainerEl.appendChild(colDiv);
 
   renameColBtn.addEventListener("click", () => {
     const input = document.createElement("input");
-    input.value = col.nameCol;
-    h2.replaceWith(input);
+    input.value = col.title;
+    h1.replaceWith(input);
     input.addEventListener("keydown", (e) => {
       if (e.key === "Enter") {
-        col.nameCol = input.value;
+        col.title = input.value;
         saveState();
-        h2.innerText = col.nameCol;
-        input.replaceWith(h2);
+        h1.innerText = col.title;
+        input.replaceWith(h1);
       }
     });
   });
 
   delColBtn.addEventListener("click", () => {
     state.columns = state.columns.filter((c) => c.id !== col.id);
-    state.tasks = state.tasks.filter((t) => t.taskColId !== col.id);
     saveState();
     colDiv.remove();
   });
@@ -60,8 +58,7 @@ export function renderCols(col, state) {
     e.preventDefault();
 
     const taskId = Number(e.dataTransfer.getData("text/plain"));
-    moveTaskToColumn(taskId, col.id);
-    console.log(state);
+    moveTaskToColumn(taskId, col);
     render(state);
   });
 }
@@ -89,69 +86,64 @@ export function renderTaskForm(taskForm, col, state) {
   });
 }
 
-export function renderTasks(colDiv, col, state) {
+export function renderTasks(colDiv, col) {
   colDiv.querySelectorAll(".task").forEach((t) => t.remove());
 
-  state.tasks
-    .filter((task) => task.taskColId === col.id)
-    .forEach((task) => {
-      const taskDiv = document.createElement("div");
-      taskDiv.classList.add("task"); // za cleanup
-      taskDiv.dataset.id = task.id;
-      taskDiv.setAttribute("draggable", "true");
+  col.tasks.forEach((task) => {
+    const taskDiv = document.createElement("div");
+    taskDiv.classList.add("task"); // za cleanup
+    taskDiv.setAttribute("draggable", "true");
+    //taskDiv.dataset.id = task.id;
 
-      const h3 = document.createElement("h3");
-      h3.innerText = task.nameTask;
+    const h3 = document.createElement("h3");
+    h3.innerText = task.nameTask;
 
-      const p = document.createElement("p");
-      p.innerText = task.content;
+    const p = document.createElement("p");
+    p.innerText = task.content;
 
-      const deleteBtn = document.createElement("button");
-      deleteBtn.innerText = "X";
+    const deleteBtn = document.createElement("button");
+    deleteBtn.innerText = "X";
 
-      const editBtn = document.createElement("button");
-      editBtn.innerText = "Edituj";
+    const editBtn = document.createElement("button");
+    editBtn.innerText = "Edituj";
 
-      taskDiv.append(h3, p, deleteBtn, editBtn);
-      colDiv.appendChild(taskDiv);
+    taskDiv.append(h3, p, deleteBtn, editBtn);
+    colDiv.appendChild(taskDiv);
 
-      deleteBtn.addEventListener("click", () => {
-        state.tasks = state.tasks.filter((t) => t.id !== task.id);
-        saveState();
-        taskDiv.remove();
-      });
+    deleteBtn.addEventListener("click", () => {
+      col.tasks = col.tasks.filter((t) => t.id !== task.id);
+      saveState();
+      taskDiv.remove();
+    });
 
-      editBtn.addEventListener("click", () => {
-        const inputH3 = document.createElement("input");
-        inputH3.value = h3.innerText;
+    editBtn.addEventListener("click", () => {
+      const inputH3 = document.createElement("input");
+      inputH3.value = h3.innerText;
 
-        const inputP = document.createElement("input");
-        inputP.value = p.innerText;
+      const inputP = document.createElement("input");
+      inputP.value = p.innerText;
 
-        h3.replaceWith(inputH3);
-        p.replaceWith(inputP);
+      h3.replaceWith(inputH3);
+      p.replaceWith(inputP);
 
-        taskDiv.addEventListener("keydown", (e) => {
-          if (e.key === "Enter") {
-            task.nameTask = inputH3.value;
-            task.content = inputP.value;
+      taskDiv.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          task.nameTask = inputH3.value;
+          task.content = inputP.value;
 
-            saveState();
+          saveState();
 
-            h3.innerText = task.nameTask;
-            p.innerText = task.content;
+          h3.innerText = task.nameTask;
+          p.innerText = task.content;
 
-            inputH3.replaceWith(h3);
-            inputP.replaceWith(p);
-          }
-        });
-
-        //add save option for for inputH3 and inputP
-        console.log();
-      });
-
-      taskDiv.addEventListener("dragstart", (e) => {
-        e.dataTransfer.setData("text/plain", task.id);
+          inputH3.replaceWith(h3);
+          inputP.replaceWith(p);
+        }
       });
     });
+
+    taskDiv.addEventListener("dragstart", (e) => {
+      e.dataTransfer.setData("text/plain", task.id);
+    });
+  });
 }

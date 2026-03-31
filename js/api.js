@@ -1,15 +1,10 @@
 export let state = {
   columns: [],
-  tasks: [],
 };
 
 export function loadState() {
   const saved = localStorage.getItem("state");
-  if (saved) {
-    const parsed = JSON.parse(saved);
-    state.columns = parsed.columns || [];
-    state.tasks = parsed.tasks || [];
-  }
+  if (saved) state.columns = JSON.parse(saved).columns || [];
 }
 
 export function saveState() {
@@ -18,10 +13,13 @@ export function saveState() {
 
 export function addCol(newColName) {
   if (!newColName) return;
+
   const newCol = {
     id: Date.now(),
-    nameCol: newColName,
+    title: newColName,
+    tasks: [],
   };
+
   state.columns.push(newCol);
   saveState();
 }
@@ -37,19 +35,28 @@ export function addTask(taskNameIn, taskDescrIn, col) {
     id: Date.now(),
     nameTask: taskName,
     content: taskDescr,
-    taskColId: col.id,
   };
-  state.tasks.push(newTask);
-  saveState();
 
-  //console.log(`Novi task za ${col.nameCol}:`, taskName);
-  //console.log(state);
+  if (!col.tasks) col.tasks = [];
+
+  col.tasks.push(newTask);
+
+  console.log(col);
+  saveState();
 }
 
-export function moveTaskToColumn(taskId, newColId) {
-  const task = state.tasks.find((t) => t.id === taskId);
-  if (!task) return;
+export function moveTaskToColumn(taskId, col) {
+  let movedTask;
 
-  task.taskColId = newColId;
+  state.columns.forEach((col) => {
+    const index = col.tasks.findIndex((t) => t.id === taskId);
+    if (index !== -1) {
+      movedTask = col.tasks.splice(index, 1)[0];
+    }
+  });
+
+  if (!movedTask) return;
+  col.tasks.push(movedTask);
+
   saveState();
 }
