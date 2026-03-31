@@ -96,7 +96,7 @@ export function renderTasks(colDiv, col) {
     //taskDiv.dataset.id = task.id;
 
     const h3 = document.createElement("h3");
-    h3.innerText = task.nameTask;
+    h3.innerText = task.title;
 
     const p = document.createElement("p");
     p.innerText = task.content;
@@ -128,12 +128,12 @@ export function renderTasks(colDiv, col) {
 
       taskDiv.addEventListener("keydown", (e) => {
         if (e.key === "Enter") {
-          task.nameTask = inputH3.value;
+          task.title = inputH3.value;
           task.content = inputP.value;
 
           saveState();
 
-          h3.innerText = task.nameTask;
+          h3.innerText = task.title;
           p.innerText = task.content;
 
           inputH3.replaceWith(h3);

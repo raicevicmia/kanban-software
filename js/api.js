@@ -33,7 +33,7 @@ export function addTask(taskNameIn, taskDescrIn, col) {
 
   const newTask = {
     id: Date.now(),
-    nameTask: taskName,
+    title: taskName,
     content: taskDescr,
   };
 
