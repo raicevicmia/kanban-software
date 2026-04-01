@@ -81,7 +81,13 @@ export function renderTaskForm(taskForm, col, state) {
 
   taskForm.addEventListener("submit", (e) => {
     e.preventDefault();
-    addTask(taskNameIn, taskDescrIn, col);
+
+    const title = taskNameIn.value.trim();
+    const content = taskDescrIn.value.trim();
+
+    if (!title || !content) return;
+
+    addTask(title, content, col);
     render(state);
   });
 }

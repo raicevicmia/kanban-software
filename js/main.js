@@ -13,3 +13,4 @@ addColFormEl.addEventListener("submit", (e) => {
 
 //localStorage.clear();
 console.log(state);
+ 

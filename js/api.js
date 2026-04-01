@@ -24,34 +24,26 @@ export function addCol(newColName) {
   saveState();
 }
 
-export function addTask(taskNameIn, taskDescrIn, col) {
-  const taskName = taskNameIn.value.trim();
-  if (!taskName) return;
-
-  const taskDescr = taskDescrIn.value.trim();
-  if (!taskDescr) return;
+export function addTask(title, content, col) {
+  if (!title || !content) return;
 
   const newTask = {
     id: Date.now(),
-    title: taskName,
-    content: taskDescr,
+    title,
+    content,
   };
 
-  if (!col.tasks) col.tasks = [];
-
   col.tasks.push(newTask);
-
-  console.log(col);
   saveState();
 }
 
 export function moveTaskToColumn(taskId, col) {
   let movedTask;
 
-  state.columns.forEach((col) => {
-    const index = col.tasks.findIndex((t) => t.id === taskId);
+  state.columns.forEach((c) => {
+    const index = c.tasks.findIndex((t) => t.id === taskId);
     if (index !== -1) {
-      movedTask = col.tasks.splice(index, 1)[0];
+      movedTask = c.tasks.splice(index, 1)[0];
     }
   });
 
