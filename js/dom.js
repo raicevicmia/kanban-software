@@ -1,4 +1,5 @@
 import { addTask, moveTaskToColumn, saveState } from "./api.js";
+import { getDragAfterElement } from "./utils.js";
 
 export const addColFormEl = document.querySelector(".add-column");
 export const addColInputEl = document.getElementById("add-col");
@@ -58,7 +59,11 @@ export function renderCols(col, state) {
     e.preventDefault();
 
     const taskId = Number(e.dataTransfer.getData("text/plain"));
-    moveTaskToColumn(taskId, col);
+
+    const afterElement = getDragAfterElement(colDiv, e.clientY);
+
+    moveTaskToColumn(taskId, col, afterElement);
+
     render(state);
   });
 }
@@ -99,7 +104,7 @@ export function renderTasks(colDiv, col) {
     const taskDiv = document.createElement("div");
     taskDiv.classList.add("task"); // za cleanup
     taskDiv.setAttribute("draggable", "true");
-    //taskDiv.dataset.id = task.id;
+    taskDiv.dataset.id = task.id;
 
     const h3 = document.createElement("h3");
     h3.innerText = task.title;
@@ -150,6 +155,11 @@ export function renderTasks(colDiv, col) {
 
     taskDiv.addEventListener("dragstart", (e) => {
       e.dataTransfer.setData("text/plain", task.id);
+      taskDiv.classList.add("dragging");
+    });
+
+    taskDiv.addEventListener("dragend", () => {
+      taskDiv.classList.remove("dragging");
     });
   });
 }
