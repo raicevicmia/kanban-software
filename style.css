@@ -2,7 +2,7 @@
   --main-color: #ffff;
   --kanbar-color: rgb(255, 240, 253);
   --column-color: rgb(255, 255, 255);
-  --task-color: #d2ffc4;
+  --task-color: #ddffd3;
   --task-outline-color: #8dab84;
   --button-color: #ecd0ff;
   --button-hover-color: #d0a4ff; 
@@ -22,7 +22,6 @@
 
 body {
   display: flex;
-  align-items: center;
   justify-content: center;
   height: 100vh;
   background: var(--main-color);
@@ -111,11 +110,13 @@ border: 1px solid var(--outline-color);
 }
 
 .column .title-btn{
-  padding: 3px 4px;
-  font-size: 12px;
-  border-radius: 3px;
+  background-color: var(--title-color);
   border-style: none;
   cursor: pointer;
+}
+
+.column .title-btn:hover{
+  transform: scale(1.15);
 }
 
 /*  ADD TASK FORM  */
@@ -152,6 +153,7 @@ border: 1px solid var(--outline-color);
   background-color: var(--button-hover-color);
   color: white;
 }
+
 
 /*  TASKS  */
 
@@ -195,6 +197,10 @@ border: 1px solid var(--outline-color);
   background-color: var(--task-color);
   border-style: none;
   cursor: pointer;
+} 
+
+.task button:hover{
+  transform: scale(1.15);
 }
 
 .task .delete-btn {
@@ -202,19 +208,3 @@ border: 1px solid var(--outline-color);
   bottom: 5px;
   right: 5px;
 }
-
-
-/*
-h1 {
-  color: white;
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-.kanban-container{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-}
-*/
