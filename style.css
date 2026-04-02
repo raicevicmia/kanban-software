@@ -1,16 +1,16 @@
 :root {
   --main-color: #ffff;
-  --kanbar-color: rgb(255, 240, 253);
-  --column-color: rgb(255, 255, 255);
-  --task-color: #ddffd3;
-  --task-outline-color: #8dab84;
+  --main-color: #f9f7ff;
+  --column-color: #ffffff;
+  --task-color: #e6ffe0;
+  --task-outline-color: #6f9f6a;
   --button-color: #ecd0ff;
-  --button-hover-color: #d0a4ff; 
+  --button-hover-color: #c084fc;  
   --outline-color: #8f02ee;
   --border-radius: 5px;
-  --box-shadow-color: 0px 4px 8px rgba(0, 0, 0, 0.2);
-  --title-color: #663399;
-  --grey-text-color: #363636;
+  --box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  --title-color: #8d45d5;
+  --grey-text-color: #2a2a2a;
 }
 
 * {
@@ -75,11 +75,12 @@ border: 1px solid var(--outline-color);
   overflow-x: auto; 
   border-radius:var(--border-radius);
   background:var(--kanbar-color);
-  box-shadow: var(--box-shadow-color);
+  box-shadow: var(--box-shadow);
 }
 
 .column{
   background-color: var(--column-color);
+  box-shadow: var(--box-shadow);
   margin: 20px;
   border-radius: var(--border-radius);
   overflow-y: auto;
@@ -166,6 +167,7 @@ border: 1px solid var(--outline-color);
   padding: 10px;
   border-radius: var(--border-radius);
   position: relative;
+  box-shadow: var(--box-shadow);
 }
 
 .task > * {
