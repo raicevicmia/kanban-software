@@ -2,13 +2,15 @@
   --main-color: #ffff;
   --kanbar-color: rgb(255, 240, 253);
   --column-color: rgb(255, 255, 255);
-  --task-color: #d0b5e2;
+  --task-color: #d2ffc4;
+  --task-outline-color: #8dab84;
   --button-color: #ecd0ff;
   --button-hover-color: #d0a4ff; 
   --outline-color: #8f02ee;
   --border-radius: 5px;
   --box-shadow-color: 0px 4px 8px rgba(0, 0, 0, 0.2);
   --title-color: #663399;
+  --grey-text-color: #363636;
 }
 
 * {
@@ -67,20 +69,23 @@ border: 1px solid var(--outline-color);
 .column-container {
   display: flex;
   flex-direction: row;
-  justify-content: center;
   width: 100%;
-  max-width: 1300px;
+  max-width: 90vw;
   height: 80vh;
   padding: 20px;
+  overflow-x: auto; 
   border-radius:var(--border-radius);
   background:var(--kanbar-color);
-  box-shadow: var(--box-shadow-color)
+  box-shadow: var(--box-shadow-color);
 }
 
 .column{
   background-color: var(--column-color);
   margin: 20px;
   border-radius: var(--border-radius);
+  overflow-y: auto;
+  width: 300px;
+  flex-shrink: 0;
 }
 
 .column .column-title{
