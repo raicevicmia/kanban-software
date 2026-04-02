@@ -24,19 +24,34 @@ export function renderCols(col, state) {
   h1.innerText = col.title;
 
   const renameColBtn = document.createElement("button");
+  renameColBtn.classList.add("title-btn");
   renameColBtn.innerText = "🖊️";
 
   const delColBtn = document.createElement("button");
+  delColBtn.classList.add("title-btn");
   delColBtn.innerText = "❌";
 
   changeTitle.append(renameColBtn, delColBtn);
 
   title.append(h1, changeTitle);
 
+  const plusBtn = document.createElement("button");
+  plusBtn.classList.add("plus-btn");
+  plusBtn.innerText = "➕";
+
+  plusBtn.addEventListener("click", () => {
+    if (taskForm.style.display === "none") {
+      taskForm.style.display = "block";
+      plusBtn.style.display = "none";
+    }
+  });
+
   const taskForm = document.createElement("form");
+  taskForm.classList.add("add-task-form");
+  taskForm.style.display = "none";
   renderTaskForm(taskForm, col, state);
 
-  colDiv.append(title, taskForm);
+  colDiv.append(title, plusBtn, taskForm);
   renderTasks(colDiv, col);
 
   columnContainerEl.appendChild(colDiv);
@@ -79,7 +94,6 @@ export function renderCols(col, state) {
 }
 
 export function renderTaskForm(taskForm, col, state) {
-  // TODO styling: taskForm.classList.add("add-task");
   const taskNameIn = document.createElement("input");
   taskNameIn.type = "text";
   taskNameIn.placeholder = "Upisi ime task-a...";
@@ -119,16 +133,21 @@ export function renderTasks(colDiv, col) {
     const h3 = document.createElement("h3");
     h3.innerText = task.title;
 
+    const editBtn = document.createElement("button");
+    editBtn.innerText = "🖊️";
+
+    const topTaskDiv = document.createElement("div");
+    topTaskDiv.classList.add("topTaskDiv");
+    topTaskDiv.append(h3, editBtn);
+
     const p = document.createElement("p");
     p.innerText = task.content;
 
     const deleteBtn = document.createElement("button");
-    deleteBtn.innerText = "X";
+    deleteBtn.classList.add("delete-btn");
+    deleteBtn.innerText = "❌";
 
-    const editBtn = document.createElement("button");
-    editBtn.innerText = "Edituj";
-
-    taskDiv.append(h3, p, deleteBtn, editBtn);
+    taskDiv.append(topTaskDiv, p, deleteBtn);
     colDiv.appendChild(taskDiv);
 
     deleteBtn.addEventListener("click", () => {

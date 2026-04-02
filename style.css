@@ -21,11 +21,11 @@
 }
 
 body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background: var(--main-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: var(--main-color);
 }
 
 .kanban-container{
@@ -88,6 +88,8 @@ border: 1px solid var(--outline-color);
   flex-shrink: 0;
 }
 
+/*  COLUMN HEADER  */
+
 .column .column-title{
   display: flex;
   justify-content: space-between;
@@ -104,14 +106,115 @@ border: 1px solid var(--outline-color);
 }
 
 .column h1{
-  text-align: center;
   font-weight: 500;
   color: var(--main-color);
 }
 
-.column button{
+.column .title-btn{
   padding: 3px 4px;
   font-size: 12px;
   border-radius: 3px;
   border-style: none;
+  cursor: pointer;
 }
+
+/*  ADD TASK FORM  */
+
+.column form{
+  padding: 10px;
+}
+
+.column form > * {
+  margin: 5px;
+}
+
+.column form input{
+  padding: 5px;
+  border-radius: var(--border-radius);
+  border-style: none;
+  border: 1px solid var(--outline-color);
+}
+
+.column form input:focus {
+  outline: none;
+  box-shadow: 0 0 2px var(--outline-color);
+}
+
+.column form button{
+  background-color: var(--button-color);
+  padding: 7px;
+  border-radius: var(--border-radius);
+  border-style: none;
+  cursor: pointer;
+}
+
+.column form button:hover{
+  background-color: var(--button-hover-color);
+  color: white;
+}
+
+/*  TASKS  */
+
+.task{
+  background-color: var(--task-color);
+  color: var(--grey-text-color);
+  border: 1px solid var(--task-outline-color);  ;
+  margin-top: 20px;
+  margin: 10px;
+  padding: 10px;
+  border-radius: var(--border-radius);
+  position: relative;
+}
+
+.task > * {
+  margin: 5px 0;
+} 
+
+.plus-btn {
+  padding: 5px;
+  border-bottom-right-radius: var(--border-radius);
+  border-style: none;
+  cursor: pointer;
+}
+
+.task .topTaskDiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--task-outline-color);
+  padding-bottom: 10px;
+}
+
+.task p {
+  white-space: pre-wrap;
+  padding: 10px 0 20px;
+}
+
+.task button {
+  background-color: var(--task-color);
+  border-style: none;
+  cursor: pointer;
+}
+
+.task .delete-btn {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+}
+
+
+/*
+h1 {
+  color: white;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.kanban-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+*/
