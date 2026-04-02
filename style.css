@@ -1,3 +1,16 @@
+:root {
+  --main-color: #ffff;
+  --kanbar-color: rgb(255, 240, 253);
+  --column-color: rgb(255, 255, 255);
+  --task-color: #d0b5e2;
+  --button-color: #ecd0ff;
+  --button-hover-color: #d0a4ff; 
+  --outline-color: #8f02ee;
+  --border-radius: 5px;
+  --box-shadow-color: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  --title-color: #663399;
+}
+
 * {
     margin: 0px;
     padding: 0px;
@@ -5,34 +18,95 @@
     font-family: Arial, sans-serif;
 }
 
-/*
 body {
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100vh;
-    background: linear-gradient(to left bottom, rgb(188, 228, 188), lightblue);
-}
-
-.container{
-  width: 95%;
-  max-width: 1200px;
-  padding: 20px;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(10px);
-}
-
-h1 {
-  color: white;
-  margin-bottom: 20px;
-  text-align: center;
+    background: var(--main-color);
 }
 
 .kanban-container{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
 }
-*/
+
+.add-col-form{
+  align-self: flex-start;
+  margin: 10px 0;
+}
+
+#add-col-in {
+padding: 10px;
+border-radius: var(--border-radius);
+border-style: none;
+border: 1px solid var(--outline-color);
+}
+
+#add-col-in:focus {
+  outline: none;
+  box-shadow: 0 0 2px var(--outline-color);
+}
+
+#add-col-btn{
+  background-color: var(--button-color);
+  padding: 10px;
+  border-radius: var(--border-radius);
+  border-style: none;
+  cursor: pointer;
+}
+
+#add-col-btn:hover{
+  background-color: var(--button-hover-color);
+  color: white;
+}
+
+.column-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  max-width: 1300px;
+  height: 80vh;
+  padding: 20px;
+  border-radius:var(--border-radius);
+  background:var(--kanbar-color);
+  box-shadow: var(--box-shadow-color)
+}
+
+.column{
+  background-color: var(--column-color);
+  margin: 20px;
+  border-radius: var(--border-radius);
+}
+
+.column .column-title{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: var(--title-color);
+  border-top-left-radius: var(--border-radius);
+  border-top-right-radius: var(--border-radius);
+}
+
+.column .change-title{
+  display: flex;
+  gap: 5px;
+}
+
+.column h1{
+  text-align: center;
+  font-weight: 500;
+  color: var(--main-color);
+}
+
+.column button{
+  padding: 3px 4px;
+  font-size: 12px;
+  border-radius: 3px;
+  border-style: none;
+}

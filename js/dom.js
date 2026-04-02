@@ -1,8 +1,8 @@
 import { addTask, moveTaskToColumn, saveState } from "./api.js";
 import { getDragAfterElement } from "./utils.js";
 
-export const addColFormEl = document.querySelector(".add-column");
-export const addColInputEl = document.getElementById("add-col");
+export const addColFormEl = document.querySelector(".add-col-form");
+export const addColInputEl = document.getElementById("add-col-in");
 export const columnContainerEl = document.querySelector(".column-container");
 
 export function render(state) {
@@ -14,19 +14,29 @@ export function renderCols(col, state) {
   const colDiv = document.createElement("div");
   colDiv.classList.add("column");
 
+  const title = document.createElement("div");
+  title.classList.add("column-title");
+
+  const changeTitle = document.createElement("div");
+  changeTitle.classList.add("change-title");
+
   const h1 = document.createElement("h1");
   h1.innerText = col.title;
 
   const renameColBtn = document.createElement("button");
-  renameColBtn.innerText = "Preimenuj";
+  renameColBtn.innerText = "🖊️";
 
   const delColBtn = document.createElement("button");
-  delColBtn.innerText = "X";
+  delColBtn.innerText = "❌";
+
+  changeTitle.append(renameColBtn, delColBtn);
+
+  title.append(h1, changeTitle);
 
   const taskForm = document.createElement("form");
   renderTaskForm(taskForm, col, state);
 
-  colDiv.append(h1, renameColBtn, delColBtn, taskForm);
+  colDiv.append(title, taskForm);
   renderTasks(colDiv, col);
 
   columnContainerEl.appendChild(colDiv);
