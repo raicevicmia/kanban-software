@@ -16,3 +16,20 @@ export function getDragAfterElement(container, y) {
 
   return closest.element;
 }
+
+export function showError(container, message) {
+  const error = container.querySelector(".error");
+  if (error) return;
+  else {
+    const error = document.createElement("p");
+    error.classList.add("error");
+    error.innerText = message;
+    container.appendChild(error);
+    return;
+  }
+}
+
+export function clearError(container) {
+  const error = container.querySelector(".error");
+  if (error) error.remove();
+}

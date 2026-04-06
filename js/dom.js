@@ -1,5 +1,5 @@
 import { addTask, moveTaskToColumn, saveState } from "./api.js";
-import { getDragAfterElement } from "./utils.js";
+import { getDragAfterElement, showError, clearError } from "./utils.js";
 
 export const addColFormEl = document.querySelector(".add-col-form");
 export const addColInputEl = document.getElementById("add-col-in");
@@ -123,7 +123,13 @@ export function renderTaskForm(taskForm, col, state) {
     const title = taskNameIn.value.trim();
     const content = taskDescrIn.value.trim();
 
-    if (!title || !content) return;
+    if (!title || !content) {
+      showError(taskForm, "Ime i opis task-a ne smiju biti prazni!");
+      setTimeout(() => {
+        clearError(taskForm);
+      }, 3000);
+      return;
+    }
 
     addTask(title, content, col);
     render(state);

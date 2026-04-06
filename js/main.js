@@ -1,5 +1,6 @@
 import { state, loadState, addCol } from "./api.js";
 import { render, addColFormEl, addColInputEl } from "./dom.js";
+import { showError, clearError } from "./utils.js";
 
 loadState();
 render(state);
@@ -10,9 +11,9 @@ addColFormEl.addEventListener("submit", (e) => {
   const colName = addColInputEl.value.trim();
 
   if (!colName) {
-    showError();
+    showError(addColFormEl, "Ime kolone ne smije biti prazno!");
     setTimeout(() => {
-      clearError();
+      clearError(addColFormEl);
     }, 3000);
     return;
   }
@@ -22,23 +23,6 @@ addColFormEl.addEventListener("submit", (e) => {
 
   addColInputEl.value = "";
 });
-
-function showError() {
-  const error = addColFormEl.querySelector(".error");
-  if (error) return;
-  else {
-    const error = document.createElement("p");
-    error.classList.add("error");
-    error.innerText = "Unesite ime kolone!";
-    addColFormEl.appendChild(error);
-    return;
-  }
-}
-
-function clearError() {
-  const error = addColFormEl.querySelector(".error");
-  if (error) error.remove();
-}
 
 //localStorage.clear();
 console.log(state);
