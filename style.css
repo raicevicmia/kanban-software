@@ -91,6 +91,11 @@ border: 1px solid var(--outline-color);
 
 /*  COLUMN HEADER  */
 
+.column .column-header {
+  display: flex;
+  flex-direction: column;
+}
+
 .column .column-title{
   display: flex;
   justify-content: space-between;

@@ -14,6 +14,9 @@ export function renderCols(col, state) {
   const colDiv = document.createElement("div");
   colDiv.classList.add("column");
 
+  const header = document.createElement("div");
+  header.classList.add("column-header");
+
   const title = document.createElement("div");
   title.classList.add("column-title");
 
@@ -35,6 +38,8 @@ export function renderCols(col, state) {
 
   title.append(h1, changeTitle);
 
+  header.appendChild(title);
+
   const plusBtn = document.createElement("button");
   plusBtn.classList.add("plus-btn");
   plusBtn.innerText = "➕";
@@ -51,7 +56,7 @@ export function renderCols(col, state) {
   taskForm.style.display = "none";
   renderTaskForm(taskForm, col, state);
 
-  colDiv.append(title, plusBtn, taskForm);
+  colDiv.append(header, plusBtn, taskForm);
   renderTasks(colDiv, col);
 
   columnContainerEl.appendChild(colDiv);
@@ -64,7 +69,20 @@ export function renderCols(col, state) {
     input.addEventListener("keydown", (e) => {
       if (e.key === "Enter") {
         col.title = input.value;
+
+        if (!col.title) {
+          showError(
+            input.parentElement.parentElement,
+            "Ime kolone ne smije biti prazno!",
+          );
+          setTimeout(() => {
+            clearError(input.parentElement.parentElement);
+          }, 3000);
+          return;
+        }
+
         saveState();
+
         h1.innerText = col.title;
         input.replaceWith(h1);
       }
@@ -185,6 +203,14 @@ export function renderTasks(colDiv, col) {
         if (e.key === "Enter") {
           task.title = inputH3.value;
           task.content = inputP.value;
+
+          if (!task.title || !task.content) {
+            showError(taskDiv, "Ime i opis task-a ne smiju biti prazni!");
+            setTimeout(() => {
+              clearError(taskDiv);
+            }, 3000);
+            return;
+          }
 
           saveState();
 
