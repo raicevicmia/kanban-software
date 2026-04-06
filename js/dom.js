@@ -59,6 +59,7 @@ export function renderCols(col, state) {
   renameColBtn.addEventListener("click", () => {
     const input = document.createElement("input");
     input.value = col.title;
+    input.classList.add("edit-col-title");
     h1.replaceWith(input);
     input.addEventListener("keydown", (e) => {
       if (e.key === "Enter") {
