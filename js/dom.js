@@ -193,7 +193,7 @@ export function renderTasks(colDiv, col) {
       const inputH3 = document.createElement("input");
       inputH3.value = h3.innerText;
 
-      const inputP = document.createElement("input");
+      const inputP = document.createElement("textarea");
       inputP.value = p.innerText;
 
       h3.replaceWith(inputH3);
