@@ -1,5 +1,4 @@
 :root {
-  --main-color: #ffff;
   --main-color: #f9f7ff;
   --column-color: #ffffff;
   --task-color: #e6ffe0;
@@ -155,6 +154,11 @@ border: 1px solid var(--outline-color);
   color: white;
 }
 
+.column.over {
+    background-color: var(--main-color);
+      outline: 2px dashed #339af0;
+}
+
 
 /*  TASKS  */
 
@@ -168,6 +172,7 @@ border: 1px solid var(--outline-color);
   border-radius: var(--border-radius);
   position: relative;
   box-shadow: var(--box-shadow);
+  cursor: grab;
 }
 
 .task > * {
@@ -209,4 +214,9 @@ border: 1px solid var(--outline-color);
   position: absolute;
   bottom: 5px;
   right: 5px;
+}
+
+.task:active {
+    cursor: grabbing;
+    transform: scale(1.03);
 }

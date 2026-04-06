@@ -80,16 +80,24 @@ export function renderCols(col, state) {
     e.preventDefault();
   });
 
+  colDiv.addEventListener("dragenter", () => {
+    colDiv.classList.add("over");
+  });
+
+  colDiv.addEventListener("dragleave", () => {
+    colDiv.classList.remove("over");
+  });
+
   colDiv.addEventListener("drop", (e) => {
     e.preventDefault();
 
     const taskId = Number(e.dataTransfer.getData("text/plain"));
-
     const afterElement = getDragAfterElement(colDiv, e.clientY);
 
     moveTaskToColumn(taskId, col, afterElement);
-
     render(state);
+
+    colDiv.classList.add("over");
   });
 }
 
@@ -184,11 +192,6 @@ export function renderTasks(colDiv, col) {
 
     taskDiv.addEventListener("dragstart", (e) => {
       e.dataTransfer.setData("text/plain", task.id);
-      taskDiv.classList.add("dragging");
-    });
-
-    taskDiv.addEventListener("dragend", () => {
-      taskDiv.classList.remove("dragging");
     });
   });
 }

@@ -40,7 +40,6 @@ export function addTask(title, content, col) {
 export function moveTaskToColumn(taskId, col, afterElement) {
   let movedTask;
 
-  // search for the task in all columns
   state.columns.forEach((c) => {
     const index = c.tasks.findIndex((t) => t.id === taskId);
     if (index !== -1) {
@@ -50,14 +49,12 @@ export function moveTaskToColumn(taskId, col, afterElement) {
 
   if (!movedTask) return;
 
-  // check if there is an element (task) after the place where we want to insert our task
   let insertIndex = col.tasks.length;
   if (afterElement) {
     const afterId = Number(afterElement.dataset.id);
     insertIndex = col.tasks.findIndex((t) => t.id === afterId);
   }
 
-  //position the task to a new col accordingly
   col.tasks.splice(insertIndex, 0, movedTask);
 
   saveState();

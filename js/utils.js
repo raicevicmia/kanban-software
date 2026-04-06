@@ -1,22 +1,18 @@
 export function getDragAfterElement(container, y) {
-  // kolona i pozicija misa
   const draggableElements = [
     ...container.querySelectorAll(".task:not(.dragging)"),
   ];
-  // draggableElements = [taskDivA, taskDivB, taskDivC]
 
-  return draggableElements.reduce(
-    // child is an el from draggableElemets[]
-    (closest, child) => {
-      const box = child.getBoundingClientRect();
-      const offset = y - (box.top + box.height / 2);
+  let closest = { offset: Number.NEGATIVE_INFINITY, element: null };
 
-      if (offset < 0 && offset > closest.offset) {
-        return { offset, element: child }; // this updates the closest
-      } else {
-        return closest;
-      }
-    },
-    { offset: Number.NEGATIVE_INFINITY },
-  ).element;
+  draggableElements.forEach((child) => {
+    const box = child.getBoundingClientRect();
+    const offset = y - (box.top + box.height / 2);
+
+    if (offset < 0 && offset > closest.offset) {
+      closest = { offset, element: child };
+    }
+  });
+
+  return closest.element;
 }
