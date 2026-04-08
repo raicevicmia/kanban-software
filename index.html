@@ -4,23 +4,46 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kanban Softver</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="container">
-      
-        <!--<h1>Kanban Softver</h1>-->
-        <div class="kanban-container">
-          <form class="add-col-form">
-            <input type="text" id="add-col-in" placeholder="Upisi naziv kolone..." />
-            <button type="submit" id="add-col-btn">Dodaj kolonu</button>
-          </form>
+    <header>
+      <p class="header-title">Kanban Board</p>
+      <p class="customize-bg"><i class="fa fa-gear"></i> Customize background</p>
+    </header>
 
-          <div class="column-container">
-            <!-- kolone renderovane -->
+    <div class="kanban-container">
+      
+      <div class="col-container">
+        <!-- cols will be rendered here 
+        <div class="column">
+          <div class="col-header">
+            <p class="col-title">To Do</p>
+            <i class="fa chevron fa-chevron-up"></i>
+            <i class="fa chevron fa-chevron-down"></i>
+          </div>
+          <div class="task-container">
+            <p class="test">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil tempora assumenda eveniet corporis enim aspernatur quae atque dignissimos. Non esse atque corrupti eaque praesentium sed distinctio dolorum enim incidunt reprehenderit?</p>
+          </div>
+          <div class="col-footer">        
+            <button class="add-task-btn"><i class="fas fa-plus"></i></button>
           </div>
         </div>
       </div>
+      -->
+
+      <button id="add-list-btn"><i class="fa list-plus fa-plus"></i> Add a list</button>
+      <!-- form will be rendered 
+      <form class="add-col-form">
+        <input type="text" id="add-col-in" />
+        <div class="add-col-btns">
+          <button type="submit" id="add-col-btn">Add list</button>
+          <div class="x-mark"><i class="fas fa-xmark"></i></div>
+        </div>
+      </form>
+      -->
+
     </div>
     <script type="module" src="js/main.js"></script>
   </body>
