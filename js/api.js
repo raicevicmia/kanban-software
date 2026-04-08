@@ -1,14 +1,16 @@
+import { loadStateFromStorage, saveStateToStorage } from "./storage.js";
+
 export let state = {
   columns: [],
 };
 
 export function loadState() {
-  const saved = localStorage.getItem("state");
-  if (saved) state.columns = JSON.parse(saved).columns || [];
+  const saved = loadStateFromStorage();
+  if (saved) state.columns = saved.columns || [];
 }
 
 export function saveState() {
-  localStorage.setItem("state", JSON.stringify(state));
+  saveStateToStorage(state);
 }
 
 export function addCol(newColName) {

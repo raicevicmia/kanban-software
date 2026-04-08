@@ -23,8 +23,8 @@ export function renderCols(col, state) {
   const changeTitle = document.createElement("div");
   changeTitle.classList.add("change-title");
 
-  const h1 = document.createElement("h1");
-  h1.innerText = col.title;
+  const h2 = document.createElement("h2");
+  h2.innerText = col.title;
 
   const renameColBtn = document.createElement("button");
   renameColBtn.classList.add("title-btn");
@@ -36,7 +36,7 @@ export function renderCols(col, state) {
 
   changeTitle.append(renameColBtn, delColBtn);
 
-  title.append(h1, changeTitle);
+  title.append(h2, changeTitle);
 
   header.appendChild(title);
 
@@ -56,7 +56,7 @@ export function renderCols(col, state) {
   taskForm.style.display = "none";
   renderTaskForm(taskForm, col, state);
 
-  colDiv.append(header, plusBtn, taskForm);
+  colDiv.append(header, taskForm, plusBtn);
   renderTasks(colDiv, col);
 
   columnContainerEl.appendChild(colDiv);
@@ -65,7 +65,7 @@ export function renderCols(col, state) {
     const input = document.createElement("input");
     input.value = col.title;
     input.classList.add("edit-col-title");
-    h1.replaceWith(input);
+    h2.replaceWith(input);
     input.addEventListener("keydown", (e) => {
       if (e.key === "Enter") {
         col.title = input.value;
@@ -83,8 +83,8 @@ export function renderCols(col, state) {
 
         saveState();
 
-        h1.innerText = col.title;
-        input.replaceWith(h1);
+        h2.innerText = col.title;
+        input.replaceWith(h2);
       }
     });
   });
