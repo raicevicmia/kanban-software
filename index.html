@@ -73,8 +73,11 @@
         -->
       </div>
 
-      <button id="add-list-btn"><i class="fa list-plus fa-plus"></i> Add a list</button>
-      <!-- form will be rendered 
+      <!-- this buttons is the only initially visible element from kanban-container -->
+      <button id="add-list-btn">
+        <i class="fa list-plus fa-plus"></i> Add a list
+      </button>
+      <!-- this form is rendered after button that is clicked & replaces it & then disappears again-->
       <form class="add-col-form">
         <input type="text" id="add-col-in" />
         <div class="add-col-btns">
@@ -82,8 +85,7 @@
           <div class="x-mark"><i class="fas fa-xmark"></i></div>
         </div>
       </form>
-      -->
-
+      
     </div>
 
     <!--  task details POPUP  -->
@@ -126,6 +128,15 @@
       </div>
   
     </dialog>
+
+    <!-- column title color palette POPUP -->
+     <dialog id="col-palette">
+      <i class="fas fa-circle fa-c-grey"></i>
+      <i class="fas fa-circle fa-c-blue"></i>
+      <i class="fas fa-circle fa-c-green"></i>
+      <i class="fas fa-circle fa-c-yellow"></i>
+      <i class="fas fa-circle fa-c-coral"></i>
+     </dialog>
 
     <script type="module" src="js/main.js"></script>
   </body>
