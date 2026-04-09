@@ -16,7 +16,47 @@
     <div class="kanban-container">
       
       <div class="col-container">
-        <!-- cols will be rendered here 
+        <!-- cols will be rendered here -->
+        <div class="column">
+          <div class="col-header">
+            <p class="col-title">To Do</p>
+            <i class="fa chevron fa-chevron-up"></i>
+            <i class="fa chevron fa-chevron-down"></i>
+          </div>
+
+          <div class="task-container">
+            <!-- tasks will be rendered here -->
+            
+            <div class="task"> 
+              <div class="task-header"> 
+                  <p class="task-name">Task NameTask NameTask NameTask NameTask Namee</p>
+                  <i class="fas fa-circle"></i>  
+              </div>
+              <div class="task-description">
+                <p class="task-proj">Project Name</p>
+                <p class="task-due-date">April 20</p>
+              </div>
+            </div>
+           
+            <div class="task">            
+              <div class="task-header"> 
+                <p class="task-name">Task meTask Namee</p>
+                <i class="fas task-priority fa-circle"></i>  
+              </div>
+              <div class="task-description">
+                <p class="task-proj">Project Name</p>
+                <p class="task-due-date">April 20</p>
+              </div>            
+            </div>
+            
+          </div>
+
+          <div class="col-footer">        
+            <button class="add-task-btn"><i class="fas fa-plus"></i></button>
+          </div>
+        </div>
+
+        <!--
         <div class="column">
           <div class="col-header">
             <p class="col-title">To Do</p>
@@ -30,8 +70,8 @@
             <button class="add-task-btn"><i class="fas fa-plus"></i></button>
           </div>
         </div>
+        -->
       </div>
-      -->
 
       <button id="add-list-btn"><i class="fa list-plus fa-plus"></i> Add a list</button>
       <!-- form will be rendered 
@@ -45,6 +85,48 @@
       -->
 
     </div>
+
+    <!--  task details POPUP  -->
+    <dialog id="task-dialog">
+      <div class="dialog-header">
+        <div class="dialog-name">
+          <p class="task-tag">Name:</p>
+          <p class="task-d task-name">Task Name</p>
+        </div>
+        <i class="fas popup-xmark fa-xmark"></i>
+      </div>
+
+      <p class="task-tag">Project:</p>
+      <p class="task-d task-proj">Project Name</p>
+
+      <p class="task-tag">Assignee:</p>
+      <p class="task-d task-assignee">Assignee Name</p>
+
+      <p class="task-tag">Description:</p>
+      <p class="task-d task-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Error repellat eius ducimus nostrum exercitationem sint cum officiis perspiciatis? Perferendis rem a animi similique dolorum distinctio et quos quae. Error, dolor?</p>
+
+      <div class="priority-task">
+        <p class="task-tag">Priority:</p>
+        <select id="task-priority">
+          <option value="select" selected>Select</option>
+          <option value="High">High</option>
+          <option value="Low">Low</option>
+          <option value="Medium">Medium</option>
+        </select>
+      </div>
+
+      <div class="due-date-opt">
+        <p class="task-tag">Due Date:</p>
+        <input type="date" id="task-due-date" name="due-date">
+      </div>
+      
+      <div class="save-del-btns">
+        <button id="popup-delete">Delete</button>
+        <button id="popup-save">Save</button>
+      </div>
+  
+    </dialog>
+
     <script type="module" src="js/main.js"></script>
   </body>
 </html>
