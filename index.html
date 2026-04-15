@@ -14,7 +14,6 @@
     </header>
 
     <div class="kanban-container">
-      
       <div class="col-container">
         <!-- cols will be rendered here -->
         <div class="column">
@@ -25,8 +24,8 @@
           </div>
 
           <div class="task-container">
-            <!-- tasks will be rendered here -->
-            
+            <!-- tasks will be rendered here 
+             when form below is completed -->
             <div class="task"> 
               <div class="task-header"> 
                   <p class="task-name">Task NameTask NameTask NameTask NameTask Namee</p>
@@ -48,6 +47,18 @@
                 <p class="task-due-date">April 20</p>
               </div>            
             </div>
+         
+            <!-- this form will be rendered when plus btn is clicked
+             and removed with enter/btn click-->
+            <form class="add-task-form">
+              <input type="text" id="add-task-in" />
+              <div class="add-task-btns">
+                <button type="submit" id="add-task-btn">Add task</button>
+                <div class="x-mark">
+                  <i class="fas fa-xmark"></i>
+                </div>
+              </div>
+            </form>
             
           </div>
 
@@ -77,6 +88,7 @@
       <button id="add-list-btn">
         <i class="fa list-plus fa-plus"></i> Add a list
       </button>
+
       <!-- this form is rendered after button that is clicked & replaces it & then disappears again-->
       <form class="add-col-form">
         <input type="text" id="add-col-in" />
@@ -85,7 +97,6 @@
           <div class="x-mark"><i class="fas fa-xmark"></i></div>
         </div>
       </form>
-      
     </div>
 
     <!--  task details POPUP  -->
