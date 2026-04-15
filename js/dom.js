@@ -9,6 +9,10 @@ export function render(state) {
   columnContainerEl.innerHTML = "";
   state.columns.forEach((col) => renderCols(col, state));
 }
+/*
+export function renderColsForm(){
+  addColFormEl.addEventListener("submit", )
+}*/
 
 export function renderCols(col, state) {
   const colDiv = document.createElement("div");

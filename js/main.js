@@ -1,4 +1,4 @@
-import { state, loadState, addCol } from "./api.js";
+/*import { state, loadState, addCol } from "./api.js";
 import { render, addColFormEl, addColInputEl } from "./dom.js";
 import { showError, clearError } from "./utils.js";
 
@@ -26,3 +26,23 @@ addColFormEl.addEventListener("submit", (e) => {
 
 //localStorage.clear();
 console.log(state);
+
+
+THIS CODE IS FOR VIEWING/EDITING TASK DETAILS
+
+const taskDialog = document.getElementById("task-dialog");
+taskDialog.showModal();
+
+THIS CODE IS FOR POSITIONING COLOR PALETTE ACCORDINGLY TO COL HEADER
+*/const parent = document.querySelector(".col-header");
+const rect = parent.getBoundingClientRect();
+console.log(rect);
+
+const colDialog = document.getElementById("col-dialog");
+
+colDialog.style.position = "absolute";
+colDialog.style.top = rect.top + rect.height / 2 + "px";
+colDialog.style.left = rect.left + rect.width / 2 + "px";
+colDialog.style.transform = "translate(-25%, -90%)";
+
+colDialog.showModal();
