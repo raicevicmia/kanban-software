@@ -261,53 +261,6 @@ border: 1px solid var(--outline-color);
   display: none;
 }
 
-/* column title color palette POPUP */
-#col-palette {
-  width: 156px;
-  height: 40px;
-  border-radius: var(--large-radius);
-  border: none;
-}
-
-#col-palette[open]{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-#col-palette > * {
-  font-size: 1.1rem;
-  cursor: pointer;
-}
-
-#col-palette > *:hover {
-  transform: scale(1.2);
-}
-
-#col-palette > *:active {
-  transform: scale(1);
-}
-
-#col-palette .fa-c-grey{
-  color: var(--pastel-grey);
-}
-
-#col-palette .fa-c-blue{
-  color: var(--pastel-blue);
-}
-
-#col-palette .fa-c-green{
-  color: var(--pastel-green);
-}
-
-#col-palette .fa-c-yellow{
-  color: var(--pastel-yellow);
-}
-
-#col-palette .fa-c-coral{
-  color: var(--pastel-coral);
-}
-
 /*  TASK CONTAINER  */
 .task-container{
   padding: 8px 16px;
@@ -438,6 +391,88 @@ border: 1px solid var(--outline-color);
 dialog::backdrop {
   background: rgba(0, 0, 0, 0.5);
 }
+
+
+/* column title & color palette POPUP */
+#col-dialog{
+  width: 220px;
+  height: 100px;
+  border: none;
+  border-radius: var(--medium-radius);
+  padding: 12px 8px;
+}
+
+#col-dialog[open]{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#col-palette {
+  border: none;
+  background-color: var(--extra-bright-grey);
+  box-shadow: var(--box-shadow);
+  display: flex;
+  justify-content: space-between;
+  border-radius: var(--large-radius);
+  padding: 8px;
+}
+
+#col-palette[open]{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#col-palette > * {
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+
+#col-palette > *:hover {
+  transform: scale(1.4);
+}
+
+#col-palette > *:active {
+  transform: scale(1);
+}
+
+#col-palette .fa-c-grey{
+  color: var(--pastel-grey);
+}
+
+#col-palette .fa-c-blue{
+  color: var(--pastel-blue);
+}
+
+#col-palette .fa-c-green{
+  color: var(--pastel-green);
+}
+
+#col-palette .fa-c-yellow{
+  color: var(--pastel-yellow);
+}
+
+#col-palette .fa-c-coral{
+  color: var(--pastel-coral);
+}
+
+.col-edit{
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+#change-col-name{
+  padding: 4px;
+  border-radius: var(--medium-radius);
+  border: 1px solid var(--bright-grey)
+}
+
+#change-col-name:focus{
+  outline: 1px solid var(--dark-grey);
+}
+
 
 /* TODO: make size responsive */
 #task-dialog {

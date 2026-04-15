@@ -141,12 +141,19 @@
     </dialog>
 
     <!-- column title color palette POPUP -->
-     <dialog id="col-palette">
-      <i class="fas fa-circle fa-c-grey"></i>
-      <i class="fas fa-circle fa-c-blue"></i>
-      <i class="fas fa-circle fa-c-green"></i>
-      <i class="fas fa-circle fa-c-yellow"></i>
-      <i class="fas fa-circle fa-c-coral"></i>
+     <dialog id="col-dialog">
+      <div id="col-palette">
+        <i class="fas fa-circle fa-c-grey"></i>
+        <i class="fas fa-circle fa-c-blue"></i>
+        <i class="fas fa-circle fa-c-green"></i>
+        <i class="fas fa-circle fa-c-yellow"></i>
+        <i class="fas fa-circle fa-c-coral"></i>
+      </div>
+      <div class="col-edit">
+        <input type="text" id="change-col-name" placeholder="Rename list">
+        <div class="x-mark"><i class="fas fa-xmark"></i></div>
+      </div>
+
      </dialog>
 
     <script type="module" src="js/main.js"></script>
