@@ -114,18 +114,14 @@ header {
   color: var(--main-color);
   cursor: pointer;
   flex: 0 0 auto;
+  transition: color 0.3s ease;
 }
 
 #add-list-btn:hover{
-  color: var(--medium-dark-blue);
+  color: black;
   .list-plus{
-    color: var(--medium-dark-blue);
+    color: black;
   }
-  transform: scale(1.02);
-}
-
-#add-list-btn:active{
-  transform: scale(1);
 }
 
 .list-plus{
@@ -147,7 +143,7 @@ header {
   color: var(--main-color);
 }
 
-#add-col-in {
+.add-col-in {
 width: 300px;
 padding: 10px;
 font-size: .9rem;
@@ -163,12 +159,12 @@ border: 1px solid var(--outline-color);
   gap: 10px;
 }
 
-#add-col-in:focus {
+.add-col-in:focus {
   outline: none;
   box-shadow: 0 0 2px var(--main-color);
 }
 
-#add-col-btn{
+.add-col-btn{
   background-color: var(--bright-green);
   color: white;
   padding: 10px 16px;
@@ -178,16 +174,18 @@ border: 1px solid var(--outline-color);
   cursor: pointer;
 }
 
-#add-col-btn:hover{
+.add-col-btn:hover{
   background-color: var(--medium-green);
   color: white;
 }
 
-#add-col-btn:active{
+.add-col-btn:active{
   transform: scale(0.97);
 }
 
 .x-mark{
+  background-color: transparent;
+  border: none;
   color: var(--medium-grey);
   display: flex;
   align-items: center;
