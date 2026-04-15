@@ -1,3 +1,15 @@
+export function editColTitle(){
+  // TO DO
+}
+export function showMore(){
+  // TO DO
+}
+export function showLess(){
+  // TO DO
+}
+
+
+/*
 export function getDragAfterElement(container, y) {
   const draggableElements = [
     ...container.querySelectorAll(".task:not(.dragging)"),
@@ -33,3 +45,4 @@ export function clearError(container) {
   const error = container.querySelector(".error");
   if (error) error.remove();
 }
+*/

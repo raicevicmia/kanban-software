@@ -1,4 +1,5 @@
-import { state, addTask,/* moveTaskToColumn,*/ saveState } from "./api.js";
+import { addCol, addTask,/* moveTaskToColumn,*/ saveState } from "./api.js";
+import { editColTitle, showMore, showLess } from "./utils.js";
 
 export function createColForm(){
   const addColForm = document.createElement("form");
@@ -38,17 +39,116 @@ export function renderColForm(){
 
     const value = addColIn.value.trim();
     if(!value) return;
-
-    state.columns.push(value);
-    saveState();
-    //console.log("Create column:", value);
-    //console.log(state);
-    addColIn.value = "";
-
+    else{
+      addCol(value);
+      saveState();
+      renderCol(value);
+      addColForm.remove();
+      addColIn.value = "";
+    }
   })
 
-   xMark.addEventListener("click", (e) => {
+  xMark.addEventListener("click", (e) => {
     e.preventDefault();
       addColForm.remove();
-    });
+  });
+}
+
+export function createCol(title){
+  // COLUMN
+  const colDiv = document.createElement("div");
+  colDiv.classList.add("column");
+
+  // HEADER
+  const colHeader = document.createElement("div");
+  colHeader.classList.add("col-header");
+
+  const colTitle = document.createElement("p");
+  colTitle.classList.add("col-title");
+  colTitle.textContent = title;
+
+  const chevronUp = document.createElement("i");
+  chevronUp.classList.add("fa", "chevron", "fa-chevron-up");
+
+  const chevronDown = document.createElement("i");
+  chevronDown.classList.add("fa", "chevron", "fa-chevron-down");
+
+  colHeader.append(colTitle, chevronUp, chevronDown);
+
+  // TASK CONTAINER
+  const taskContainer = document.createElement("div");
+  taskContainer.classList.add("task-container");
+
+  // (tasks will be appended here later)
+
+  // FOOTER
+  const colFooter = document.createElement("div");
+  colFooter.classList.add("col-footer");
+
+  const addTaskCircleBtn = document.createElement("button");
+  addTaskCircleBtn.classList.add("add-task-btn");
+
+  const plusIcon = document.createElement("i");
+  plusIcon.classList.add("fas", "fa-plus");
+
+  addTaskCircleBtn.appendChild(plusIcon);
+  colFooter.appendChild(addTaskCircleBtn);
+
+  // ASSEMBLE COLUMN
+  colDiv.append(colHeader, taskContainer, colFooter);
+
+  return {
+    colDiv,
+    colTitle,
+    chevronUp,
+    chevronDown,
+    taskContainer,
+    addTaskCircleBtn,
+  };
+}
+
+export function renderCol(title){
+  const colContainer = document.querySelector(".col-container");
+  const { colDiv, colTitle, chevronUp, chevronDown, taskContainer, addTaskCircleBtn } = createCol(title);
+  colContainer.appendChild(colDiv);
+
+  colTitle.addEventListener("click", editColTitle);
+  chevronUp.addEventListener("click", showMore);
+  chevronDown.addEventListener("click", showLess);
+
+  addTaskCircleBtn.addEventListener("click", () => {
+    renderTaskForm(taskContainer);
+  });
+}
+
+
+export function renderTaskForm(taskContainer){
+  if (taskContainer.querySelector(".add-task-form")) return;
+
+  const addTaskForm = document.createElement("form");
+  addTaskForm.classList.add("add-task-form");
+
+  const addTaskInput = document.createElement("input");
+  addTaskInput.id = "add-task-in";
+
+  const addTaskBtns = document.createElement("div");
+  addTaskBtns.classList.add("add-task-btns");
+
+  const addTaskBtn = document.createElement("button");
+  addTaskBtn.type = "submit";
+  addTaskBtn.id = "add-task-btn";
+  addTaskBtn.textContent = "Add task";
+
+  const xMark = document.createElement("button");
+  xMark.classList.add("x-mark");
+
+  const xIcon = document.createElement("i");
+  xIcon.classList.add("fas", "fa-xmark");
+
+  xMark.appendChild(xIcon);
+  addTaskBtns.append(addTaskBtn, xMark);
+  addTaskForm.append(addTaskInput, addTaskBtns);
+
+  taskContainer.appendChild(addTaskForm);
+
 }
