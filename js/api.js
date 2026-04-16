@@ -13,32 +13,35 @@ export function saveState() {
   saveStateToStorage(state);
 }
 
-export function addCol(newColName) {
-  if (!newColName) return;
-
+export function addCol(title) {
   const newCol = {
     id: Date.now(),
-    title: newColName,
+    title,
     tasks: [],
   };
 
   state.columns.push(newCol);
   saveState();
+
+  return newCol;
 }
 
-export function addTask(title, content, col) {
-  if (!title || !content) return;
+export function addTask(colId, title) {
+  const column = state.columns.find(c => c.id === colId);
+  if (!column) return;
 
-  const newTask = {
+  const task = {
     id: Date.now(),
     title,
-    content,
   };
 
-  col.tasks.push(newTask);
+  column.tasks.push(task);
   saveState();
+
+  return task;
 }
 
+/*
 export function moveTaskToColumn(taskId, col, afterElement) {
   let movedTask;
 
@@ -60,4 +63,4 @@ export function moveTaskToColumn(taskId, col, afterElement) {
   col.tasks.splice(insertIndex, 0, movedTask);
 
   saveState();
-}
+}*/

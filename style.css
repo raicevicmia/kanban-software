@@ -318,7 +318,7 @@ border: 1px solid var(--outline-color);
   color: var(--main-color);
 }
 
-#add-task-in {
+.add-task-in {
   width: 52%;
   height: 28px;
   font-size: .9rem;

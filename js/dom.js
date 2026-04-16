@@ -1,63 +1,64 @@
-import { addCol, addTask,/* moveTaskToColumn,*/ saveState } from "./api.js";
+import { addCol, addTask } from "./api.js";
 import { editColTitle, showMore, showLess } from "./utils.js";
 
 export function createColForm(){
-  const addColForm = document.createElement("form");
-  addColForm.classList.add("add-col-form");
+  const form = document.createElement("form");
+  form.classList.add("add-col-form");
 
-  const addColIn = document.createElement("input");
-  addColIn.classList.add("add-col-in");
+  const input = document.createElement("input");
+  input.classList.add("add-col-in");
 
-  const addColBtns = document.createElement("div");
-  addColBtns.classList.add("add-col-btns")
+  const btnWrapper = document.createElement("div");
+  btnWrapper.classList.add("add-col-btns")
 
-  const addColBtn = document.createElement("button");
-  addColBtn.classList.add("add-col-btn");
-  addColBtn.type = "submit";
-  addColBtn.textContent = "Add list";
+  const addBtn = document.createElement("button");
+  addBtn.classList.add("add-col-btn");
+  addBtn.type = "submit";
+  addBtn.textContent = "Add list";
 
   const xMark = document.createElement("button");
   xMark.classList.add("x-mark");
+
   const faXMark = document.createElement("i");
   faXMark.classList.add("fas", "fa-xmark");
 
   xMark.appendChild(faXMark);
-  addColBtns.append(addColBtn, xMark);
+  btnWrapper.append(addBtn, xMark);
 
-  addColForm.append(addColIn, addColBtns);
+  form.append(input, btnWrapper);
 
-  return { addColForm, addColIn, xMark };
+  return { form, input, xMark };
 }
 
 export function renderColForm(){
-  const kanbanContainer = document.querySelector(".kanban-container");
-  const { addColForm, addColIn, xMark } = createColForm();
-  kanbanContainer.prepend(addColForm);
+  const container = document.querySelector(".kanban-container");
 
-  addColForm.addEventListener("submit", (e) => {
+  const { form, input, xMark } = createColForm();
+
+  container.prepend(form);
+
+  form.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    const value = addColIn.value.trim();
-    if(!value) return;
-    else{
-      addCol(value);
-      saveState();
-      renderCol(value);
-      addColForm.remove();
-      addColIn.value = "";
-    }
+    const colName = input.value.trim();
+    if(!colName) return;
+
+    const col = addCol(colName);
+
+    renderCol(col);
+
+    form.remove();
   })
 
-  xMark.addEventListener("click", (e) => {
-    e.preventDefault();
-      addColForm.remove();
+  xMark.addEventListener("click", () => {
+    form.remove();
   });
 }
 
-export function createCol(title){
+export function createCol(col){
   // COLUMN
-  const colDiv = document.createElement("div");
-  colDiv.classList.add("column");
+  const column = document.createElement("div");
+  column.classList.add("column");
 
   // HEADER
   const colHeader = document.createElement("div");
@@ -65,7 +66,7 @@ export function createCol(title){
 
   const colTitle = document.createElement("p");
   colTitle.classList.add("col-title");
-  colTitle.textContent = title;
+  colTitle.textContent = col.title;
 
   const chevronUp = document.createElement("i");
   chevronUp.classList.add("fa", "chevron", "fa-chevron-up");
@@ -79,65 +80,75 @@ export function createCol(title){
   const taskContainer = document.createElement("div");
   taskContainer.classList.add("task-container");
 
-  // (tasks will be appended here later)
-
   // FOOTER
   const colFooter = document.createElement("div");
   colFooter.classList.add("col-footer");
 
-  const addTaskCircleBtn = document.createElement("button");
-  addTaskCircleBtn.classList.add("add-task-btn");
+  const addTaskBtn = document.createElement("button");
+  addTaskBtn.classList.add("add-task-btn");
 
   const plusIcon = document.createElement("i");
   plusIcon.classList.add("fas", "fa-plus");
 
-  addTaskCircleBtn.appendChild(plusIcon);
-  colFooter.appendChild(addTaskCircleBtn);
+  addTaskBtn.appendChild(plusIcon);
+  colFooter.appendChild(addTaskBtn);
 
   // ASSEMBLE COLUMN
-  colDiv.append(colHeader, taskContainer, colFooter);
+  column.append(colHeader, taskContainer, colFooter);
 
   return {
-    colDiv,
+    column,
     colTitle,
     chevronUp,
     chevronDown,
     taskContainer,
-    addTaskCircleBtn,
+    addTaskBtn,
   };
 }
 
-export function renderCol(title){
+export function renderCol(col){
   const colContainer = document.querySelector(".col-container");
-  const { colDiv, colTitle, chevronUp, chevronDown, taskContainer, addTaskCircleBtn } = createCol(title);
-  colContainer.appendChild(colDiv);
 
+  const {
+    column,
+    colTitle,
+    chevronUp,
+    chevronDown,
+    taskContainer,
+    addTaskBtn
+  } = createCol(col); 
+  
+  colContainer.appendChild(column);
+
+  // EVENTS
   colTitle.addEventListener("click", editColTitle);
   chevronUp.addEventListener("click", showMore);
   chevronDown.addEventListener("click", showLess);
 
-  addTaskCircleBtn.addEventListener("click", () => {
-    renderTaskForm(taskContainer);
+  addTaskBtn.addEventListener("click", () => {
+    renderTaskForm(taskContainer, col.id);
   });
+
+  col.tasks.forEach(task => renderTask(task, taskContainer));
 }
 
+export function renderTaskForm(taskContainer, colId){
+if (taskContainer.querySelector(".add-task-form")) return;
 
-export function renderTaskForm(taskContainer){
-  if (taskContainer.querySelector(".add-task-form")) return;
+  // RENDERING TASK FORM
+  const form = document.createElement("form");
+  form.classList.add("add-task-form");
 
-  const addTaskForm = document.createElement("form");
-  addTaskForm.classList.add("add-task-form");
+  const input = document.createElement("input");
+  input.className = "add-task-in";
 
-  const addTaskInput = document.createElement("input");
-  addTaskInput.id = "add-task-in";
+  const btnWrapper = document.createElement("div");
+  btnWrapper.classList.add("add-task-btns");
 
-  const addTaskBtns = document.createElement("div");
-  addTaskBtns.classList.add("add-task-btns");
-
-  const addTaskBtn = document.createElement("button");
-  addTaskBtn.type = "submit";
-  addTaskBtn.id = "add-task-btn";
-  addTaskBtn.textContent = "Add task";
+  const addBtn = document.createElement("button");
+  addBtn.type = "submit";
+  addBtn.id = "add-task-btn";
+  addBtn.textContent = "Add task";
 
   const xMark = document.createElement("button");
   xMark.classList.add("x-mark");
@@ -146,9 +157,55 @@ export function renderTaskForm(taskContainer){
   xIcon.classList.add("fas", "fa-xmark");
 
   xMark.appendChild(xIcon);
-  addTaskBtns.append(addTaskBtn, xMark);
-  addTaskForm.append(addTaskInput, addTaskBtns);
+  btnWrapper.append(addBtn, xMark);
+  form.append(input, btnWrapper);
 
-  taskContainer.appendChild(addTaskForm);
+  taskContainer.appendChild(form);
 
+  // EVENT LISTENERS
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const taskName = input.value.trim();
+    if(!taskName) return;
+
+    const task = addTask(colId, taskName);
+    renderTask(task, taskContainer);
+
+    form.remove();
+  });
+
+  xMark.addEventListener("click", () => form.remove());
 }
+
+export function renderTask(task, container){
+  const taskEl = document.createElement("div");
+  taskEl.classList.add("task");
+
+  const header = document.createElement("div");
+  header.classList.add("task-header");
+
+  const name = document.createElement("p");
+  name.classList.add("task-name");
+  name.textContent = task.title;
+
+  const circle = document.createElement("i");
+  circle.classList.add("fas", "fa-circle");
+
+  header.append(name, circle);
+
+  const desc = document.createElement("div");
+  desc.classList.add("task-description");
+
+  const proj = document.createElement("p");
+  proj.classList.add("task-proj");
+
+  const due = document.createElement("p");
+  due.classList.add("task-due-date");
+
+  desc.append(proj, due);
+
+  taskEl.append(header, desc);
+  container.appendChild(taskEl);
+}
+
+
