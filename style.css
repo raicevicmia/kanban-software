@@ -13,11 +13,8 @@
   --bright-green: #62ff59;
   --medium-green: #58e051;
 
-  --pale-beige: #fffbef;
-  --medium-pale-beige: #ede8db;
-  --dark-beige: #8b7e5e;
-
-
+  --pale-blue: #e4f4ff;
+  --medium-pale-blue: #d2efff;
   --medium-dark-blue: #0300b3;
   --dark-blue: #020068;
 
@@ -391,7 +388,6 @@ border: 1px solid var(--outline-color);
 }
 
 
-
 /*  TASK DESCRIPTION POPUP CONTAINER  */
 dialog::backdrop {
   background: rgba(0, 0, 0, 0.5);
@@ -538,11 +534,11 @@ dialog::backdrop {
 }
 
 .dialog-name .task-name{
-  background-color: var(--pale-beige);
+  background-color: var(--pale-blue);
 }
 
 .task-d:hover{
-  background-color: var(--medium-pale-beige);
+  background-color: var(--medium-pale-blue);
   cursor: text;
 }
 
@@ -552,20 +548,18 @@ dialog::backdrop {
 
 .priority-task{
   display: flex;
-  flex-direction: row;
+  align-items: center;
   gap: 8px;
-  margin: 8px 0;
 }
 
 #task-priority{
-  transform: translateY(50%);
   text-align: center;
-  width: 12vw;
-  height: 5vh;
   background-color: var(--pastel-grey);
   border: none;
-  border-radius: var(--border-radius);
+  border-radius: var(--small-radius);
   font-size: .85rem;
+  height: 28px;
+  margin-top: 24px;
 }
 
 #task-priority:hover{
@@ -574,14 +568,13 @@ dialog::backdrop {
 
 .due-date-opt{
   display: flex;
-  flex-direction: row;
+  align-items: center;
   gap: 8px;
-  margin: 8px 0;
 }
 
 #task-due-date{
-  transform: translateY(80%);
-  height: 4vh;
+  margin-top: 20px;
+  height: 28px;
 }
 
 /*  delete & save buttons  */
