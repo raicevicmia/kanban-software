@@ -1,5 +1,12 @@
-import { addCol, addTask } from "./api.js";
-import { editColTitle, toggleTasks } from "./utils.js";
+import { state, addCol, addTask } from "./api.js";
+import { editColTitle, toggleTasks, applyColState } from "./utils.js";
+
+export function renderColContainer(){
+  const colContainer = document.querySelector(".col-container");
+  colContainer.innerHTML = "";
+
+  state.columns.forEach(col => renderCol(col));
+}
 
 export function createColForm(){
   const container = document.querySelector(".kanban-container");
@@ -65,28 +72,25 @@ export function createCol(col){
   column.classList.add("column");
 
   // HEADER
-  const colHeader = document.createElement("div");
-  colHeader.classList.add("col-header");
+  const header = document.createElement("div");
+  header.classList.add("col-header");
 
-  const colTitle = document.createElement("p");
-  colTitle.classList.add("col-title");
-  colTitle.textContent = col.title;
+  const title = document.createElement("p");
+  title.classList.add("col-title");
+  title.textContent = col.title;
 
-  const chevronUp = document.createElement("i");
-  chevronUp.classList.add("fa", "chevron", "fa-chevron-up");
+  const chevron = document.createElement("i");
+  chevron.classList.add("fa", "chevron", "fa-chevron-up");
 
-  const chevronDown = document.createElement("i");
-  chevronDown.classList.add("fa", "chevron", "fa-chevron-down", "hidden");
-
-  colHeader.append(colTitle, chevronUp, chevronDown);
+  header.append(title, chevron);
 
   // TASK CONTAINER
   const taskContainer = document.createElement("div");
   taskContainer.classList.add("task-container");
 
   // FOOTER
-  const colFooter = document.createElement("div");
-  colFooter.classList.add("col-footer");
+  const footer = document.createElement("div");
+  footer.classList.add("col-footer");
 
   const addTaskBtn = document.createElement("button");
   addTaskBtn.classList.add("add-task-btn");
@@ -95,19 +99,18 @@ export function createCol(col){
   plusIcon.classList.add("fas", "fa-plus");
 
   addTaskBtn.appendChild(plusIcon);
-  colFooter.appendChild(addTaskBtn);
+  footer.appendChild(addTaskBtn);
 
   // ASSEMBLE COLUMN
-  column.append(colHeader, taskContainer, colFooter);
+  column.append(header, taskContainer, footer);
 
   return {
     column,
-    colTitle,
-    chevronUp,
-    chevronDown,
+    title,
+    chevron,
     taskContainer,
     addTaskBtn,
-    colFooter,
+    footer,
   };
 }
 
@@ -116,33 +119,31 @@ export function renderCol(col){
 
   const {
     column,
-    colTitle,
-    chevronUp,
-    chevronDown,
+    title,
+    chevron,
     taskContainer,
     addTaskBtn,
-    colFooter,
+    footer,
   } = createCol(col); 
   
   colContainer.appendChild(column);
 
+  applyColState(col.open, taskContainer, chevron, footer);
+  
+
   // EVENTS
-  colTitle.addEventListener("click", editColTitle);
+  title.addEventListener("click", editColTitle);
 
-  chevronUp.addEventListener("click", () => {
-    toggleTasks(col, taskContainer, chevronUp, chevronDown, colFooter)
-  });
-
-  chevronDown.addEventListener("click", () => {
-    toggleTasks(col, taskContainer, chevronUp, chevronDown, colFooter)
+  chevron.addEventListener("click", () => {
+    toggleTasks(col, taskContainer, chevron, footer);
   });
 
   addTaskBtn.addEventListener("click", () => {
     renderTaskForm(taskContainer, col.id);
   });
 
+  //RENDER TASKS INSIDE IT
   col.tasks.forEach(task => renderTask(task, taskContainer));
-
 }
 
 export function renderTaskForm(taskContainer, colId){
@@ -190,7 +191,7 @@ if (taskContainer.querySelector(".add-task-form")) return;
   xMark.addEventListener("click", () => form.remove());
 }
 
-export function renderTask(task, container){
+export function renderTask(task, taskContainer){
   const taskEl = document.createElement("div");
   taskEl.classList.add("task");
 
@@ -218,7 +219,7 @@ export function renderTask(task, container){
   desc.append(proj, due);
 
   taskEl.append(header, desc);
-  container.appendChild(taskEl);
+  taskContainer.appendChild(taskEl);
 }
 
 

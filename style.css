@@ -246,6 +246,10 @@ border: 1px solid var(--outline-color);
   font-size: 1.2rem;
 }
 
+.chevron.rotated{
+  transform: rotate(180deg);
+}
+
 .chevron:hover{
   color: var(--main-color);
 }
@@ -260,8 +264,6 @@ border: 1px solid var(--outline-color);
   overflow: hidden;
   max-height: 440px;
   overflow-y: auto;
-  opacity: 1;
-  transition: max-height 300ms ease, opacity 300ms ease;
 }
 
 .task-container.collapsed, .col-footer.collapsed {

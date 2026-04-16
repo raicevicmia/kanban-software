@@ -42,6 +42,12 @@ export function addTask(colId, title) {
   return task;
 }
 
+export function toggleOpen(col){
+ col.open = !col.open;
+ saveState();
+ return col.open;
+}
+
 /*
 export function moveTaskToColumn(taskId, col, afterElement) {
   let movedTask;

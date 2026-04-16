@@ -1,17 +1,18 @@
-import { state } from "./api.js";
+import { toggleOpen } from "./api.js";
 
 export function editColTitle(){
   // TO DO
 }
 
-export function toggleTasks(col, container, up, down, footer){
-  col.open = !col.open;
-  container.classList.toggle("collapsed", !col.open);
+export function toggleTasks(col, container, chevron, footer){
+  const isOpen = toggleOpen(col);
+  applyColState(isOpen, container, chevron, footer);
+}
 
-  up.classList.toggle("hidden", !col.open);
-  down.classList.toggle("hidden", col.open);
-
-  footer.classList.toggle("collapsed", !col.open);  
+export function applyColState(isOpen, container, chevron, footer){
+  container.classList.toggle("collapsed", !isOpen);
+  footer.classList.toggle("collapsed", !isOpen);  
+  chevron.classList.toggle("rotated", !isOpen);
 }
 
 
