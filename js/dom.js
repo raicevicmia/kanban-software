@@ -1,7 +1,6 @@
 import { state, addCol, addTask } from "./api.js";
+import { openTaskDialog } from "./taskDialog.js";
 import { editColTitle, toggleTasks, applyColState } from "./utils.js";
-
-const taskDialog = document.getElementById("task-dialog");
 
 export function renderColContainer(){
   const colContainer = document.querySelector(".col-container");
@@ -226,7 +225,8 @@ export function renderTask(task, taskContainer){
   //EVENT LISTENERS
 
   taskEl.addEventListener("click", () => {
-    taskDialog.showModal();
+    openTaskDialog(task);
   });
+
 }
 

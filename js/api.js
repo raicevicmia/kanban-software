@@ -34,6 +34,11 @@ export function addTask(colId, title) {
   const task = {
     id: Date.now(),
     title,
+    project,
+    assignee,
+    description,
+    priority,
+    dueDate,
   };
 
   column.tasks.push(task);

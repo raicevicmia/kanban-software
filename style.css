@@ -510,6 +510,7 @@ dialog::backdrop {
   color: var(--main-color);
   font-size: 1.2rem;
   cursor: pointer;
+  height: 20px;
 }
 
 .popup-xmark:hover{
