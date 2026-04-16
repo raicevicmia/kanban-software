@@ -2,6 +2,10 @@ import { addCol, addTask } from "./api.js";
 import { editColTitle, showMore, showLess } from "./utils.js";
 
 export function createColForm(){
+  const container = document.querySelector(".kanban-container");
+
+  if(container.querySelector(".add-col-form")) return;
+
   const form = document.createElement("form");
   form.classList.add("add-col-form");
 
@@ -31,11 +35,11 @@ export function createColForm(){
 }
 
 export function renderColForm(){
-  const container = document.querySelector(".kanban-container");
+  const colContainer = document.querySelector(".col-container");
 
   const { form, input, xMark } = createColForm();
 
-  container.prepend(form);
+  colContainer.after(form);
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -48,7 +52,7 @@ export function renderColForm(){
     renderCol(col);
 
     form.remove();
-  })
+  })  
 
   xMark.addEventListener("click", () => {
     form.remove();
