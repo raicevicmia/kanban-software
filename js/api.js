@@ -18,6 +18,7 @@ export function addCol(title) {
     id: Date.now(),
     title,
     tasks: [],
+    open: true,
   };
 
   state.columns.push(newCol);

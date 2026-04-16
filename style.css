@@ -224,6 +224,7 @@ border: 1px solid var(--outline-color);
   flex-direction: row;
   justify-content: space-between;
   padding: 12px;
+  padding-bottom: 16px;
 }
 
 .col-title{
@@ -249,17 +250,22 @@ border: 1px solid var(--outline-color);
   color: var(--main-color);
 }
 
-.fa-chevron-up {
- /* display: none;*/
-}
-
-.fa-chevron-down{
+.hidden {
   display: none;
 }
 
 /*  TASK CONTAINER  */
 .task-container{
   padding: 8px 16px;
+  overflow: hidden;
+  max-height: 440px;
+  overflow-y: auto;
+  opacity: 1;
+  transition: max-height 300ms ease, opacity 300ms ease;
+}
+
+.task-container.collapsed, .col-footer.collapsed {
+  display: none;
 }
 
 .task{
@@ -359,7 +365,7 @@ border: 1px solid var(--outline-color);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 20px auto 32px;
+  padding: 0 0 20px;
 }
 
 .add-task-btn{
@@ -381,6 +387,8 @@ border: 1px solid var(--outline-color);
 .add-task-btn:active{
   transform: scale(1);
 }
+
+
 
 /*  TASK DESCRIPTION POPUP CONTAINER  */
 dialog::backdrop {

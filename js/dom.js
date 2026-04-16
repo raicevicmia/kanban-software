@@ -1,5 +1,5 @@
 import { addCol, addTask } from "./api.js";
-import { editColTitle, showMore, showLess } from "./utils.js";
+import { editColTitle, toggleTasks } from "./utils.js";
 
 export function createColForm(){
   const container = document.querySelector(".kanban-container");
@@ -76,7 +76,7 @@ export function createCol(col){
   chevronUp.classList.add("fa", "chevron", "fa-chevron-up");
 
   const chevronDown = document.createElement("i");
-  chevronDown.classList.add("fa", "chevron", "fa-chevron-down");
+  chevronDown.classList.add("fa", "chevron", "fa-chevron-down", "hidden");
 
   colHeader.append(colTitle, chevronUp, chevronDown);
 
@@ -107,6 +107,7 @@ export function createCol(col){
     chevronDown,
     taskContainer,
     addTaskBtn,
+    colFooter,
   };
 }
 
@@ -119,21 +120,29 @@ export function renderCol(col){
     chevronUp,
     chevronDown,
     taskContainer,
-    addTaskBtn
+    addTaskBtn,
+    colFooter,
   } = createCol(col); 
   
   colContainer.appendChild(column);
 
   // EVENTS
   colTitle.addEventListener("click", editColTitle);
-  chevronUp.addEventListener("click", showMore);
-  chevronDown.addEventListener("click", showLess);
+
+  chevronUp.addEventListener("click", () => {
+    toggleTasks(col, taskContainer, chevronUp, chevronDown, colFooter)
+  });
+
+  chevronDown.addEventListener("click", () => {
+    toggleTasks(col, taskContainer, chevronUp, chevronDown, colFooter)
+  });
 
   addTaskBtn.addEventListener("click", () => {
     renderTaskForm(taskContainer, col.id);
   });
 
   col.tasks.forEach(task => renderTask(task, taskContainer));
+
 }
 
 export function renderTaskForm(taskContainer, colId){

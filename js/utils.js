@@ -1,12 +1,20 @@
+import { state } from "./api.js";
+
 export function editColTitle(){
   // TO DO
 }
-export function showMore(){
-  // TO DO
+
+export function toggleTasks(col, container, up, down, footer){
+  col.open = !col.open;
+  container.classList.toggle("collapsed", !col.open);
+
+  up.classList.toggle("hidden", !col.open);
+  down.classList.toggle("hidden", col.open);
+
+  footer.classList.toggle("collapsed", !col.open);  
 }
-export function showLess(){
-  // TO DO
-}
+
+
 
 
 /*
