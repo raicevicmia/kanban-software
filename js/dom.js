@@ -218,6 +218,7 @@ export function renderTask(task, taskContainer){
 
   const due = document.createElement("p");
   due.classList.add("task-due-date");
+  due.textContent = formatDate(task.dueDate);
 
   desc.append(proj, due);
 
@@ -225,7 +226,6 @@ export function renderTask(task, taskContainer){
   taskContainer.appendChild(taskEl);
 
   //EVENT LISTENERS
-
   taskEl.addEventListener("click", () => {
     openTaskDialog(task);
   });
@@ -250,5 +250,16 @@ export function getPriorityColor(task, circle){
     }
 
   return circleColor;
+}
+
+export function formatDate(dateString){
+  const date = new Date(dateString);
+
+  if (isNaN(date)) return ""; 
+
+  return date.toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric"
+  });
 }
 

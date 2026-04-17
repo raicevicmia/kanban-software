@@ -15,7 +15,6 @@ const saveBtnEl = dialog.querySelector("#popup-save");
 let currentTask = null;
 
 // Track inputs per field
-
 let editingEl = {
   title: null,
   project: null,
@@ -63,6 +62,10 @@ export function editMode(el, key) {
 
 export function changePriority(e){
   currentTask.priority = e.target.value;
+}
+
+export function changeDueDate(e){
+  currentTask.dueDate = e.target.value;
 }
 
 
@@ -114,6 +117,11 @@ descriptionEl.addEventListener("click", () => {
 priorityEl.addEventListener("change", (e) => {
   changePriority(e);
 });
+
+dueDateEl.addEventListener("change", (e) => {
+  changeDueDate(e);
+});
+
 
 saveBtnEl.addEventListener("click", saveAll);
 

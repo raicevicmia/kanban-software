@@ -497,7 +497,7 @@ dialog::backdrop {
 
 .task-tag{
   color: var(--medium-grey);
-  margin-top: 24px;
+  margin-top: 40px;
   padding-left: 4px;
 }
 
@@ -560,7 +560,7 @@ dialog::backdrop {
   font-size: .85rem;
   height: 28px;
   width: 80px;
-  margin-top: 24px;
+  margin-top: 40px;
 }
 
 #task-priority:hover{
@@ -579,7 +579,6 @@ dialog::backdrop {
   color: var(--strong-red);
 }
 
-
 .due-date-opt{
   display: flex;
   align-items: center;
@@ -587,7 +586,7 @@ dialog::backdrop {
 }
 
 #task-due-date{
-  margin-top: 20px;
+  margin-top: 40px;
   height: 28px;
 }
 
