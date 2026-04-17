@@ -4,7 +4,7 @@ import { renderColContainer } from "./dom.js";
 const dialog = document.getElementById("task-dialog");
 
 const xmark = dialog.querySelector(".popup-xmark");
-const nameEl = dialog.querySelector(".task-name");
+const titleEl = dialog.querySelector(".task-name");
 const projectEl = dialog.querySelector(".task-proj");
 const assigneeEl = dialog.querySelector(".task-assignee");
 const descriptionEl = dialog.querySelector(".task-description");
@@ -17,7 +17,7 @@ let currentTask = null;
 // Track inputs per field
 
 let editingEl = {
-  name: null,
+  title: null,
   project: null,
   assignee: null,
   description: null,
@@ -40,7 +40,7 @@ export function closeTaskDialog() {
 // FILL DATA
 
 export function fillDialog(task) {
-  nameEl.textContent = task.title || "";
+  titleEl.textContent = task.title || "";
   projectEl.textContent = task.project || "";
   assigneeEl.textContent = task.assignee || "";
   descriptionEl.textContent = task.description || "";
@@ -67,6 +67,7 @@ export function editMode(el, key) {
 
 // SAVE FUNCTIONS
 
+/*
 export function saveName() {
   const input = editingEl.name;
   if (!currentTask || !input) return;
@@ -105,13 +106,30 @@ export function saveDescr(){
   input.replaceWith(descriptionEl);
   editingEl.project = null;
 }
+*/
+
+export function saveField(fieldEl, field){
+  const input = editingEl[field];
+  if (!currentTask || !input) return;
+
+  const newValue = input.value.trim();
+  if (!newValue) return;
+
+  currentTask[field] = newValue; // change state value
+  fieldEl.textContent = newValue; // change dialog value
+
+  input.replaceWith(fieldEl);
+  editingEl[field] = null;
+}
+
+
 
 // SAVE ALL
 
 export function saveAll() {
-  saveName();
-  saveProject();
-  saveDescr();
+  saveField(titleEl, "title");
+  saveField(projectEl, "project");
+  saveField(descriptionEl, "description");
 
   saveState();              // save once
   renderColContainer();     // re-render UI
@@ -122,8 +140,8 @@ export function saveAll() {
 
 xmark.addEventListener("click", closeTaskDialog);
 
-nameEl.addEventListener("click", () => {
-  editMode(nameEl, "name");
+titleEl.addEventListener("click", () => {
+  editMode(titleEl, "title");
 });
 
 projectEl.addEventListener("click", () => {
