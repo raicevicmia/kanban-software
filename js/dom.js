@@ -205,6 +205,7 @@ export function renderTask(task, taskContainer){
 
   const circle = document.createElement("i");
   circle.classList.add("fas", "fa-circle");
+  getPriorityColor(task, circle);
 
   header.append(name, circle);
 
@@ -229,5 +230,25 @@ export function renderTask(task, taskContainer){
     openTaskDialog(task);
   });
 
+}
+
+export function getPriorityColor(task, circle){
+  let circleColor = null;
+
+  switch(task.priority){
+    case "Low":
+      circle.classList.add("prio-low");
+      break;
+
+    case "Medium":
+      circle.classList.add("prio-medium");
+      break;
+
+    case "High":
+      circle.classList.add("prio-high");
+      break;
+    }
+
+  return circleColor;
 }
 

@@ -25,7 +25,6 @@ let editingEl = {
 
 
 // OPEN / CLOSE
-
 export function openTaskDialog(task) {
   currentTask = task;
   fillDialog(task);
@@ -38,7 +37,6 @@ export function closeTaskDialog() {
 
 
 // FILL DATA
-
 export function fillDialog(task) {
   titleEl.textContent = task.title || "";
   projectEl.textContent = task.project || "";
@@ -49,8 +47,7 @@ export function fillDialog(task) {
 }
 
 
-// EDIT MODE
-
+// EDIT 
 export function editMode(el, key) {
   // prevent opening multiple inputs on same field
   if (editingEl[key]) return;
@@ -64,50 +61,12 @@ export function editMode(el, key) {
   el.replaceWith(input);
 }
 
-
-// SAVE FUNCTIONS
-
-/*
-export function saveName() {
-  const input = editingEl.name;
-  if (!currentTask || !input) return;
-
-  const newValue = input.value.trim();
-  if (!newValue) return;
-
-  currentTask.title = newValue; //changes value in state
-  nameEl.textContent = newValue; //changes value in dialog
-
-  input.replaceWith(nameEl);
-  editingEl.name = null;
+export function changePriority(e){
+  currentTask.priority = e.target.value;
 }
 
-export function saveProject() {
-  const input = editingEl.project;
-  if (!currentTask || !input) return;
 
-  const newValue = input.value.trim();
-  if (!newValue) return;
-
-  currentTask.project = newValue; // change state value
-  projectEl.textContent = newValue; // change dialog value
-
-  input.replaceWith(projectEl);
-  editingEl.project = null;
-}
-
-export function saveDescr(){
-  const input = editingEl.description;
-  const newValue = input.value.trim()
-
-  currentTask.description = newValue;
-  descriptionEl.textContent = newValue;
-
-  input.replaceWith(descriptionEl);
-  editingEl.project = null;
-}
-*/
-
+// SAVE
 export function saveField(fieldEl, field){
   const input = editingEl[field];
   if (!currentTask || !input) return;
@@ -122,14 +81,11 @@ export function saveField(fieldEl, field){
   editingEl[field] = null;
 }
 
-
-
-// SAVE ALL
-
 export function saveAll() {
   saveField(titleEl, "title");
   saveField(projectEl, "project");
   saveField(descriptionEl, "description");
+  saveField(assigneeEl, "assignee");
 
   saveState();              // save once
   renderColContainer();     // re-render UI
@@ -137,7 +93,6 @@ export function saveAll() {
 
 
 // EVENTS
-
 xmark.addEventListener("click", closeTaskDialog);
 
 titleEl.addEventListener("click", () => {
@@ -148,8 +103,18 @@ projectEl.addEventListener("click", () => {
   editMode(projectEl, "project");
 });
 
+assigneeEl.addEventListener("click", () => {
+  editMode(assigneeEl, "assignee");
+});
+
 descriptionEl.addEventListener("click", () => {
   editMode(descriptionEl, "description");
-})
+});
+
+priorityEl.addEventListener("change", (e) => {
+  changePriority(e);
+});
 
 saveBtnEl.addEventListener("click", saveAll);
+
+

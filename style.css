@@ -13,7 +13,7 @@
   --bright-green: #62ff59;
   --medium-green: #58e051;
 
-  --pale-blue: #e4f4ff;
+  --pale-blue: #e9f6ff;
   --medium-pale-blue: #d2efff;
   --medium-dark-blue: #0300b3;
   --dark-blue: #020068;
@@ -37,11 +37,10 @@
   --pastel-green: #c2ffba;
   --pastel-yellow: #FFF7B2;
 
-  /*  URGENCY CIRCLE PALETTE  */
-  --soft-red: #FFB3B3;
-  --soft-yellow: #FFFFB3;
-  --soft-green: #B3FFCC;
-  /*myb change for neon*/
+  /*  PRIORITY CIRCLE PALETTE  */
+  --strong-red: #ff778b;
+  --strong-yellow: #ffff77;
+  --strong-green: #76ffa4;
 }
 
 * {
@@ -291,7 +290,7 @@ border: 1px solid var(--outline-color);
 }
 
 .fa-circle{
-  font-size: .65rem;
+  font-size: .8rem;
   color: var(--medium-grey);
 }
 
@@ -560,12 +559,26 @@ dialog::backdrop {
   border-radius: var(--small-radius);
   font-size: .85rem;
   height: 28px;
+  width: 80px;
   margin-top: 24px;
 }
 
 #task-priority:hover{
   background-color: var(--pastel-medium-grey);
 }
+
+.prio-low{
+  color: var(--strong-green);
+}
+
+.prio-medium{
+  color: var(--strong-yellow);
+}
+
+.prio-high{
+  color: var(--strong-red);
+}
+
 
 .due-date-opt{
   display: flex;
