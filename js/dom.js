@@ -213,6 +213,7 @@ export function renderTask(task, taskContainer){
 
   const proj = document.createElement("p");
   proj.classList.add("task-proj");
+  proj.textContent = task.project;
 
   const due = document.createElement("p");
   due.classList.add("task-due-date");

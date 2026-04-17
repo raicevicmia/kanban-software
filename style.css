@@ -617,6 +617,25 @@ dialog::backdrop {
   transform: scale(0.97);
 }
 
+.edit{
+  background-color: var(--pale-blue);
+  color: var(--dark-grey);
+  outline: none;
+  border: none;
+  border-radius: var(--small-radius);
+  margin-top: 12px;
+  padding-left: 4px;
+  height:28px;
+  width: 45vw;
+  font-size: .9rem;
+}
+
+.edit-name:focus{
+  border: 2px solid var(--pastel-blue)
+}
+
+
+
 /* ERROR MESSAGE */
 .error {
   color: var(--error-color);
