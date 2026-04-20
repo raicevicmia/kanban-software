@@ -38,9 +38,9 @@
   --pastel-yellow: #FFF7B2;
 
   /*  PRIORITY CIRCLE PALETTE  */
-  --strong-red: #ff778b;
-  --strong-yellow: #ffff77;
-  --strong-green: #76ffa4;
+  --strong-red: #ff9fae;
+  --strong-yellow: #ffffa3;
+  --strong-green: #b2ffcc;
 }
 
 * {
@@ -394,10 +394,10 @@ dialog::backdrop {
 
 /* column title & color palette POPUP */
 #col-dialog{
-  width: 236px;
+  width: 200px;
   height: 180px;
   border: none;
-  border-radius: var(--medium-radius);
+  border-radius: var(--small-radius);
   padding: 12px 8px;
 
   position: fixed;
@@ -481,21 +481,20 @@ dialog::backdrop {
   background-color: var(--pastel-coral);
 }
 
-
-.col-edit{
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-}
-
 #change-col-name{
   padding: 8px;
+  margin: 20px 0 0;
   border-radius: var(--medium-radius);
-  border: 1px solid var(--bright-grey);
+  border: 1px solid var(--pastel-grey);
+}
+
+#change-col-name::placeholder{
+  color: var(--light-grey-color);
 }
 
 #change-col-name:focus{
-  outline: 1px solid var(--light-grey-color);
+  outline: 1px solid var(--pastel-medium-grey);
+  box-shadow: var(--box-shadow-small);
 }
 
 .save-del-btn {
