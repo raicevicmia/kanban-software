@@ -5,6 +5,7 @@ const dialog = document.getElementById("col-dialog");
 const color = document.getElementById("col-palette");
 const input = document.getElementById("change-col-name");
 const saveBtn = document.querySelector(".saveCol");
+const deleteBtn = document.querySelector(".delCol");
 
 let columnId = "";
 
@@ -56,21 +57,27 @@ export function changeColClr(e, col){
 
   if (!newColor) return;
   col.color = newColor;
-  saveState();
-
-  renderColContainer();
-  closeColDialog();
+  saveChanges();
 }
 
 export function changeColTitle(){
   const newTitle = input.value;
 
   state.columns.find(col => col.id === columnId).title = newTitle;
-  saveState();
+  saveChanges();
+}
 
+function saveChanges(){
+  saveState();
   renderColContainer();
   closeColDialog();
 }
 
+export function deleteCol(){
+  state.columns = state.columns.filter(col => col.id !== columnId);
+  saveChanges();
+}
+
 // EVENTS:
 saveBtn.addEventListener("click", changeColTitle);
+deleteBtn.addEventListener("click", deleteCol);
