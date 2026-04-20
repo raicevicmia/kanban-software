@@ -1,6 +1,7 @@
 import { state, addCol, addTask } from "./api.js";
 import { openTaskDialog } from "./taskDialog.js";
 import { editColTitle, toggleTasks, applyColState } from "./utils.js";
+import { getPriorityColor, formatDate } from "./utils.js";
 
 export function renderColContainer(){
   const colContainer = document.querySelector(".col-container");
@@ -231,35 +232,3 @@ export function renderTask(task, taskContainer){
   });
 
 }
-
-export function getPriorityColor(task, circle){
-  let circleColor = null;
-
-  switch(task.priority){
-    case "Low":
-      circle.classList.add("prio-low");
-      break;
-
-    case "Medium":
-      circle.classList.add("prio-medium");
-      break;
-
-    case "High":
-      circle.classList.add("prio-high");
-      break;
-    }
-
-  return circleColor;
-}
-
-export function formatDate(dateString){
-  const date = new Date(dateString);
-
-  if (isNaN(date)) return ""; 
-
-  return date.toLocaleDateString("en-US", {
-    month: "long",
-    day: "numeric"
-  });
-}
-

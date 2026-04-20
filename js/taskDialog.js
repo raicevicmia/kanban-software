@@ -124,5 +124,3 @@ dueDateEl.addEventListener("change", (e) => {
 
 
 saveBtnEl.addEventListener("click", saveAll);
-
-

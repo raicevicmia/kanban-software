@@ -31,15 +31,15 @@ export function addTask(colId, title) {
   const column = state.columns.find(c => c.id === colId);
   if (!column) return;
 
-  const task = {
-    id: Date.now(),
-    title,
-    project,
-    assignee,
-    description,
-    priority,
-    dueDate,
-  };
+ const task = {
+  id: Date.now(),
+  title,
+  project: "",
+  assignee: "",
+  description: "",
+  priority: "low",
+  dueDate: "",
+};
 
   column.tasks.push(task);
   saveState();
