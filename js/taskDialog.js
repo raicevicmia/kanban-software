@@ -143,3 +143,6 @@ saveBtnEl.addEventListener("click", saveAll);
 
 deleteBtnEl.addEventListener("click", deleteTask);
 
+document.addEventListener("click", (e) => {
+  if(e.target === dialog) closeTaskDialog();
+})

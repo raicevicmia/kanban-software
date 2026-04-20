@@ -173,10 +173,12 @@ border: 1px solid var(--outline-color);
 .add-col-btn:hover{
   background-color: var(--medium-green);
   color: white;
+  outline: none;;
 }
 
 .add-col-btn:active{
   transform: scale(0.97);
+  outline: none;
 }
 
 .x-mark{

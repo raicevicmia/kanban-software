@@ -81,3 +81,9 @@ export function deleteCol(){
 // EVENTS:
 saveBtn.addEventListener("click", changeColTitle);
 deleteBtn.addEventListener("click", deleteCol);
+
+document.addEventListener("click", (e) => {
+  if (e.target === dialog){
+    closeColDialog();
+  }
+});
