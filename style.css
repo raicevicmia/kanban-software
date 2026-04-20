@@ -337,7 +337,7 @@ border: 1px solid var(--outline-color);
   gap: 8px;
 }
 
-#add-task-in:focus {
+.add-task-in:focus {
   outline: none;
   box-shadow: 0 0 2px var(--main-color);
 }
@@ -394,11 +394,16 @@ dialog::backdrop {
 
 /* column title & color palette POPUP */
 #col-dialog{
-  width: 220px;
-  height: 100px;
+  width: 236px;
+  height: 180px;
   border: none;
   border-radius: var(--medium-radius);
   padding: 12px 8px;
+
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 #col-dialog[open]{
@@ -456,20 +461,47 @@ dialog::backdrop {
   color: var(--pastel-coral);
 }
 
+.col-title[data-color="grey"] {
+  background-color: var(--pastel-grey);
+}
+
+.col-title[data-color="blue"] {
+  background-color: var(--pastel-blue);
+}
+
+.col-title[data-color="green"] {
+  background-color: var(--pastel-green);
+}
+
+.col-title[data-color="yellow"] {
+  background-color: var(--pastel-yellow);
+}
+
+.col-title[data-color="coral"] {
+  background-color: var(--pastel-coral);
+}
+
+
 .col-edit{
   display: flex;
   justify-content: space-between;
-  gap: 10px;
+  margin-top: 20px;
 }
 
 #change-col-name{
-  padding: 4px;
+  padding: 8px;
   border-radius: var(--medium-radius);
-  border: 1px solid var(--bright-grey)
+  border: 1px solid var(--bright-grey);
 }
 
 #change-col-name:focus{
-  outline: 1px solid var(--dark-grey);
+  outline: 1px solid var(--light-grey-color);
+}
+
+.save-del-btn {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
 }
 
 

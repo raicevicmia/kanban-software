@@ -1,9 +1,5 @@
 import { toggleOpen } from "./api.js";
 
-export function editColTitle(){
-  // TO DO
-}
-
 export function toggleTasks(col, container, chevron, footer){
   const isOpen = toggleOpen(col);
   applyColState(isOpen, container, chevron, footer);
@@ -14,7 +10,6 @@ export function applyColState(isOpen, container, chevron, footer){
   footer.classList.toggle("collapsed", !isOpen);  
   chevron.classList.toggle("rotated", !isOpen);
 }
-
 
 export function getPriorityColor(task, circle){
   let circleColor = null;
@@ -46,6 +41,11 @@ export function formatDate(dateString){
     day: "numeric"
   });
 }
+
+export function applyColClr(col, title) {
+  title.dataset.color = col.color;
+}
+
 
 
 

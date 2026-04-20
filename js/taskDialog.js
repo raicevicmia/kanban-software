@@ -1,4 +1,4 @@
-import { saveState } from "./api.js";
+import { saveState, state } from "./api.js";
 import { renderColContainer } from "./dom.js";
 
 const dialog = document.getElementById("task-dialog");
@@ -11,6 +11,7 @@ const descriptionEl = dialog.querySelector(".task-description");
 const priorityEl = dialog.querySelector("#task-priority");
 const dueDateEl = dialog.querySelector("#task-due-date");
 const saveBtnEl = dialog.querySelector("#popup-save");
+const deleteBtnEl = dialog.querySelector("#popup-delete");
 
 let currentTask = null;
 
@@ -94,6 +95,22 @@ export function saveAll() {
   renderColContainer();     // re-render UI
 }
 
+// DELETE
+export function deleteTask(){
+  for (const col of state.columns) {
+    const index = col.tasks.findIndex(t => t.id === currentTask.id);
+
+    if (index !== -1) { // aka if found (not NOT found)
+      col.tasks.splice(index, 1);
+      break;
+    }
+  }
+
+  saveState();
+  renderColContainer();
+  closeTaskDialog();
+}
+
 
 // EVENTS
 xmark.addEventListener("click", closeTaskDialog);
@@ -122,5 +139,7 @@ dueDateEl.addEventListener("change", (e) => {
   changeDueDate(e);
 });
 
-
 saveBtnEl.addEventListener("click", saveAll);
+
+deleteBtnEl.addEventListener("click", deleteTask);
+

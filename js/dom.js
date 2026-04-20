@@ -1,7 +1,7 @@
 import { state, addCol, addTask } from "./api.js";
 import { openTaskDialog } from "./taskDialog.js";
-import { editColTitle, toggleTasks, applyColState } from "./utils.js";
-import { getPriorityColor, formatDate } from "./utils.js";
+import { editCol } from "./colDialog.js";
+import { getPriorityColor, formatDate, toggleTasks, applyColState, applyColClr } from "./utils.js";
 
 export function renderColContainer(){
   const colContainer = document.querySelector(".col-container");
@@ -131,10 +131,12 @@ export function renderCol(col){
   colContainer.appendChild(column);
 
   applyColState(col.open, taskContainer, chevron, footer);
-  
+  applyColClr(col, title);
 
   // EVENTS
-  title.addEventListener("click", editColTitle);
+  title.addEventListener("click", () => {
+    editCol(col, title)
+  });
 
   chevron.addEventListener("click", () => {
     toggleTasks(col, taskContainer, chevron, footer);

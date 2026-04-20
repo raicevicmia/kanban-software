@@ -19,6 +19,7 @@ export function addCol(title) {
     title,
     tasks: [],
     open: true,
+    color: "grey",
   };
 
   state.columns.push(newCol);
