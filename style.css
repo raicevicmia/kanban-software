@@ -690,11 +690,11 @@ textarea {
 }
 
 /*  CONFIRM DELETING  */
-#confirm-task-dialog{
+#confirm-task-dialog, #confirm-col-dialog{
   display: none;
 }
 
-#confirm-task-dialog[open]{
+#confirm-task-dialog[open], #confirm-col-dialog[open]{
   width: 336px;
   height: 100px;
   border: none;
@@ -726,8 +726,8 @@ textarea {
 }
 
 #confirm-delete {
-  border: 1px solid var(--dark-red);
-  color: var(--dark-red);
+  border: 1px solid var(--classic-red);
+  color: var(--classic-red);
 }
 
 #confirm-not-delete {
@@ -736,7 +736,7 @@ textarea {
 }
 
 #confirm-delete:hover {
-  background-color: var(--dark-red);
+  background-color: var(--classic-red);
   color: var(--main-bg-color);
 }
 

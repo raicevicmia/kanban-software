@@ -8,6 +8,10 @@ const saveBtn = document.querySelector(".saveCol");
 const deleteBtn = document.querySelector(".delCol");
 const form = document.querySelector(".col-form");
 
+const confirmColDelete = document.getElementById("confirm-col-dialog");
+const confirmBtn = document.querySelector(".confirm-col-delete");
+const notConfirmBtn = document.querySelector(".not-confirm-col-delete")
+
 let column = "";
 
 export function editCol(col, el){
@@ -82,12 +86,23 @@ export function deleteCol(){
   saveChanges();
 }
 
+export function confirmDeleting(){
+  confirmColDelete.showModal();
+  confirmBtn.addEventListener("click", () => {
+    confirmColDelete.close();
+    deleteCol();
+  });
+  notConfirmBtn.addEventListener("click", () => {
+    confirmColDelete.close();
+  });
+}
+
 // EVENTS:
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   changeColTitle();
 });
-deleteBtn.addEventListener("click", deleteCol);
+deleteBtn.addEventListener("click", confirmDeleting);
 
 document.addEventListener("click", (e) => {
   if (e.target === dialog){
