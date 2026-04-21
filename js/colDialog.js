@@ -68,7 +68,7 @@ export function changeColClr(e, col){
 export function changeColTitle(){
   const newTitle = input.value;
 
-  const col = state.columns.find(c => c === column);
+  const col = state.columns.find(c => c.id === column.id);
   if (!col) return;
 
   col.title = newTitle;
@@ -82,7 +82,7 @@ function saveChanges(){
 }
 
 export function deleteCol(){
-  state.columns = state.columns.filter(col => col !== column);
+  state.columns = state.columns.filter(c => c.id !== column.id);
   saveChanges();
 }
 

@@ -13,3 +13,15 @@ export function loadStateFromStorage() {
 export function saveStateToStorage(state) {
   localStorage.setItem("state", JSON.stringify(state));
 }
+
+export function saveBg(image) {
+  localStorage.setItem("bg-image", image);
+}
+
+export function loadBg() {
+  return localStorage.getItem("bg-image");
+}
+
+export function clearBg() {
+  localStorage.removeItem("bg-image");
+}
