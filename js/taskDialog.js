@@ -13,6 +13,10 @@ const dueDateEl = dialog.querySelector("#task-due-date");
 const saveBtnEl = dialog.querySelector("#popup-save");
 const deleteBtnEl = dialog.querySelector("#popup-delete");
 
+const confirmTaskDelete = document.getElementById("confirm-task-dialog");
+const confirmBtn = document.querySelector(".confirm-task-delete");
+const notConfirmBtn = document.querySelector(".not-confirm-task-delete")
+
 let currentTask = null;
 
 // Track inputs per field
@@ -101,6 +105,17 @@ export function saveAll() {
 }
 
 // DELETE
+export function confirmDeleting(){
+  confirmTaskDelete.showModal();
+  confirmBtn.addEventListener("click", () => {
+    confirmTaskDelete.close();
+    deleteTask();
+  });
+  notConfirmBtn.addEventListener("click", () => {
+    confirmTaskDelete.close();
+  });
+}
+
 export function deleteTask(){
   for (const col of state.columns) {
     const index = col.tasks.findIndex(t => t.id === currentTask.id);
@@ -146,7 +161,7 @@ dueDateEl.addEventListener("change", (e) => {
 
 saveBtnEl.addEventListener("click", saveAll);
 
-deleteBtnEl.addEventListener("click", deleteTask);
+deleteBtnEl.addEventListener("click", confirmDeleting);
 
 document.addEventListener("click", (e) => {
   if(e.target === dialog) closeTaskDialog();

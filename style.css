@@ -689,7 +689,61 @@ textarea {
   border: 2px solid var(--pastel-blue)
 }
 
+/*  CONFIRM DELETING  */
+#confirm-task-dialog{
+  display: none;
+}
 
+#confirm-task-dialog[open]{
+  width: 336px;
+  height: 100px;
+  border: none;
+  border-radius: var(--small-radius);
+  padding: 12px 8px;
+  color: var(--main-color);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.confirm-buttons{
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.confirm-buttons > * {
+  padding: 6px 12px;
+  background-color: var(--main-bg-color);
+  border-radius: var(--small-radius);
+  cursor: pointer;
+}
+
+#confirm-delete {
+  border: 1px solid var(--dark-red);
+  color: var(--dark-red);
+}
+
+#confirm-not-delete {
+  border: 1px solid var(--medium-green);
+  color: var(--medium-green);
+}
+
+#confirm-delete:hover {
+  background-color: var(--dark-red);
+  color: var(--main-bg-color);
+}
+
+#confirm-not-delete:hover{
+  background-color: var(--medium-green);
+  color: var(--main-bg-color);
+}
 
 /* ERROR MESSAGE */
 .error {
