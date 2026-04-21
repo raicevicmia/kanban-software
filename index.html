@@ -135,13 +135,17 @@
         <i class="fas fa-circle fa-c-yellow"></i>
         <i class="fas fa-circle fa-c-coral"></i>
       </div>
-      <input type="text" id="change-col-name" placeholder="Rename list">
-      <div class="save-del-btn">
-        <button id="popup-delete" class="delCol">Delete</button>
-        <button id="popup-save" class="saveCol">Save</button>
-      </div>
+      <form class="col-form">
+        <input type="text" id="change-col-name" placeholder="Rename list">
+        <div class="save-del-btn">
+          <button id="popup-delete" class="delCol" type="button">Delete</button>
+          <button id="popup-save" class="saveCol" type="submit">Save</button>
+        </div>
+      </form>
     </dialog>
 
     <script type="module" src="js/main.js"></script>
   </body>
 </html>
+
+

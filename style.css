@@ -13,8 +13,9 @@
   --bright-green: #62ff59;
   --medium-green: #58e051;
 
-  --pale-blue: #e9f6ff;
-  --medium-pale-blue: #d2efff;
+  --pale-beige: #fffbe9;
+  --medium-pale-beige: #fffaf2;
+  --pale-blue: #343360;
   --medium-dark-blue: #0300b3;
   --dark-blue: #020068;
 
@@ -33,9 +34,9 @@
   --pastel-grey: #EBECF0;
   --pastel-medium-grey: #e1e2e7;
   --pastel-coral: #FFD0D0;
-  --pastel-blue: #B7DFFF;
-  --pastel-green: #c2ffba;
-  --pastel-yellow: #FFF7B2;
+  --pastel-blue: #d5ecff;
+  --pastel-green: #d0ffca;
+  --pastel-yellow: #ffface;
 
   /*  PRIORITY CIRCLE PALETTE  */
   --strong-red: #ff9fae;
@@ -68,6 +69,7 @@ header {
 .customize-bg{
   cursor: pointer;
   color: var(--main-color);
+  transition: color 0.2s ease;
 }
 
 .customize-bg:hover{
@@ -110,7 +112,7 @@ header {
   color: var(--main-color);
   cursor: pointer;
   flex: 0 0 auto;
-  transition: color 0.3s ease;
+  transition: color20.3s ease;
 }
 
 #add-list-btn:hover{
@@ -242,6 +244,7 @@ border: 1px solid var(--outline-color);
   margin-top: 8px;
   cursor: pointer;
   font-size: 1.2rem;
+  transition: color 0.1s ease;
 }
 
 .chevron.rotated{
@@ -365,7 +368,7 @@ border: 1px solid var(--outline-color);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 0 20px;
+  padding: 20px 0;
 }
 
 .add-task-btn{
@@ -378,6 +381,7 @@ border: 1px solid var(--outline-color);
   font-size: 1rem;
   color: var(--medium-grey);
   cursor: pointer;
+  transition: color 0.2s ease;  
 }
 
 .add-task-btn:hover{
@@ -514,6 +518,7 @@ dialog::backdrop {
   transform: translate(-50%, -50%); 
   width: 60vw; 
   height: 80vh;
+  overflow-y: auto;
   padding: 16px;
   border-radius: var(--border-radius);
   border: none;
@@ -558,25 +563,35 @@ dialog::backdrop {
 
 .task-d{
   color: var(--main-color);
-  background-color: var(--extra-bright-grey);
   width: 45vw;
   margin-top: 8px;
   padding: 8px;
   box-shadow: var(--box-shadow-small);
   border-radius: var(--medium-radius);
+  font-size: 1rem;
 }
 
-.dialog-name .task-name{
-  background-color: var(--pale-blue);
+.dialog-name .task-tag {
+  color: var(--pale-blue);
+}
+
+.task-name {
+  color: var(--dark-blue);
 }
 
 .task-d:hover{
-  background-color: var(--medium-pale-blue);
   cursor: text;
+  background-color: var(--extra-bright-grey);
 }
 
 .task-d:active{
   transform: scale(0.98);
+}
+
+textarea {
+  all: unset;
+  white-space: pre-wrap;
+  word-break: break-all;
 }
 
 .priority-task{
@@ -663,16 +678,11 @@ dialog::backdrop {
 }
 
 .edit{
-  background-color: var(--pale-blue);
   color: var(--dark-grey);
-  outline: none;
-  border: none;
-  border-radius: var(--small-radius);
-  margin-top: 12px;
-  padding-left: 4px;
-  height:28px;
+  padding-top: 12px;
+  padding-left: 8px;
   width: 45vw;
-  font-size: .9rem;
+  font-size: 1rem;
 }
 
 .edit-name:focus{
@@ -687,3 +697,4 @@ dialog::backdrop {
   font-size: 0.8rem;
   margin-top: 5px;
 }
+

@@ -6,14 +6,15 @@ const color = document.getElementById("col-palette");
 const input = document.getElementById("change-col-name");
 const saveBtn = document.querySelector(".saveCol");
 const deleteBtn = document.querySelector(".delCol");
+const form = document.querySelector(".col-form");
 
-let columnId = "";
+let column = "";
 
 export function editCol(col, el){
   dialog.showModal();
   positionDialogRelativeTo(el, dialog);
 
-  columnId = col.id;
+  column = col;
   
   color.onclick = null;
   color.onclick = (e) => changeColClr(e, col);
@@ -63,7 +64,10 @@ export function changeColClr(e, col){
 export function changeColTitle(){
   const newTitle = input.value;
 
-  state.columns.find(col => col.id === columnId).title = newTitle;
+  const col = state.columns.find(c => c === column);
+  if (!col) return;
+
+  col.title = newTitle;
   saveChanges();
 }
 
@@ -74,12 +78,15 @@ function saveChanges(){
 }
 
 export function deleteCol(){
-  state.columns = state.columns.filter(col => col.id !== columnId);
+  state.columns = state.columns.filter(col => col !== column);
   saveChanges();
 }
 
 // EVENTS:
-saveBtn.addEventListener("click", changeColTitle);
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  changeColTitle();
+});
 deleteBtn.addEventListener("click", deleteCol);
 
 document.addEventListener("click", (e) => {

@@ -52,13 +52,18 @@ export function editMode(el, key) {
   // prevent opening multiple inputs on same field
   if (editingEl[key]) return;
 
-  const input = document.createElement("input");
-  input.classList.add("edit");
-  input.value = el.textContent;
+  const textareaEl = document.createElement("textarea");
+  textareaEl.classList.add("edit");
+  textareaEl.value = el.textContent;
 
-  editingEl[key] = input;
+  editingEl[key] = textareaEl;
 
-  el.replaceWith(input);
+  el.replaceWith(textareaEl);
+
+  textareaEl.style.height = "auto";
+  textareaEl.style.height = textareaEl.scrollHeight + "px";
+  textareaEl.spellcheck = false;
+
 }
 
 export function changePriority(e){
