@@ -31,6 +31,27 @@ export function getPriorityColor(task, circle){
   return circleColor;
 }
 
+export function getPrioColor(task, taskEl){
+  let taskColor = null;
+  taskEl.classList.remove("green-border", "yellow-border", "red-border");
+
+  switch(task.priority){
+    case "low":
+      taskEl.classList.add("green-border");
+      break;
+
+    case "medium":
+      taskEl.classList.add("yellow-border");
+      break;
+
+    case "high":
+      taskEl.classList.add("red-border");
+      break;
+    }
+
+  return taskColor;
+}
+
 export function formatDate(dateString){
   const date = new Date(dateString);
 
@@ -45,10 +66,6 @@ export function formatDate(dateString){
 export function applyColClr(col, title) {
   title.dataset.color = col.color;
 }
-
-
-
-
 
 /*
 export function getDragAfterElement(container, y) {

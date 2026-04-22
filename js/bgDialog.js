@@ -15,6 +15,7 @@ export function initBgDialog() {
   // UPLOAD IMAGE
   input.onchange = () => {
     const file = input.files[0];
+    console.log(input, file);
     if (!file) return;
 
     const reader = new FileReader();

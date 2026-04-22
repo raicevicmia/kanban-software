@@ -1,7 +1,7 @@
 import { state, addCol, addTask } from "./api.js";
 import { openTaskDialog } from "./taskDialog.js";
 import { editCol } from "./colDialog.js";
-import { getPriorityColor, formatDate, toggleTasks, applyColState, applyColClr } from "./utils.js";
+import { getPriorityColor, getPrioColor, formatDate, toggleTasks, applyColState, applyColClr } from "./utils.js";
 
 export function renderColContainer(){
   const colContainer = document.querySelector(".col-container");
@@ -198,6 +198,7 @@ if (taskContainer.querySelector(".add-task-form")) return;
 export function renderTask(task, taskContainer){
   const taskEl = document.createElement("div");
   taskEl.classList.add("task");
+  getPrioColor(task, taskEl);
 
   const header = document.createElement("div");
   header.classList.add("task-header");
@@ -207,8 +208,8 @@ export function renderTask(task, taskContainer){
   name.textContent = task.title;
 
   const circle = document.createElement("i");
-  circle.classList.add("fas", "fa-circle");
-  getPriorityColor(task, circle);
+  //circle.classList.add("fas", "fa-circle");
+  //getPriorityColor(task, circle);
 
   header.append(name, circle);
 

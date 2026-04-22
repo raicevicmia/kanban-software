@@ -30,18 +30,22 @@
   --box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   --box-shadow-small:  0px 4px 8px rgba(0, 0, 0, 0.05);
 
-  /*  LIST PALETTE  */
+  /*  PRIO PALETTE  */
   --pastel-grey: #EBECF0;
   --pastel-medium-grey: #e1e2e7;
-  --pastel-coral: #FFD0D0;
-  --pastel-blue: #d5ecff;
-  --pastel-green: #d0ffca;
-  --pastel-yellow: #ffface;
+  --pastel-coral: #ffe2e2;
+  --pastel-blue: #daeeff;
+  --pastel-green: #e3ffdf;
+  --pastel-yellow: #fffbd8;
+  --pastel-red: #ffe1e1;
 
-  /*  PRIORITY CIRCLE PALETTE  */
-  --strong-red: #ff9f9f;
-  --strong-yellow: #ffffa3;
-  --strong-green: #b2ffcc;
+  /*  COL TITLE PALETTE  */
+  --strong-yellow: #ffffd1;
+  --strong-green: #ceffd5;
+  --strong-blue: #cfe9ff;
+  --strong-coral: #ffd2d2;
+  --strong-grey: #EBECF0;
+
 }
 
 * {
@@ -262,6 +266,8 @@ border: 1px solid var(--outline-color);
   padding: 12px 20px;
   border-radius: var(--large-radius);
   cursor: pointer;
+  color: black;
+  box-shadow: var(--box-shadow);
 }
 
 .col-title:active{
@@ -326,6 +332,18 @@ border: 1px solid var(--outline-color);
 .fa-circle{
   font-size: .8rem;
   color: var(--medium-grey);
+}
+
+.green-border{
+  border-right: 16px solid var(--pastel-green);
+}
+
+.yellow-border{
+  border-right: 16px solid var(--pastel-yellow);
+}
+
+.red-border{
+  border-right: 16px solid var(--pastel-red);
 }
 
 .task-description > * {
@@ -477,43 +495,43 @@ dialog::backdrop {
 }
 
 #col-palette .fa-c-grey{
-  color: var(--pastel-grey);
+  color: var(--strong-grey);
 }
 
 #col-palette .fa-c-blue{
-  color: var(--pastel-blue);
+  color: var(--strong-blue);
 }
 
 #col-palette .fa-c-green{
-  color: var(--pastel-green);
+  color: var(--strong-green);
 }
 
 #col-palette .fa-c-yellow{
-  color: var(--pastel-yellow);
+  color: var(--strong-yellow);
 }
 
 #col-palette .fa-c-coral{
-  color: var(--pastel-coral);
+  color: var(--strong-coral);
 }
 
 .col-title[data-color="grey"] {
-  background-color: var(--pastel-grey);
+  background-color: var(--strong-grey);
 }
 
 .col-title[data-color="blue"] {
-  background-color: var(--pastel-blue);
+  background-color: var(--strong-blue);
 }
 
 .col-title[data-color="green"] {
-  background-color: var(--pastel-green);
+  background-color: var(--strong-green);
 }
 
 .col-title[data-color="yellow"] {
-  background-color: var(--pastel-yellow);
+  background-color: var(--strong-yellow);
 }
 
 .col-title[data-color="coral"] {
-  background-color: var(--pastel-coral);
+  background-color: var(--strong-coral);
 }
 
 #change-col-name{
@@ -834,7 +852,6 @@ textarea {
 
 #bg-upload-input:focus {
   outline: none;
-  box-shadow: 0 0 2px var(--main-color);
 }
 
 .bg-actions {

@@ -38,7 +38,7 @@ export function addTask(colId, title) {
   project: "",
   assignee: "",
   description: "",
-  priority: "low",
+  priority: "",
   dueDate: "",
 };
 
