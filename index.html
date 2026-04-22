@@ -87,43 +87,44 @@
 
     <!--  task details POPUP  -->
     <dialog id="task-dialog">
-      <div class="dialog-header">
-        <div class="dialog-name">
-          <p class="task-tag">Name:</p>
-          <p class="task-d task-name">Task Name</p>
+      <div class="task-dialog">
+        <div class="dialog-header">
+          <div class="dialog-name">
+            <p class="task-tag">Name:</p>
+            <p class="task-d task-name">Task Name</p>
+          </div>
+          <i class="fas popup-xmark fa-xmark"></i>
         </div>
-        <i class="fas popup-xmark fa-xmark"></i>
+
+        <p class="task-tag">Project:</p>
+        <p class="task-d task-proj"></p>
+
+        <p class="task-tag">Assignee:</p>
+        <p class="task-d task-assignee"></p>
+
+        <p class="task-tag">Description:</p>
+        <p class="task-d task-description"></p>
+
+        <div class="priority-task">
+          <p class="task-tag">Priority:</p>
+          <select id="task-priority">
+            <option value="select" selected>Select</option>
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+          </select>
+        </div>
+
+        <div class="due-date-opt">
+          <p class="task-tag">Due Date:</p>
+          <input type="date" id="task-due-date" name="due-date">
+        </div>
+        
+        <div class="save-del-btns">
+          <button id="popup-delete">Delete</button>
+          <button id="popup-save">Save</button>
+        </div>
       </div>
-
-      <p class="task-tag">Project:</p>
-      <p class="task-d task-proj"></p>
-
-      <p class="task-tag">Assignee:</p>
-      <p class="task-d task-assignee"></p>
-
-      <p class="task-tag">Description:</p>
-      <p class="task-d task-description"></p>
-
-      <div class="priority-task">
-        <p class="task-tag">Priority:</p>
-        <select id="task-priority">
-          <option value="select" selected>Select</option>
-          <option value="low">Low</option>
-          <option value="medium">Medium</option>
-          <option value="high">High</option>
-        </select>
-      </div>
-
-      <div class="due-date-opt">
-        <p class="task-tag">Due Date:</p>
-        <input type="date" id="task-due-date" name="due-date">
-      </div>
-      
-      <div class="save-del-btns">
-        <button id="popup-delete">Delete</button>
-        <button id="popup-save">Save</button>
-      </div>
-  
     </dialog>
 
     <!-- column title color palette POPUP -->

@@ -30,11 +30,13 @@ export function closeColDialog(){
 
 export function positionDialogRelativeTo(el, dialog) {
   const rect = el.getBoundingClientRect();
+  const BOT_DIALOG_OFFSET = 12;
+  const LEFT_DIALOG_OFFSET = 200;
 
   dialog.style.position = "fixed";
 
-  dialog.style.top = `${rect.bottom - 12}px`;
-  dialog.style.left = `${rect.left + 200}px`;
+  dialog.style.top = `${rect.bottom - BOT_DIALOG_OFFSET}px`;
+  dialog.style.left = `${rect.left + LEFT_DIALOG_OFFSET}px`;
 
 }
 

@@ -182,6 +182,12 @@ border-style: none;
 border: 1px solid var(--outline-color);
 }
 
+.missing-title{
+  padding-top: 8px;
+  font-size: 0.8rem;
+  color: var(--classic-red);
+}
+
 .add-col-btns{
   display: flex;
   flex-direction: row;
@@ -362,7 +368,7 @@ border: 1px solid var(--outline-color);
 /*  ADD TASK BOX  */
 .add-task-form{
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   /**/
   background: var(--main-bg-color);
   border: none;
@@ -372,6 +378,11 @@ border: 1px solid var(--outline-color);
   border-radius: var(--small-radius);
   font-size: .9rem;
   color: var(--main-color);
+}
+
+.add-task-form-container{
+  display: flex;
+  justify-content: space-between;
 }
 
 .add-task-in {

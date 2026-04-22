@@ -1,7 +1,9 @@
 import { state, addCol, addTask } from "./api.js";
 import { openTaskDialog } from "./taskDialog.js";
 import { editCol } from "./colDialog.js";
-import { getPriorityColor, getPrioColor, formatDate, toggleTasks, applyColState, applyColClr } from "./utils.js";
+import { getPrioColor, formatDate, toggleTasks, applyColState, applyColClr } from "./utils.js";
+
+const TIMEOUT_DURATION = 3000;
 
 export function renderColContainer(){
   const colContainer = document.querySelector(".col-container");
@@ -21,6 +23,9 @@ export function createColForm(){
   const input = document.createElement("input");
   input.classList.add("add-col-in");
 
+  const error = document.createElement("p");
+  error.classList.add("missing-title");
+
   const btnWrapper = document.createElement("div");
   btnWrapper.classList.add("add-col-btns")
 
@@ -38,15 +43,17 @@ export function createColForm(){
   xMark.appendChild(faXMark);
   btnWrapper.append(addBtn, xMark);
 
-  form.append(input, btnWrapper);
+  form.append(input, error, btnWrapper);
 
-  return { form, input, xMark };
+  return { form, input, error, xMark };
 }
 
 export function renderColForm(){
   const colContainer = document.querySelector(".col-container");
 
-  const { form, input, xMark } = createColForm();
+  const { form, input, xMark, error } = createColForm();
+
+  let errorTimeout;
 
   colContainer.after(form);
 
@@ -54,12 +61,24 @@ export function renderColForm(){
     e.preventDefault();
 
     const colName = input.value.trim();
-    if(!colName) return;
+
+    if(!colName) {
+      error.textContent = "Please add column name!";
+      input.addEventListener("input", () => {
+        error.textContent = "";
+      });
+
+      clearTimeout(errorTimeout);
+
+      errorTimeout = setTimeout(() => {
+        error.textContent = "";
+      }, TIMEOUT_DURATION);
+
+      return;
+    }
 
     const col = addCol(colName);
-
     renderCol(col);
-
     form.remove();
   })  
 
@@ -151,11 +170,16 @@ export function renderCol(col){
 }
 
 export function renderTaskForm(taskContainer, colId){
-if (taskContainer.querySelector(".add-task-form")) return;
+  if (taskContainer.querySelector(".add-task-form")) return;
+
+  let errorTimeout;
 
   // RENDERING TASK FORM
   const form = document.createElement("form");
-  form.classList.add("add-task-form");
+  form.classList.add("add-task-form")
+
+  const containerEl = document.createElement("div");
+  containerEl.classList.add("add-task-form-container")
 
   const input = document.createElement("input");
   input.className = "add-task-in";
@@ -174,9 +198,13 @@ if (taskContainer.querySelector(".add-task-form")) return;
   const xIcon = document.createElement("i");
   xIcon.classList.add("fas", "fa-xmark");
 
+  const error = document.createElement("p");
+  error.classList.add("missing-title");
+
   xMark.appendChild(xIcon);
   btnWrapper.append(addBtn, xMark);
-  form.append(input, btnWrapper);
+  containerEl.append(input, btnWrapper);
+  form.append(containerEl, error);
 
   taskContainer.appendChild(form);
 
@@ -184,7 +212,21 @@ if (taskContainer.querySelector(".add-task-form")) return;
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     const taskName = input.value.trim();
-    if(!taskName) return;
+
+    if(!taskName) {
+      error.textContent = "Please add task name!";
+      input.addEventListener("input", () => {
+        error.textContent = "";
+      });
+
+      clearTimeout(errorTimeout);
+
+      errorTimeout = setTimeout(() => {
+        error.textContent = "";
+      }, TIMEOUT_DURATION);
+
+      return;
+    }
 
     const task = addTask(colId, taskName);
     renderTask(task, taskContainer);
@@ -207,11 +249,13 @@ export function renderTask(task, taskContainer){
   name.classList.add("task-name");
   name.textContent = task.title;
 
+  /*
   const circle = document.createElement("i");
-  //circle.classList.add("fas", "fa-circle");
-  //getPriorityColor(task, circle);
+  circle.classList.add("fas", "fa-circle");
+  getPriorityColor(task, circle);
+  */
 
-  header.append(name, circle);
+  header.append(name, /*circle*/);
 
   const desc = document.createElement("div");
   desc.classList.add("task-description");

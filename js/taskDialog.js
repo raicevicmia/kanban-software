@@ -63,8 +63,7 @@ export function editMode(el, key) {
   editingEl[key] = textareaEl;
 
   el.replaceWith(textareaEl);
-
-  textareaEl.style.height = "auto";
+  
   textareaEl.style.height = textareaEl.scrollHeight + "px";
   textareaEl.spellcheck = false;
 
