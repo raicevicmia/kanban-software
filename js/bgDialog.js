@@ -15,7 +15,6 @@ export function initBgDialog() {
   // UPLOAD IMAGE
   input.onchange = () => {
     const file = input.files[0];
-    console.log(input, file);
     if (!file) return;
 
     const reader = new FileReader();
@@ -41,6 +40,13 @@ export function initBgDialog() {
   closeBtn.onclick = () => {
     const dialog = document.getElementById("bg-dialog");
     dialog.close();
+  };
+
+  document.onclick = (e) => {
+    const dialog = document.getElementById("bg-dialog");
+    if(e.target === dialog) {
+      dialog.close();
+    }
   };
 }
 
