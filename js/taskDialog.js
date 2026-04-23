@@ -1,8 +1,10 @@
-import { saveState, state } from "./api.js";
+import { saveState, state, changeTaskPriority, changeTaskDueDate, } from "./api.js";
 import { renderColContainer } from "./dom.js";
+//import { applyTaskHeaderClr } from "./utils.js"
 
 const dialog = document.getElementById("task-dialog");
 
+//const headerEl = dialog.querySelector(".task-header")
 const xmark = dialog.querySelector(".popup-xmark");
 const titleEl = dialog.querySelector(".task-name");
 const projectEl = dialog.querySelector(".task-proj");
@@ -42,6 +44,8 @@ export function closeTaskDialog() {
 
 // FILL DATA
 export function fillDialog(task) {
+  //applyTaskHeaderClr(headerEl, task);
+
   titleEl.textContent = task.title || "";
   projectEl.textContent = task.project || "";
   assigneeEl.textContent = task.assignee || "";
@@ -69,14 +73,6 @@ export function editMode(el, key) {
 
 }
 
-export function changePriority(e){
-  currentTask.priority = e.target.value;
-}
-
-export function changeDueDate(e){
-  currentTask.dueDate = e.target.value;
-}
-
 
 // SAVE
 export function saveField(fieldEl, field){
@@ -99,8 +95,8 @@ export function saveAll() {
   saveField(descriptionEl, "description");
   saveField(assigneeEl, "assignee");
 
-  saveState();              // save once
-  renderColContainer();     // re-render UI
+  saveState();
+  renderColContainer();
 }
 
 // DELETE
@@ -151,11 +147,11 @@ descriptionEl.addEventListener("click", () => {
 });
 
 priorityEl.addEventListener("change", (e) => {
-  changePriority(e);
+  changeTaskPriority(currentTask, e.target.value);
 });
 
 dueDateEl.addEventListener("change", (e) => {
-  changeDueDate(e);
+  changeTaskDueDate(currentTask, e.target.value);
 });
 
 saveBtnEl.addEventListener("click", saveAll);

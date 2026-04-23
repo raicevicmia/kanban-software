@@ -1,4 +1,4 @@
-import { toggleOpen } from "./api.js";
+import { state, toggleOpen } from "./api.js";
 
 export function toggleTasks(col, container, chevron, footer){
   const isOpen = toggleOpen(col);
@@ -46,6 +46,17 @@ export function formatDate(dateString){
 export function applyColClr(col, title) {
   title.dataset.color = col.color;
 }
+
+/*
+export function getColClr(task){
+  return state.columns.find(c => c.id === task.columnId).color;
+}
+
+export function applyTaskHeaderClr(taskHeader, task){
+  taskHeader.dataset.color = getColClr(task);
+  console.log(taskHeader.dataset.color);
+}
+*/
 
 /*
 export function getDragAfterElement(container, y) {

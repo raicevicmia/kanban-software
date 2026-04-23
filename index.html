@@ -85,23 +85,25 @@
         -->
     </div>
 
-    <!--  task details POPUP  -->
-    <dialog id="task-dialog">
+    <!--  POPUPs  -->
+    <dialog id="task-dialog">   
+      <div class="task-header col-color">
+        <i class="fas popup-xmark fa-xmark"></i>
+      </div>
+
       <div class="task-dialog">
-        <div class="dialog-header">
-          <div class="dialog-name">
-            <p class="task-tag">Name:</p>
-            <p class="task-d task-name">Task Name</p>
-          </div>
-          <i class="fas popup-xmark fa-xmark"></i>
+
+        <div class="dialog-name">
+          <p class="task-d task-name">Task Name</p>
         </div>
-        <p class="task-tag">Project:</p>
+       
+        <p class="task-tag">Project</p>
         <p class="task-d task-proj"></p>
 
-        <p class="task-tag">Assignee:</p>
+        <p class="task-tag">Assignee</p>
         <p class="task-d task-assignee"></p>
 
-        <p class="task-tag">Description:</p>
+        <p class="task-tag">Description</p>
         <p class="task-d task-description"></p>
 
         <div class="priority-and-date">
@@ -125,10 +127,20 @@
           <button id="popup-delete">Delete</button>
           <button id="popup-save">Save</button>
         </div>
+        
       </div>
     </dialog>
 
-    <!-- column title color palette POPUP -->
+    <dialog id="confirm-task-dialog">
+      <div class="confirm-task">
+        <p>Are you sure you want to delete this task?</p>
+        <div class="confirm-buttons">
+          <button id="confirm-delete" class="confirm-task-delete">Yes, delete it</button>
+          <button id="confirm-not-delete" class="not-confirm-task-delete">No</button>
+        </div>
+      </div>
+    </dialog>
+
     <dialog id="col-dialog">
       <div class="col-palette">
         <p class="col-clr">Color</p>
@@ -152,17 +164,7 @@
           </div>
       </div>
     </dialog>
-
-    <dialog id="confirm-task-dialog">
-      <div class="confirm-task">
-        <p>Are you sure you want to delete this task?</p>
-        <div class="confirm-buttons">
-          <button id="confirm-delete" class="confirm-task-delete">Yes, delete it</button>
-          <button id="confirm-not-delete" class="not-confirm-task-delete">No</button>
-        </div>
-      </div>
-    </dialog>
-
+    
     <dialog id="confirm-col-dialog">
       <div class="confirm-col">
         <p>Are you sure you want to delete this list?</p>
@@ -172,6 +174,8 @@
         </div>
       </div>
     </dialog>
+
+
 
     <dialog id="bg-dialog" class="bg-dialog">
       <div class="bg-header">

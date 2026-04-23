@@ -1,8 +1,12 @@
 import { loadStateFromStorage, saveStateToStorage } from "./storage.js";
 
+
 export let state = {
   columns: [],
 };
+
+
+//  LOAD & SAVE  
 
 export function loadState() {
   const saved = loadStateFromStorage();
@@ -12,6 +16,9 @@ export function loadState() {
 export function saveState() {
   saveStateToStorage(state);
 }
+
+
+//  COLUMN STATE  
 
 export function addCol(title) {
   const newCol = {
@@ -28,6 +35,15 @@ export function addCol(title) {
   return newCol;
 }
 
+export function toggleOpen(col){
+ col.open = !col.open;
+ saveState();
+ return col.open;
+}
+
+
+//  TASK STATE  
+
 export function addTask(colId, title) {
   const column = state.columns.find(c => c.id === colId);
   if (!column) return;
@@ -40,7 +56,8 @@ export function addTask(colId, title) {
     description: "",
     priority: "",
     dueDate: "",
-  };
+    columnId: colId,
+ };
 
   column.tasks.push(task);
   saveState();
@@ -48,11 +65,14 @@ export function addTask(colId, title) {
   return task;
 }
 
-export function toggleOpen(col){
- col.open = !col.open;
- saveState();
- return col.open;
+export function changeTaskPriority(task, newPriority){
+  task.priority = newPriority;
 }
+
+export function changeTaskDueDate(task, newDate){
+  task.dueDate = newDate;
+}
+
 
 /*
 export function moveTaskToColumn(taskId, col, afterElement) {

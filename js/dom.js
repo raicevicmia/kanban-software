@@ -98,6 +98,7 @@ export function createCol(col){
 
   const title = document.createElement("p");
   title.classList.add("col-title");
+  title.classList.add("col-color");
   title.textContent = col.title;
 
   const chevron = document.createElement("i");
