@@ -11,26 +11,6 @@ export function applyColState(isOpen, container, chevron, footer){
   chevron.classList.toggle("rotated", !isOpen);
 }
 
-export function getPriorityColor(task, circle){
-  let circleColor = null;
-
-  switch(task.priority){
-    case "Low":
-      circle.classList.add("prio-low");
-      break;
-
-    case "Medium":
-      circle.classList.add("prio-medium");
-      break;
-
-    case "High":
-      circle.classList.add("prio-high");
-      break;
-    }
-
-  return circleColor;
-}
-
 export function getPrioColor(task, taskEl){
   let taskColor = null;
   taskEl.classList.remove("green-border", "yellow-border", "red-border");
@@ -102,5 +82,27 @@ export function showError(container, message) {
 export function clearError(container) {
   const error = container.querySelector(".error");
   if (error) error.remove();
+}
+*/
+
+/*
+export function getPriorityColor(task, circle){
+  let circleColor = null;
+
+  switch(task.priority){
+    case "Low":
+      circle.classList.add("prio-low");
+      break;
+
+    case "Medium":
+      circle.classList.add("prio-medium");
+      break;
+
+    case "High":
+      circle.classList.add("prio-high");
+      break;
+    }
+
+  return circleColor;
 }
 */

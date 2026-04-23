@@ -95,7 +95,6 @@
           </div>
           <i class="fas popup-xmark fa-xmark"></i>
         </div>
-
         <p class="task-tag">Project:</p>
         <p class="task-d task-proj"></p>
 
@@ -105,21 +104,23 @@
         <p class="task-tag">Description:</p>
         <p class="task-d task-description"></p>
 
-        <div class="priority-task">
-          <p class="task-tag">Priority:</p>
-          <select id="task-priority">
-            <option value="select" selected>Select</option>
-            <option value="low">Low</option>
-            <option value="medium">Medium</option>
-            <option value="high">High</option>
-          </select>
+        <div class="priority-and-date">
+           <div class="priority-task">
+            <p class="task-tag">Priority:</p>
+            <select id="task-priority">
+              <option value="select" selected>Select</option>
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+            </select>
+          </div>
+
+          <div class="due-date-opt">
+            <p class="task-tag">Due Date:</p>
+            <input type="date" id="task-due-date" name="due-date">
+          </div>
         </div>
 
-        <div class="due-date-opt">
-          <p class="task-tag">Due Date:</p>
-          <input type="date" id="task-due-date" name="due-date">
-        </div>
-        
         <div class="save-del-btns">
           <button id="popup-delete">Delete</button>
           <button id="popup-save">Save</button>
@@ -129,20 +130,27 @@
 
     <!-- column title color palette POPUP -->
     <dialog id="col-dialog">
-      <div id="col-palette">
-        <i class="fas fa-circle fa-c-grey"></i>
-        <i class="fas fa-circle fa-c-blue"></i>
-        <i class="fas fa-circle fa-c-green"></i>
-        <i class="fas fa-circle fa-c-yellow"></i>
-        <i class="fas fa-circle fa-c-coral"></i>
-      </div>
-      <form class="col-form">
-        <input type="text" id="change-col-name" placeholder="Rename list">
-        <div class="save-del-btn">
-          <button id="popup-delete" class="delCol" type="button">Delete</button>
-          <button id="popup-save" class="saveCol" type="submit">Save</button>
+      <div class="col-palette">
+        <p class="col-clr">Color</p>
+        <div id="col-palette">
+          <i class="fas fa-circle fa-c-grey"></i>
+          <i class="fas fa-circle fa-c-blue"></i>
+          <i class="fas fa-circle fa-c-green"></i>
+          <i class="fas fa-circle fa-c-yellow"></i>
+          <i class="fas fa-circle fa-c-coral"></i>
         </div>
-      </form>
+      </div>
+      <div class="col-name">
+        <p class="column-title">Title</p>
+        <div class="form-wrapper">
+          <form class="col-form">     
+            <input type="text" id="change-col-name" placeholder="Rename list">        
+          </form>
+        </div>
+        <div class="del-btn-wrapper">
+        <button id="popup-delete" class="delCol" type="button">Delete</button>
+          </div>
+      </div>
     </dialog>
 
     <dialog id="confirm-task-dialog">

@@ -30,8 +30,8 @@ export function closeColDialog(){
 
 export function positionDialogRelativeTo(el, dialog) {
   const rect = el.getBoundingClientRect();
-  const BOT_DIALOG_OFFSET = 12;
-  const LEFT_DIALOG_OFFSET = 200;
+  const BOT_DIALOG_OFFSET = -80;
+  const LEFT_DIALOG_OFFSET = 220;
 
   dialog.style.position = "fixed";
 
@@ -80,7 +80,6 @@ export function changeColTitle(){
 function saveChanges(){
   saveState();
   renderColContainer();
-  closeColDialog();
 }
 
 export function deleteCol(){
@@ -103,11 +102,14 @@ export function confirmDeleting(){
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   changeColTitle();
+  closeColDialog();
 });
 deleteBtn.addEventListener("click", confirmDeleting);
 
 document.addEventListener("click", (e) => {
   if (e.target === dialog){
+    changeColTitle();
+    saveChanges();
     closeColDialog();
   }
 });
