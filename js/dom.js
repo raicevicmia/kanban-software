@@ -1,6 +1,6 @@
 import { state, addCol, addTask } from "./api.js";
 import { openTaskDialog } from "./taskDialog.js";
-import { editCol } from "./colDialog.js";
+import { initColDialog } from "./colDialog.js";
 import { getPrioColor, formatDate, toggleTasks, applyColState, applyColClr } from "./utils.js";
 
 const TIMEOUT_DURATION = 3000;
@@ -154,7 +154,7 @@ export function renderCol(col){
 
   // EVENTS
   title.addEventListener("click", () => {
-    editCol(col, title)
+    initColDialog(col, title)
   });
 
   chevron.addEventListener("click", () => {
