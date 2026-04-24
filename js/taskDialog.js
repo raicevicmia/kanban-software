@@ -1,5 +1,6 @@
 import { saveState, state, changeTaskPriority, changeTaskDueDate, } from "./api.js";
 import { renderColContainer } from "./dom.js";
+import { formatDate, updateDialogDateUI, updatePriorityColor } from "./utils.js";
 //import { applyTaskHeaderClr } from "./utils.js"
 
 const dialog = document.getElementById("task-dialog");
@@ -12,7 +13,11 @@ const projectEl = dialog.querySelector("#change-proj-name");
 const assigneeEl = dialog.querySelector(".task-assignee");
 const descriptionEl = dialog.querySelector("#change-task-descr");
 const priorityEl = dialog.querySelector("#task-priority");
+
+const dueDateDiv = dialog.querySelector(".due-date-opt");
+const dueDateSpan = dialog.querySelector("#due-date-display");
 const dueDateEl = dialog.querySelector("#task-due-date");
+
 const saveBtnEl = dialog.querySelector("#popup-save");
 const deleteBtnEl = dialog.querySelector("#popup-delete");
 
@@ -35,13 +40,14 @@ let editingEl = {
 export function openTaskDialog(task) {
   currentTask = task;
   fillDialog(task);
+  updatePriorityColor(priorityEl);
+  updateDialogDateUI(dueDateSpan, task);
   dialog.showModal();
 }
 
 export function closeTaskDialog() {
   dialog.close();
 }
-
 
 // FILL DATA
 export function fillDialog(task) {
@@ -54,7 +60,6 @@ export function fillDialog(task) {
   priorityEl.value = task.priority || "select";
   dueDateEl.value = task.dueDate || "";
 }
-
 
 // EDIT 
 export function editMode(el, key) {
@@ -74,7 +79,6 @@ export function editMode(el, key) {
 
 }
 
-
 // SAVE
 export function saveField(fieldEl, field){
   const input = editingEl[field];
@@ -89,7 +93,6 @@ export function saveField(fieldEl, field){
   input.replaceWith(fieldEl);
   editingEl[field] = null;
 }
-
 export function saveAll() {
   saveField(titleIn, "title");
   saveField(projectEl, "project");
@@ -111,7 +114,6 @@ export function confirmDeleting(){
     confirmTaskDelete.close();
   });
 }
-
 export function deleteTask(){
   for (const col of state.columns) {
     const index = col.tasks.findIndex(t => t.id === currentTask.id);
@@ -149,10 +151,18 @@ descriptionEl.addEventListener("click", () => {
 
 priorityEl.addEventListener("change", (e) => {
   changeTaskPriority(currentTask, e.target.value);
+  updatePriorityColor(priorityEl);
+  saveAll();
+});
+
+dueDateDiv.addEventListener("click", () => {
+  dueDateEl.showPicker(); // moderni browseri imaju ovo
 });
 
 dueDateEl.addEventListener("change", (e) => {
   changeTaskDueDate(currentTask, e.target.value);
+  updateDialogDateUI(dueDateSpan, currentTask);
+  saveAll();
 });
 
 saveBtnEl.addEventListener("click", saveAll);

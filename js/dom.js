@@ -1,7 +1,7 @@
 import { state, addCol, addTask } from "./api.js";
 import { openTaskDialog } from "./taskDialog.js";
 import { initColDialog } from "./colDialog.js";
-import { getPrioColor, formatDate, toggleTasks, applyColState, applyColClr } from "./utils.js";
+import { getPrioColor, formatDate, toggleTasks, applyColState, applyColClr, updatePriorityColor } from "./utils.js";
 
 const TIMEOUT_DURATION = 3000;
 

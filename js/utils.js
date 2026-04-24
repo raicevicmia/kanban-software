@@ -32,6 +32,14 @@ export function getPrioColor(task, taskEl){
   return taskColor;
 }
 
+export function applyColClr(col, title) {
+  title.dataset.color = col.color;
+}
+
+export function updatePriorityColor(select){
+  select.dataset.priority = select.value;
+}
+
 export function formatDate(dateString){
   const date = new Date(dateString);
 
@@ -43,9 +51,17 @@ export function formatDate(dateString){
   });
 }
 
-export function applyColClr(col, title) {
-  title.dataset.color = col.color;
+export function updateDialogDateUI(dateUI, task){
+  dateUI.textContent = formatDate(task.dueDate) || "Select date";
+
+  if(formatDate(task.dueDate)){
+    dateUI.classList.add("date-added");
+  } else {
+    dateUI.classList.remove("date-added");
+  }
 }
+
+
 
 /*
 export function getColClr(task){

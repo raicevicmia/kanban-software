@@ -72,9 +72,9 @@
     </dialog>
 
     
-
+    <!-- task dialog -->
     <dialog id="task-dialog">   
-      <div class="task-header col-color">
+      <div class="task-dialog-header col-color">
         <i class="fas popup-xmark fa-xmark"></i>
       </div>
       <div class="task-dialog">
@@ -84,11 +84,36 @@
         <form class="task-name">
           <input type="text" id="change-task-name"></input>
         </form>
-        <div class="task-assignee-wrapper">
-          <p class="assignee-n">Assigned to:</p>
-          <p class="task-assignee"></p>
-          <i class="fas fa-user-pen" id="change-task-assignee"></i>
+
+        <div class="task-details-wrapper">
+          <div class="task-assignee-wrapper">
+            <p class="assignee-n">Assigned to:</p>
+            <p class="task-assignee"></p>
+            <i class="fas fa-user-pen" id="change-task-assignee"></i>
+          </div>
+
+          <div class="prio-and-date-wrapper">
+            <div class="priority-task">
+              <p class="task-tag"><i class="fas fa-sort"></i></p>
+              <select id="task-priority">
+                <option value="select" selected>Priority</option>
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+              </select>
+            </div>
+
+            <div class="due-date-opt">
+              <p class="task-tag">
+                <i class="fas fa-clock-rotate-left"></i>
+              </p>
+              <span id="due-date-display">Select date</span>
+
+              <input type="date" id="task-due-date" name="due-date">
+            </div>
+          </div>
         </div>
+
       </div>
 
        <div class="proj-name-wrapper">
@@ -104,27 +129,6 @@
           <input type="text" id="change-task-descr" placeholder="Add task description..."></input>
         </form>
       </div>
-
-        <div class="details-wrapper">
-          <div class="priority-task">
-            <p class="task-tag"><i class="fas fa-sort"></i></p>
-            <select id="task-priority">
-              <option value="select" selected>Priority</option>
-              <option value="low">Low</option>
-              <option value="medium">Medium</option>
-              <option value="high">High</option>
-            </select>
-          </div>
-
-          <div class="due-date-opt">
-            <p class="task-tag">
-              <i class="fas fa-clock-rotate-left"></i>
-            </p>
-            <span id="due-date-display">Select date</span>
-
-            <input type="date" id="task-due-date" name="due-date">
-          </div>
-        </div>
 
         <!-- save / delete -->
         <div class="save-del-btns">
