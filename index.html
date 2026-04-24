@@ -16,60 +16,10 @@
 
     <div class="kanban-container">
       <div class="col-container">
-        <!-- cols will be rendered here 
-        <div class="column">
-          <div class="col-header">
-            <p class="col-title">To Do</p>
-            <i class="fa chevron fa-chevron-up"></i>
-            <i class="fa chevron fa-chevron-down"></i>
-          </div>
-        
-          <div class="task-container">
-            <--  tasks will be rendered here 
-             when form below is completed  ->
-            <div class="task"> 
-              <div class="task-header"> 
-                  <p class="task-name">Task NameTask NameTask NameTask NameTask Namee</p>
-                  <i class="fas fa-circle"></i>  
-              </div>
-              <div class="task-description">
-                <p class="task-proj">Project Name</p>
-                <p class="task-due-date">April 20</p>
-              </div>
-            </div>
-            <div class="task">            
-              <div class="task-header"> 
-                <p class="task-name">Task meTask Namee</p>
-                <i class="fas task-priority fa-circle"></i>  
-              </div>
-              <div class="task-description">
-                <p class="task-proj">Project Name</p>
-                <p class="task-due-date">April 20</p>
-              </div>            
-            </div>
-         
-            <-- this form will be rendered when plus btn is clicked
-             and removed after submission ->
-            <form class="add-task-form">
-              <input type="text" class="add-task-in" />
-              <div class="add-task-btns">
-                <button type="submit" class="add-task-btn">Add task</button>
-                <div class="x-mark">
-                  <i class="fas fa-xmark"></i>
-                </div>
-              </div>
-            </form>
-          </div>
-
-          <div class="col-footer">        
-            <button class="add-task-btn"><i class="fas fa-plus"></i></button>
-          </div>
-          
-        </div>
-        -->
+        <!-- cols will be rendered here -->
       </div>
 
-      <!-- this buttons is the only initially visible element from kanban-container -->
+      <!-- this button is the only initially visible element from kanban-container -->
       <button id="add-list-btn">
         <i class="fa list-plus fa-plus"></i> Add a list
       </button>
@@ -86,60 +36,6 @@
     </div>
 
     <!--  POPUPs  -->
-    <dialog id="task-dialog">   
-      <div class="task-header col-color">
-        <i class="fas popup-xmark fa-xmark"></i>
-      </div>
-
-      <div class="task-dialog">
-
-        <div class="dialog-name">
-          <p class="task-d task-name">Task Name</p>
-        </div>
-       
-        <p class="task-tag">Project</p>
-        <p class="task-d task-proj"></p>
-
-        <p class="task-tag">Assignee</p>
-        <p class="task-d task-assignee"></p>
-
-        <p class="task-tag">Description</p>
-        <p class="task-d task-description"></p>
-
-        <div class="priority-and-date">
-           <div class="priority-task">
-            <p class="task-tag">Priority:</p>
-            <select id="task-priority">
-              <option value="select" selected>Select</option>
-              <option value="low">Low</option>
-              <option value="medium">Medium</option>
-              <option value="high">High</option>
-            </select>
-          </div>
-
-          <div class="due-date-opt">
-            <p class="task-tag">Due Date:</p>
-            <input type="date" id="task-due-date" name="due-date">
-          </div>
-        </div>
-
-        <div class="save-del-btns">
-          <button id="popup-delete">Delete</button>
-          <button id="popup-save">Save</button>
-        </div>
-        
-      </div>
-    </dialog>
-
-    <dialog id="confirm-task-dialog">
-      <div class="confirm-task">
-        <p>Are you sure you want to delete this task?</p>
-        <div class="confirm-buttons">
-          <button id="confirm-delete" class="confirm-task-delete">Yes, delete it</button>
-          <button id="confirm-not-delete" class="not-confirm-task-delete">No</button>
-        </div>
-      </div>
-    </dialog>
 
     <dialog id="col-dialog">
       <div class="col-palette">
@@ -153,7 +49,7 @@
         </div>
       </div>
       <div class="col-name">
-        <p class="column-title">Title</p>
+        <p class="col-n">Title</p>
         <div class="form-wrapper">
           <form class="col-form">     
             <input type="text" id="change-col-name" placeholder="Rename list">        
@@ -175,8 +71,81 @@
       </div>
     </dialog>
 
+    
 
+    <dialog id="task-dialog">   
+      <div class="task-header col-color">
+        <i class="fas popup-xmark fa-xmark"></i>
+      </div>
+      <div class="task-dialog">
 
+      <div class="task-name-wrapper">
+        <p class="task-n">Title</p>
+        <form class="task-name">
+          <input type="text" id="change-task-name"></input>
+        </form>
+        <div class="task-assignee-wrapper">
+          <p class="assignee-n">Assigned to:</p>
+          <p class="task-assignee"></p>
+          <i class="fas fa-user-pen" id="change-task-assignee"></i>
+        </div>
+      </div>
+
+       <div class="proj-name-wrapper">
+        <p class="proj-n">Project</p>
+        <form class="proj-name">
+          <input type="text" id="change-proj-name" placeholder="Add project name..."></input>
+        </form>
+      </div>
+
+       <div class="task-descr-wrapper">
+        <p class="proj-n">Description</p>
+        <form class="task-descr">
+          <input type="text" id="change-task-descr" placeholder="Add task description..."></input>
+        </form>
+      </div>
+
+        <div class="details-wrapper">
+          <div class="priority-task">
+            <p class="task-tag"><i class="fas fa-sort"></i></p>
+            <select id="task-priority">
+              <option value="select" selected>Priority</option>
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+            </select>
+          </div>
+
+          <div class="due-date-opt">
+            <p class="task-tag">
+              <i class="fas fa-clock-rotate-left"></i>
+            </p>
+            <span id="due-date-display">Select date</span>
+
+            <input type="date" id="task-due-date" name="due-date">
+          </div>
+        </div>
+
+        <!-- save / delete -->
+        <div class="save-del-btns">
+          <button id="popup-delete">Delete</button>
+          <button id="popup-save">Save</button>
+        </div>
+      </div>
+    </dialog>
+
+    <!--confirm task deletion dialog-->
+    <dialog id="confirm-task-dialog">
+      <div class="confirm-task">
+        <p>Are you sure you want to delete this task?</p>
+        <div class="confirm-buttons">
+          <button id="confirm-delete" class="confirm-task-delete">Yes, delete it</button>
+          <button id="confirm-not-delete" class="not-confirm-task-delete">No</button>
+        </div>
+      </div>
+    </dialog>
+
+    <!-- customize bg dialog -->
     <dialog id="bg-dialog" class="bg-dialog">
       <div class="bg-header">
         <p>Customize background</p>

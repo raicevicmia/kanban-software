@@ -6,10 +6,11 @@ const dialog = document.getElementById("task-dialog");
 
 //const headerEl = dialog.querySelector(".task-header")
 const xmark = dialog.querySelector(".popup-xmark");
-const titleEl = dialog.querySelector(".task-name");
-const projectEl = dialog.querySelector(".task-proj");
+const titleForm = dialog.querySelector(".task-name");
+const titleIn = dialog.querySelector("#change-task-name");
+const projectEl = dialog.querySelector("#change-proj-name");
 const assigneeEl = dialog.querySelector(".task-assignee");
-const descriptionEl = dialog.querySelector(".task-description");
+const descriptionEl = dialog.querySelector("#change-task-descr");
 const priorityEl = dialog.querySelector("#task-priority");
 const dueDateEl = dialog.querySelector("#task-due-date");
 const saveBtnEl = dialog.querySelector("#popup-save");
@@ -46,10 +47,10 @@ export function closeTaskDialog() {
 export function fillDialog(task) {
   //applyTaskHeaderClr(headerEl, task);
 
-  titleEl.textContent = task.title || "";
+  titleIn.textContent = task.title || "";
   projectEl.textContent = task.project || "";
   assigneeEl.textContent = task.assignee || "";
-  descriptionEl.textContent = task.description || "";
+  descriptionEl.textContent = task.description || "Add a more detailed description...";
   priorityEl.value = task.priority || "select";
   dueDateEl.value = task.dueDate || "";
 }
@@ -90,7 +91,7 @@ export function saveField(fieldEl, field){
 }
 
 export function saveAll() {
-  saveField(titleEl, "title");
+  saveField(titleIn, "title");
   saveField(projectEl, "project");
   saveField(descriptionEl, "description");
   saveField(assigneeEl, "assignee");
@@ -130,8 +131,8 @@ export function deleteTask(){
 // EVENTS
 xmark.addEventListener("click", closeTaskDialog);
 
-titleEl.addEventListener("click", () => {
-  editMode(titleEl, "title");
+titleIn.addEventListener("click", () => {
+  editMode(titleIn, "title");
 });
 
 projectEl.addEventListener("click", () => {
