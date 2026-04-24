@@ -1,16 +1,18 @@
 import { saveState, state, changeTaskPriority, changeTaskDueDate, } from "./api.js";
 import { renderColContainer } from "./dom.js";
 import { formatDate, updateDialogDateUI, updatePriorityColor } from "./utils.js";
-//import { applyTaskHeaderClr } from "./utils.js"
 
 const dialog = document.getElementById("task-dialog");
 
-//const headerEl = dialog.querySelector(".task-header")
 const xmark = dialog.querySelector(".popup-xmark");
-const titleForm = dialog.querySelector(".task-name");
+
 const titleIn = dialog.querySelector("#change-task-name");
-const projectEl = dialog.querySelector("#change-proj-name");
+
+const projectIn = dialog.querySelector("#change-proj-name");
+/*
 const assigneeEl = dialog.querySelector(".task-assignee");
+const assigneeForm = dialog.querySelector(".assignee-name");
+*/
 const descriptionEl = dialog.querySelector("#change-task-descr");
 const priorityEl = dialog.querySelector("#task-priority");
 
@@ -27,78 +29,33 @@ const notConfirmBtn = document.querySelector(".not-confirm-task-delete")
 
 let currentTask = null;
 
-// Track inputs per field
-let editingEl = {
-  title: null,
-  project: null,
-  assignee: null,
-  description: null,
-};
-
-
 // OPEN / CLOSE
 export function openTaskDialog(task) {
   currentTask = task;
-  fillDialog(task);
+  renderTaskDialog(task);
   updatePriorityColor(priorityEl);
   updateDialogDateUI(dueDateSpan, task);
   dialog.showModal();
 }
-
 export function closeTaskDialog() {
   dialog.close();
 }
+document.addEventListener("click", (e) => {
+  if(e.target === dialog) closeTaskDialog();
+})
 
-// FILL DATA
-export function fillDialog(task) {
-  //applyTaskHeaderClr(headerEl, task);
-
-  titleIn.textContent = task.title || "";
-  projectEl.textContent = task.project || "";
-  assigneeEl.textContent = task.assignee || "";
-  descriptionEl.textContent = task.description || "Add a more detailed description...";
+// render DATA
+export function renderTaskDialog(task) {
+  titleIn.value = task.title || "";
+  projectIn.value = task.project || "";
+  //assigneeEl.value = task.assignee || "";
+  //descriptionEl.value = task.description || "Add a more detailed description...";
   priorityEl.value = task.priority || "select";
   dueDateEl.value = task.dueDate || "";
 }
 
-// EDIT 
-export function editMode(el, key) {
-  // prevent opening multiple inputs on same field
-  if (editingEl[key]) return;
-
-  const textareaEl = document.createElement("textarea");
-  textareaEl.classList.add("edit");
-  textareaEl.value = el.textContent;
-
-  editingEl[key] = textareaEl;
-
-  el.replaceWith(textareaEl);
-  
-  textareaEl.style.height = textareaEl.scrollHeight + "px";
-  textareaEl.spellcheck = false;
-
-}
-
 // SAVE
-export function saveField(fieldEl, field){
-  const input = editingEl[field];
-  if (!currentTask || !input) return;
-
-  const newValue = input.value.trim();
-  if (!newValue) return;
-
-  currentTask[field] = newValue; // change state value
-  fieldEl.textContent = newValue; // change dialog value
-
-  input.replaceWith(fieldEl);
-  editingEl[field] = null;
-}
 export function saveAll() {
-  saveField(titleIn, "title");
-  saveField(projectEl, "project");
-  saveField(descriptionEl, "description");
-  saveField(assigneeEl, "assignee");
-
   saveState();
   renderColContainer();
 }
@@ -123,7 +80,6 @@ export function deleteTask(){
       break;
     }
   }
-
   saveState();
   renderColContainer();
   closeTaskDialog();
@@ -133,20 +89,16 @@ export function deleteTask(){
 // EVENTS
 xmark.addEventListener("click", closeTaskDialog);
 
-titleIn.addEventListener("click", () => {
-  editMode(titleIn, "title");
+titleIn.addEventListener("change", () => {
+  currentTask.title = titleIn.value.trim();
+  titleIn.blur(); 
+  saveAll();
 });
 
-projectEl.addEventListener("click", () => {
-  editMode(projectEl, "project");
-});
-
-assigneeEl.addEventListener("click", () => {
-  editMode(assigneeEl, "assignee");
-});
-
-descriptionEl.addEventListener("click", () => {
-  editMode(descriptionEl, "description");
+projectIn.addEventListener("change", () => {
+  currentTask.project = projectIn.value.trim();
+  projectIn.blur(); 
+  saveAll();
 });
 
 priorityEl.addEventListener("change", (e) => {
@@ -166,9 +118,5 @@ dueDateEl.addEventListener("change", (e) => {
 });
 
 saveBtnEl.addEventListener("click", saveAll);
-
 deleteBtnEl.addEventListener("click", confirmDeleting);
 
-document.addEventListener("click", (e) => {
-  if(e.target === dialog) closeTaskDialog();
-})

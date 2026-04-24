@@ -334,11 +334,6 @@ border: 1px solid var(--outline-color);
   padding: 8px 0 24px;
 }
 
-.task-name{
-  color: black;
-  font-size: 1rem;
-}
-
 .fa-circle{
   font-size: .8rem;
   color: var(--medium-grey);
@@ -798,6 +793,7 @@ textarea {
   all: unset;
   white-space: pre-wrap;
   word-break: break-all;
+  border: 1px solid var(--pastel-medium-grey);
 }
 
 /*  delete & save buttons  */
