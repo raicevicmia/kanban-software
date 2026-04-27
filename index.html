@@ -70,7 +70,6 @@
         </div>
       </div>
     </dialog>
-
     
     <!-- task dialog -->
     <dialog id="task-dialog">   
@@ -85,9 +84,9 @@
 
         <div class="task-details-wrapper">
           <div class="task-assignee-wrapper">
+            <i class="fas fa-user-pen" class="task-assignee-icon"></i>
             <p class="assignee-n">Assigned to:</p>
-            <p class="task-assignee"></p>
-            <i class="fas fa-user-pen" id="change-task-assignee"></i>
+            <input id="change-task-assignee"></input>
           </div>
 
           <div class="prio-and-date-wrapper">
@@ -121,9 +120,7 @@
 
        <div class="task-descr-wrapper">
         <p class="proj-n">Description</p>
-        <form class="task-descr">
-          <input type="text" id="change-task-descr" placeholder="Add task description..."></input>
-        </form>
+        <textarea type="text" id="change-task-descr" placeholder="Add task description..." spellcheck="false"></textarea>
       </div>
 
         <!-- save / delete -->

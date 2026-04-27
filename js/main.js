@@ -14,4 +14,4 @@ addListBtn.addEventListener("click", renderColForm);
 customizeBg.addEventListener("click", openBgDialog);
 
 console.log(state);
-localStorage.clear();
+//localStorage.clear();

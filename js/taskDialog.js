@@ -1,6 +1,6 @@
 import { saveState, state, changeTaskPriority, changeTaskDueDate, } from "./api.js";
 import { renderColContainer } from "./dom.js";
-import { formatDate, updateDialogDateUI, updatePriorityColor } from "./utils.js";
+import { autoResize, formatDate, setInputWidth, updateDialogDateUI, updatePriorityColor } from "./utils.js";
 
 const dialog = document.getElementById("task-dialog");
 
@@ -9,11 +9,13 @@ const xmark = dialog.querySelector(".popup-xmark");
 const titleIn = dialog.querySelector("#change-task-name");
 
 const projectIn = dialog.querySelector("#change-proj-name");
-/*
-const assigneeEl = dialog.querySelector(".task-assignee");
-const assigneeForm = dialog.querySelector(".assignee-name");
-*/
+
+const assigneeWrap = dialog.querySelector(".task-assignee-wrapper");
+const assigneeIn = dialog.querySelector("#change-task-assignee");
+
 const descriptionEl = dialog.querySelector("#change-task-descr");
+
+const priorityDiv = dialog.querySelector(".priority-task");
 const priorityEl = dialog.querySelector("#task-priority");
 
 const dueDateDiv = dialog.querySelector(".due-date-opt");
@@ -48,7 +50,8 @@ document.addEventListener("click", (e) => {
 export function renderTaskDialog(task) {
   titleIn.value = task.title || "";
   projectIn.value = task.project || "";
-  //assigneeEl.value = task.assignee || "";
+  assigneeIn.value = task.assignee || "";
+  setInputWidth(assigneeIn);
   //descriptionEl.value = task.description || "Add a more detailed description...";
   priorityEl.value = task.priority || "select";
   dueDateEl.value = task.dueDate || "";
@@ -95,10 +98,24 @@ titleIn.addEventListener("change", () => {
   saveAll();
 });
 
-projectIn.addEventListener("change", () => {
-  currentTask.project = projectIn.value.trim();
-  projectIn.blur(); 
+assigneeWrap.addEventListener("click", () => {
+  assigneeIn.focus();
+  assigneeIn.setSelectionRange(assigneeIn.value.length, assigneeIn.value.length);
+});
+
+assigneeIn.addEventListener("input", () => {
+  setInputWidth(assigneeIn);
+});
+
+assigneeIn.addEventListener("change", () => {
+  currentTask.assignee = assigneeIn.value.trim();
+  setInputWidth(assigneeIn);
+  assigneeIn.blur();
   saveAll();
+});
+
+priorityDiv.addEventListener("click", () => {
+  priorityEl.showPicker();
 });
 
 priorityEl.addEventListener("change", (e) => {
@@ -114,6 +131,17 @@ dueDateDiv.addEventListener("click", () => {
 dueDateEl.addEventListener("change", (e) => {
   changeTaskDueDate(currentTask, e.target.value);
   updateDialogDateUI(dueDateSpan, currentTask);
+  saveAll();
+});
+
+projectIn.addEventListener("change", () => {
+  currentTask.project = projectIn.value.trim();
+  projectIn.blur(); 
+  saveAll();
+});
+
+descriptionEl.addEventListener("input", () => {
+  autoResize(descriptionEl);
   saveAll();
 });
 

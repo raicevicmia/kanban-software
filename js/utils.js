@@ -61,6 +61,15 @@ export function updateDialogDateUI(dateUI, task){
   }
 }
 
+export function setInputWidth(el) {
+  el.style.width = Math.max(3, el.value.length + 2) + "ch";
+}
+
+export function autoResize(el) {
+  el.style.height = 'auto'; 
+  el.style.height = el.scrollHeight + "px";
+}
+
 
 
 /*

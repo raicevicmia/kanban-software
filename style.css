@@ -675,10 +675,13 @@ dialog::backdrop {
   display: flex;
   align-items: center;
   gap: 40px;
+  margin-top: 4px;
 }
 
 .task-assignee-wrapper{
   display: flex;
+  align-items: center;
+  gap: 4px;
   margin: 12px 0 0 4px;
   color: var(--pale-blue);
   cursor: pointer;
@@ -686,15 +689,38 @@ dialog::backdrop {
 
 .task-assignee-wrapper:hover{
   color: var(--dark-blue);
+  .task-assignee-icon{
+    color: var(--dark-blue);
+  }
+}
+
+.assignee-field {
+  display: flex;
+  align-items: center;
 }
 
 .assignee-n{
+  font-size: 0.9rem;
+}
+
+.task-assignee-icon{
   font-size: 0.8rem;
+  padding-bottom: 2px;;
+  color: var(--pale-blue)
 }
 
 #change-task-assignee{
-  font-size: .8rem;
-  padding-left: 8px;
+  font-size: .9rem;
+  border: none;
+  padding: 4px 0;
+  width: 2ch;
+  color: var(--dark-blue);
+}
+
+#change-task-assignee:focus{
+  border: none;
+  outline: none;
+  color: black;
 }
 
 .prio-and-date-wrapper{
@@ -789,11 +815,17 @@ dialog::backdrop {
   pointer-events: none;
 }
 
-textarea {
+#change-task-descr {
   all: unset;
   white-space: pre-wrap;
   word-break: break-all;
   border: 1px solid var(--pastel-medium-grey);
+  height: fit-content;
+  width: 50vw;
+  padding: 4px;
+  border-radius: var(--small-radius);
+  overflow: hidden;
+  resize: none;
 }
 
 /*  delete & save buttons  */
