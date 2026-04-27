@@ -1,12 +1,13 @@
 import { saveState, state, changeTaskPriority, changeTaskDueDate, } from "./api.js";
 import { renderColContainer } from "./dom.js";
-import { autoResize, formatDate, setInputWidth, updateDialogDateUI, updatePriorityColor } from "./utils.js";
+import { autoResize, formatDate, handleNameSubmission, isTitleValid, setInputWidth, updateDialogDateUI, updatePriorityColor } from "./utils.js";
 
 const dialog = document.getElementById("task-dialog");
 
 const xmark = dialog.querySelector(".popup-xmark");
 
 const titleIn = dialog.querySelector("#change-task-name");
+const error = dialog.querySelector(".missing-title");
 
 const projectIn = dialog.querySelector("#change-proj-name");
 
@@ -43,16 +44,37 @@ export function closeTaskDialog() {
   dialog.close();
 }
 document.addEventListener("click", (e) => {
-  if(e.target === dialog) closeTaskDialog();
-})
+  if (e.target !== dialog) return;
 
-// render DATA
+  if (!isTitleValid(titleIn)) {
+    handleNameSubmission(error, titleIn);
+    return;
+  }
+
+  closeTaskDialog();
+});
+document.addEventListener("keydown", (e) => {
+  if (e.key !== "Escape") return;
+  if (!dialog.open) return;
+
+  if (!isTitleValid(titleIn)) {
+    e.preventDefault();
+    e.stopPropagation();
+    handleNameSubmission(error, titleIn);
+    return;
+  }
+
+  dialog.close();
+});
+
+
+// render data
 export function renderTaskDialog(task) {
   titleIn.value = task.title || "";
   projectIn.value = task.project || "";
   assigneeIn.value = task.assignee || "";
   setInputWidth(assigneeIn);
-  //descriptionEl.value = task.description || "Add a more detailed description...";
+  descriptionEl.value = task.description || "Add a more detailed description...";
   priorityEl.value = task.priority || "select";
   dueDateEl.value = task.dueDate || "";
 }
@@ -90,23 +112,42 @@ export function deleteTask(){
 
 
 // EVENTS
-xmark.addEventListener("click", closeTaskDialog);
+xmark.addEventListener("click", () => {
+  if (!isTitleValid(titleIn)) {
+    handleNameSubmission(error, titleIn);
+    return;
+  }
+
+  closeTaskDialog();
+});
+
 
 titleIn.addEventListener("change", () => {
-  currentTask.title = titleIn.value.trim();
-  titleIn.blur(); 
-  saveAll();
+  if(isTitleValid(titleIn)){
+    currentTask.title = titleIn.value.trim();
+    titleIn.blur(); 
+    saveAll();
+  } else {
+    handleNameSubmission(error, titleIn);
+    return;
+  }
 });
+titleIn.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    if (!isTitleValid(titleIn)) {
+      handleNameSubmission(error, titleIn);
+    }
+  }
+});
+
 
 assigneeWrap.addEventListener("click", () => {
   assigneeIn.focus();
   assigneeIn.setSelectionRange(assigneeIn.value.length, assigneeIn.value.length);
 });
-
 assigneeIn.addEventListener("input", () => {
   setInputWidth(assigneeIn);
 });
-
 assigneeIn.addEventListener("change", () => {
   currentTask.assignee = assigneeIn.value.trim();
   setInputWidth(assigneeIn);
@@ -114,25 +155,26 @@ assigneeIn.addEventListener("change", () => {
   saveAll();
 });
 
+
 priorityDiv.addEventListener("click", () => {
   priorityEl.showPicker();
 });
-
 priorityEl.addEventListener("change", (e) => {
   changeTaskPriority(currentTask, e.target.value);
   updatePriorityColor(priorityEl);
   saveAll();
 });
 
-dueDateDiv.addEventListener("click", () => {
-  dueDateEl.showPicker(); // moderni browseri imaju ovo
-});
 
+dueDateDiv.addEventListener("click", () => {
+  dueDateEl.showPicker(); 
+});
 dueDateEl.addEventListener("change", (e) => {
   changeTaskDueDate(currentTask, e.target.value);
   updateDialogDateUI(dueDateSpan, currentTask);
   saveAll();
 });
+
 
 projectIn.addEventListener("change", () => {
   currentTask.project = projectIn.value.trim();
@@ -140,10 +182,13 @@ projectIn.addEventListener("change", () => {
   saveAll();
 });
 
+
 descriptionEl.addEventListener("input", () => {
+  currentTask.description = descriptionEl.value.trim();
   autoResize(descriptionEl);
   saveAll();
 });
+
 
 saveBtnEl.addEventListener("click", saveAll);
 deleteBtnEl.addEventListener("click", confirmDeleting);

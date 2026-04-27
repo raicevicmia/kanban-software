@@ -1,9 +1,7 @@
 import { state, addCol, addTask } from "./api.js";
 import { openTaskDialog } from "./taskDialog.js";
 import { initColDialog } from "./colDialog.js";
-import { getPrioColor, formatDate, toggleTasks, applyColState, applyColClr, updatePriorityColor } from "./utils.js";
-
-const TIMEOUT_DURATION = 3000;
+import { getPrioColor, formatDate, toggleTasks, applyColState, applyColClr, updatePriorityColor, handleNameSubmission } from "./utils.js";
 
 export function renderColContainer(){
   const colContainer = document.querySelector(".col-container");
@@ -63,17 +61,7 @@ export function renderColForm(){
     const colName = input.value.trim();
 
     if(!colName) {
-      error.textContent = "Please add column name!";
-      input.addEventListener("input", () => {
-        error.textContent = "";
-      });
-
-      clearTimeout(errorTimeout);
-
-      errorTimeout = setTimeout(() => {
-        error.textContent = "";
-      }, TIMEOUT_DURATION);
-
+      handleNameSubmission(error, input, errorTimeout);
       return;
     }
 
@@ -214,18 +202,8 @@ export function renderTaskForm(taskContainer, colId){
     e.preventDefault();
     const taskName = input.value.trim();
 
-    if(!taskName) {
-      error.textContent = "Please add task name!";
-      input.addEventListener("input", () => {
-        error.textContent = "";
-      });
-
-      clearTimeout(errorTimeout);
-
-      errorTimeout = setTimeout(() => {
-        error.textContent = "";
-      }, TIMEOUT_DURATION);
-
+    if (!taskName) {
+      handleNameSubmission(error, input, errorTimeout);
       return;
     }
 

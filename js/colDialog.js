@@ -1,12 +1,13 @@
 import { saveState, state } from "./api.js";
 import { renderColContainer } from "./dom.js";
+import { handleNameSubmission, isTitleValid } from "./utils.js";
 
 const dialogEl = document.getElementById("col-dialog");
 const colorEl = document.getElementById("col-palette");
 const inputEl = document.getElementById("change-col-name");
+const error = dialogEl.querySelector(".missing-title");
 const saveBtn = document.querySelector(".saveCol");
 const deleteBtn = document.querySelector(".delCol");
-const form = document.querySelector(".col-form");
 
 const confirmColDelete = document.getElementById("confirm-col-dialog");
 const confirmBtn = document.querySelector(".confirm-col-delete");
@@ -22,9 +23,14 @@ export function initColDialog(col, el){
   column = col;
 
   colorEl.onclick = (e) => changeColClr(e, col);
+  console.log(error);
 }
-
 function closeColDialog(){
+  if(!isTitleValid(inputEl)){
+    handleNameSubmission(error, inputEl);
+    return;
+  }
+  
   dialogEl.close();
 }
 
@@ -102,18 +108,51 @@ function confirmDeleting(){
 }
 
 // EVENTS:
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-  changeColTitle(column);
-  closeColDialog();
+
+/* if validation passes, state and UI are updated and dialog is closed */
+
+// validate input on Enter
+inputEl.addEventListener("keydown", (e) => {
+  if(e.key === "Enter"){
+    if(!isTitleValid(inputEl)){
+      handleNameSubmission(error, inputEl);
+      return;
+    } else {
+      changeColTitle(column);
+      saveChanges();
+      closeColDialog();
+    }
+  }
 });
 
-deleteBtn.addEventListener("click", confirmDeleting);
-
+// validate input on clicking outside of dialog
 document.addEventListener("click", (e) => {
+  if (e.target === dialogEl && !isTitleValid(inputEl)){
+    handleNameSubmission(error, inputEl);
+    return;
+  }
   if (e.target === dialogEl){
     changeColTitle(column);
     saveChanges();
     closeColDialog();
   }
 });
+
+// validate input on ESC
+document.addEventListener("keydown", (e) => {
+  if(e.key !== "Escape") return;
+
+  if (!isTitleValid(inputEl)) {
+    if (!isTitleValid(inputEl)) {
+      e.preventDefault();
+      e.stopPropagation();
+      handleNameSubmission(error, inputEl);
+      return;
+    }
+  
+  dialogEl.close();
+  }
+});
+
+
+deleteBtn.addEventListener("click", confirmDeleting);

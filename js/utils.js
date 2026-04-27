@@ -70,18 +70,25 @@ export function autoResize(el) {
   el.style.height = el.scrollHeight + "px";
 }
 
+/* error handling */
 
-
-/*
-export function getColClr(task){
-  return state.columns.find(c => c.id === task.columnId).color;
+export function isTitleValid(title){
+  return title.value.trim().length > 0;
 }
 
-export function applyTaskHeaderClr(taskHeader, task){
-  taskHeader.dataset.color = getColClr(task);
-  console.log(taskHeader.dataset.color);
+export function handleNameSubmission(error, input){
+  error.textContent = "Please fill out this field!";
+
+  input.addEventListener("input", () => {
+    error.textContent = "";
+  }, { once: true });
+
+  setTimeout(() => {
+    error.textContent = "";
+  }, 3000);
 }
-*/
+
+
 
 /*
 export function getDragAfterElement(container, y) {
@@ -118,27 +125,5 @@ export function showError(container, message) {
 export function clearError(container) {
   const error = container.querySelector(".error");
   if (error) error.remove();
-}
-*/
-
-/*
-export function getPriorityColor(task, circle){
-  let circleColor = null;
-
-  switch(task.priority){
-    case "Low":
-      circle.classList.add("prio-low");
-      break;
-
-    case "Medium":
-      circle.classList.add("prio-medium");
-      break;
-
-    case "High":
-      circle.classList.add("prio-high");
-      break;
-    }
-
-  return circleColor;
 }
 */
