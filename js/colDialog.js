@@ -35,6 +35,14 @@ function closeColDialog(){
 }
 
 function positionDialogRelativeTo(el, dialogEl) {
+    if (window.innerWidth <= 600) {
+    // mobile → center it
+    dialogEl.style.top = "50%";
+    dialogEl.style.left = "50%";
+    dialogEl.style.transform = "translate(-50%, -50%)";
+    return;
+  }
+
   const rect = el.getBoundingClientRect();
   const BOT_DIALOG_OFFSET = -80;
   const LEFT_DIALOG_OFFSET = 220;

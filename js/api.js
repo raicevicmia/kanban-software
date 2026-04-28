@@ -75,8 +75,6 @@ export function changeTaskDueDate(task, newDate){
 
 export function moveTask(taskId, colId, afterTaskId) {
   let movedTask = null;
-
-  // 1. remove from ANY column
   let sourceCol = null;
 
   for (const col of state.columns) {
@@ -88,14 +86,11 @@ export function moveTask(taskId, colId, afterTaskId) {
       break;
     }
   }
-
   if (!movedTask) return;
 
-  // 2. find target column
   const targetCol = state.columns.find(c => c.id === colId);
   if (!targetCol) return;
 
-  // 3. compute insert index
   let insertIndex = targetCol.tasks.length;
 
   if (afterTaskId) {
