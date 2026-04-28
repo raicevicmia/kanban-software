@@ -24,7 +24,6 @@ export function handleDragOver(e) {
   e.preventDefault(); // to allow dropping
 
   const container = e.currentTarget;
-
   const afterElement = getDragAfterElement(container, e.clientY);
 
   afterTaskId = afterElement?.dataset.id

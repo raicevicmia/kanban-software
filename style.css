@@ -575,14 +575,14 @@ dialog::backdrop {
 }
 
 .form-wrapper,
-.task-name-wrapper,
+.task-upper-wrapper,
 .proj-name-wrapper,
 .task-descr-wrapper {
   position: relative;
 }
 
 .form-wrapper::after,
-.task-name-wrapper::after,
+.task-upper-wrapper::after,
 .proj-name-wrapper::after,
 .task-descr-wrapper::after 
  {
@@ -660,7 +660,7 @@ dialog::backdrop {
   margin: 8px 4px;
 }
 
-.task-name-wrapper, 
+.task-upper-wrapper, 
 .proj-name-wrapper,
 .task-descr-wrapper{
   display: flex;
@@ -1029,3 +1029,49 @@ dialog::backdrop {
   margin-top: 5px;
 }
 
+/*  RESPONSIVE DESIGN  */
+
+@media (max-width: 840px){
+  .task-dialog{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .kanban-container{
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .col-container{
+    flex-direction: column;
+  }
+
+  .task-details-wrapper{
+    flex-direction: column;
+    gap: 4px;
+    padding-left: 28px;
+  }
+
+  .prio-and-date-wrapper{
+    padding-right: 28px;
+  }
+
+  .task-name-wrapper,
+  .proj-name-wrapper,
+  .task-descr-wrapper{
+    align-items: center;
+    padding: 16px auto;
+  }
+
+  .task-name-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 20px;
+  }
+
+  .task-descr-wrapper{
+    padding: auto 20px; auto 36px;
+  }
+}
