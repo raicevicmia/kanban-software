@@ -74,8 +74,8 @@ export function renderTaskDialog(task) {
   projectIn.value = task.project || "";
   assigneeIn.value = task.assignee || "";
   setInputWidth(assigneeIn);
-  descriptionEl.value = task.description || "Add a more detailed description...";
-  priorityEl.value = task.priority || "select";
+  descriptionEl.value = task.description || "";
+  priorityEl.value = task.priority || "Priority";
   dueDateEl.value = task.dueDate || "";
 }
 

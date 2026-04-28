@@ -2,6 +2,7 @@ import { state, addCol, addTask } from "./api.js";
 import { openTaskDialog } from "./taskDialog.js";
 import { initColDialog } from "./colDialog.js";
 import { getPrioColor, formatDate, toggleTasks, applyColState, applyColClr, updatePriorityColor, handleNameSubmission } from "./utils.js";
+import { handleDragStart, handleDragEnd, handleDragOver, handleDrop } from "./drag.js";
 
 export function renderColContainer(){
   const colContainer = document.querySelector(".col-container");
@@ -154,6 +155,12 @@ export function renderCol(col){
     renderTaskForm(taskContainer, col.id);
   });
 
+  taskContainer.addEventListener("dragover", handleDragOver);
+
+  taskContainer.addEventListener("drop", () => {
+    handleDrop(col.id);
+  });
+
   //RENDER TASKS INSIDE IT
   col.tasks.forEach(task => renderTask(task, taskContainer));
 }
@@ -165,10 +172,10 @@ export function renderTaskForm(taskContainer, colId){
 
   // RENDERING TASK FORM
   const form = document.createElement("form");
-  form.classList.add("add-task-form")
+  form.classList.add("add-task-form");
 
   const containerEl = document.createElement("div");
-  containerEl.classList.add("add-task-form-container")
+  containerEl.classList.add("add-task-form-container");
 
   const input = document.createElement("input");
   input.className = "add-task-in";
@@ -216,10 +223,12 @@ export function renderTaskForm(taskContainer, colId){
   xMark.addEventListener("click", () => form.remove());
 }
 
-export function renderTask(task, taskContainer){
+export function renderTask(task, taskContainer, taskId){
   const taskEl = document.createElement("div");
   taskEl.classList.add("task");
   getPrioColor(task, taskEl);
+  taskEl.draggable = true;
+  taskEl.dataset.id = task.id;
 
   const header = document.createElement("div");
   header.classList.add("task-header");
@@ -228,13 +237,7 @@ export function renderTask(task, taskContainer){
   name.classList.add("task-name");
   name.textContent = task.title;
 
-  /*
-  const circle = document.createElement("i");
-  circle.classList.add("fas", "fa-circle");
-  getPriorityColor(task, circle);
-  */
-
-  header.append(name, /*circle*/);
+  header.append(name);
 
   const desc = document.createElement("div");
   desc.classList.add("task-description");
@@ -252,9 +255,15 @@ export function renderTask(task, taskContainer){
   taskEl.append(header, desc);
   taskContainer.appendChild(taskEl);
 
+
   //EVENT LISTENERS
+
   taskEl.addEventListener("click", () => {
     openTaskDialog(task);
   });
+
+  taskEl.addEventListener("dragstart", handleDragStart);
+
+  taskEl.addEventListener("dragend", handleDragEnd);
 
 }

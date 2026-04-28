@@ -37,9 +37,9 @@
   --pastel-medium-grey: #e1e2e7;
   --pastel-coral: #ffe2e2;
   --pastel-blue: #daeeff;
-  --pastel-green: #e3ffdf;
-  --pastel-yellow: #fffbd8;
-  --pastel-red: #ffe1e1;
+  --pastel-green: #ceffd5;
+  --pastel-yellow: #ffffd1;
+  --pastel-red: #ffd2d2;
 
   /*  COL TITLE PALETTE  */
   --strong-yellow: #ffffd1;
@@ -392,6 +392,7 @@ header {
   border-radius: var(--small-radius);
   border-style: none;
   border: 1px solid var(--outline-color);
+  padding: 8px;
 }
 
 .add-task-btns{

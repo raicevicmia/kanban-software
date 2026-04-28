@@ -73,27 +73,27 @@ export function changeTaskDueDate(task, newDate){
   task.dueDate = newDate;
 }
 
+export function moveTask(taskId, newColId) {
+  let movedTask = null;
+ 
+  // remove from old column & store
+  const sourceCol = state.columns.find(col =>
+    col.tasks.some(t => t.id === taskId)
+  );
+  if (!sourceCol) return;
 
-/*
-export function moveTaskToColumn(taskId, col, afterElement) {
-  let movedTask;
-
-  state.columns.forEach((c) => {
-    const index = c.tasks.findIndex((t) => t.id === taskId);
-    if (index !== -1) {
-      movedTask = c.tasks.splice(index, 1)[0];
-    }
-  });
+  const index = sourceCol.tasks.findIndex(t => t.id === taskId);
+  movedTask = sourceCol.tasks.splice(index, 1)[0];
+  console.log(movedTask);
 
   if (!movedTask) return;
 
-  let insertIndex = col.tasks.length;
-  if (afterElement) {
-    const afterId = Number(afterElement.dataset.id);
-    insertIndex = col.tasks.findIndex((t) => t.id === afterId);
-  }
+  // add to new column
+  const newCol = state.columns.find(c => c.id === newColId);
 
-  col.tasks.splice(insertIndex, 0, movedTask);
+  movedTask.columnId = newColId;
+  newCol.tasks.push(movedTask);
 
   saveState();
-}*/
+}
+
