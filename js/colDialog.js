@@ -36,7 +36,7 @@ function closeColDialog(){
 
 function positionDialogRelativeTo(el, dialogEl) {
     if (window.innerWidth <= 600) {
-    // mobile → center it
+
     dialogEl.style.top = "50%";
     dialogEl.style.left = "50%";
     dialogEl.style.transform = "translate(-50%, -50%)";
@@ -161,6 +161,5 @@ document.addEventListener("keydown", (e) => {
   dialogEl.close();
   }
 });
-
 
 deleteBtn.addEventListener("click", confirmDeleting);

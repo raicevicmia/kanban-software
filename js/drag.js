@@ -7,7 +7,7 @@ let afterTaskId = null;
 
 // DRAG START
 export function handleDragStart(e) {
-  draggedTaskId = Number(e.target.dataset.id);
+  draggedTaskId = e.target.dataset.id;
   e.target.classList.add("dragging");
 }
 
@@ -26,9 +26,7 @@ export function handleDragOver(e) {
   const container = e.currentTarget;
   const afterElement = getDragAfterElement(container, e.clientY);
 
-  afterTaskId = afterElement?.dataset.id
-    ? Number(afterElement.dataset.id)
-    : null;
+  afterTaskId = afterElement?.dataset.id || null;
 }
 
 // DROP

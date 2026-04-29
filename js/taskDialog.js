@@ -24,7 +24,7 @@ const dueDateSpan = dialog.querySelector("#due-date-display");
 const dueDateEl = dialog.querySelector("#task-due-date");
 
 const saveBtnEl = dialog.querySelector("#popup-save");
-const deleteBtnEl = dialog.querySelector("#popup-delete");
+const deleteBtnEl = dialog.querySelector(".popup-delete");
 
 const confirmTaskDelete = document.getElementById("confirm-task-dialog");
 const confirmBtn = document.querySelector(".confirm-task-delete");
@@ -81,7 +81,6 @@ export function renderTaskDialog(task) {
 
 // SAVE
 export function saveAll() {
-  saveState();
   renderColContainer();
 }
 

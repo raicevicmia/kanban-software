@@ -22,7 +22,7 @@ export function saveState() {
 
 export function addCol(title) {
   const newCol = {
-    id: Date.now(),
+    id: crypto.randomUUID(),
     title,
     tasks: [],
     open: true,
@@ -49,7 +49,7 @@ export function addTask(colId, title) {
   if (!column) return;
 
  const task = {
-    id: Date.now(),
+    id: crypto.randomUUID(),
     title,
     project: "",
     assignee: "",
@@ -67,21 +67,21 @@ export function addTask(colId, title) {
 
 export function changeTaskPriority(task, newPriority){
   task.priority = newPriority;
+  saveState();
 }
 
 export function changeTaskDueDate(task, newDate){
   task.dueDate = newDate;
+  saveState();
 }
 
 export function moveTask(taskId, colId, afterTaskId) {
   let movedTask = null;
-  let sourceCol = null;
 
   for (const col of state.columns) {
     const index = col.tasks.findIndex(t => t.id === taskId);
 
     if (index !== -1) {
-      sourceCol = col;
       movedTask = col.tasks.splice(index, 1)[0];
       break;
     }
@@ -100,7 +100,6 @@ export function moveTask(taskId, colId, afterTaskId) {
     }
   }
 
-  // 4. insert
   targetCol.tasks.splice(insertIndex, 0, movedTask);
 
   saveState();

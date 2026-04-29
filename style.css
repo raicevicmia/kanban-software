@@ -841,7 +841,7 @@ dialog::backdrop {
   margin: 48px 0 20px;
 }
 
-#popup-save, #popup-delete{
+#popup-save, .popup-delete{
   margin-top: 16px;
   border-radius: var(--medium-radius);
   border: none;
@@ -849,13 +849,13 @@ dialog::backdrop {
   cursor: pointer;
 }
 
-#popup-delete{
+.popup-delete{
   background-color: var(--main-bg-color);
   border: 1px solid var(--classic-red);
   color: var(--classic-red);
 }
 
-#popup-delete:hover{
+.popup-delete:hover{
   background-color: var(--classic-red);
   color: var(--main-bg-color);
 }
@@ -917,22 +917,22 @@ dialog::backdrop {
   cursor: pointer;
 }
 
-#confirm-delete {
+.confirm-delete {
   border: 1px solid var(--classic-red);
   color: var(--classic-red);
 }
 
-#confirm-not-delete {
+.confirm-not-delete {
   border: 1px solid var(--medium-green);
   color: var(--medium-green);
 }
 
-#confirm-delete:hover {
+.confirm-delete:hover {
   background-color: var(--classic-red);
   color: var(--main-bg-color);
 }
 
-#confirm-not-delete:hover{
+.confirm-not-delete:hover{
   background-color: var(--medium-green);
   color: var(--main-bg-color);
 }
