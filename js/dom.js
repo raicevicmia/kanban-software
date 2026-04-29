@@ -77,7 +77,6 @@ export function renderColForm(){
 }
 
 export function createCol(col){
-  // COLUMN
   const column = document.createElement("div");
   column.classList.add("column");
 
@@ -142,27 +141,18 @@ export function renderCol(col){
   applyColState(col.open, taskContainer, chevron, footer);
   applyColClr(col, title);
 
-  // EVENTS
-  title.addEventListener("click", () => {
-    initColDialog(col, title)
+  bindColumnEvents(col, {
+    title,
+    chevron,
+    taskContainer,
+    addTaskBtn,
+    footer,
   });
 
-  chevron.addEventListener("click", () => {
-    toggleTasks(col, taskContainer, chevron, footer);
+  col.tasks.forEach(task => {
+    const taskEl = renderTask(task, taskContainer);
+    bindTaskEvents(taskEl, task);
   });
-
-  addTaskBtn.addEventListener("click", () => {
-    renderTaskForm(taskContainer, col.id);
-  });
-
-  taskContainer.addEventListener("dragover", handleDragOver);
-
-  taskContainer.addEventListener("drop", () => {
-    handleDrop(col.id);
-  });
-
-  //RENDER TASKS INSIDE IT
-  col.tasks.forEach(task => renderTask(task, taskContainer));
 }
 
 export function renderTaskForm(taskContainer, colId){
@@ -223,7 +213,7 @@ export function renderTaskForm(taskContainer, colId){
   xMark.addEventListener("click", () => form.remove());
 }
 
-export function renderTask(task, taskContainer, taskId){
+export function renderTask(task, taskContainer){
   const taskEl = document.createElement("div");
   taskEl.classList.add("task");
   getPrioColor(task, taskEl);
@@ -255,15 +245,36 @@ export function renderTask(task, taskContainer, taskId){
   taskEl.append(header, desc);
   taskContainer.appendChild(taskEl);
 
+  return taskEl;
+}
 
-  //EVENT LISTENERS
+function bindColumnEvents(col, elements){
+  const { title, chevron, taskContainer, addTaskBtn, footer } = elements;
 
+  title.addEventListener("click", () => {
+    initColDialog(col, title)
+  });
+
+  chevron.addEventListener("click", () => {
+    toggleTasks(col, taskContainer, chevron, footer);
+  });
+
+  addTaskBtn.addEventListener("click", () => {
+    renderTaskForm(taskContainer, col.id);
+  });
+
+  taskContainer.addEventListener("dragover", handleDragOver);
+
+  taskContainer.addEventListener("drop", () => {
+    handleDrop(col.id);
+  });
+}
+
+function bindTaskEvents(taskEl, task){
   taskEl.addEventListener("click", () => {
     openTaskDialog(task);
   });
 
   taskEl.addEventListener("dragstart", handleDragStart);
-
   taskEl.addEventListener("dragend", handleDragEnd);
-
 }
