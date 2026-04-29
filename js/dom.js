@@ -46,12 +46,10 @@ function createColForm(){
   return { form, input, error, xIconBtn };
 }
 export function renderColForm(){
-
   const formElements = createColForm();
   if (!formElements) return;
   const { form, input, xIconBtn, error } = formElements;
     
-
   colContainer.after(form);
 
   form.addEventListener("submit", (e) => {
@@ -128,7 +126,9 @@ function renderCol(col){
   renderTasks(col.tasks, taskContainer);
 }
 
-function createTaskForm(){
+function createTaskForm(taskContainer){
+  if (taskContainer.querySelector(".add-task-form")) return;
+
   const form = document.createElement("form");
   form.classList.add("add-task-form");
 
@@ -157,6 +157,7 @@ function createTaskForm(){
   xIconBtn.appendChild(xIcon);
   btnWrapper.append(addBtn, xIconBtn);
   containerEl.append(input, btnWrapper);
+
   form.append(containerEl, error);
 
   return {
@@ -167,25 +168,14 @@ function createTaskForm(){
   }
 }
 function renderTaskForm(taskContainer, colId){
-  if (taskContainer.querySelector(".add-task-form")) return;
+  const formElements = createTaskForm(taskContainer);
+  if (!formElements) return;
+  const { form, input, error, xIconBtn } = formElements;
 
-  const { form, input, error, xIconBtn } = createTaskForm();
   taskContainer.appendChild(form);
 
   form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const taskName = input.value.trim();
-
-    if (!taskName) {
-      handleNameSubmission(error, input);
-      return;
-    }
-
-    const task = addTask(colId, taskName);
-    const taskEl = renderTask(task, taskContainer);
-    bindTaskEvents(taskEl, task);
-
-    form.remove();
+   handleAddTaskSubmit(e, formElements, colId, taskContainer);
   });
 
   xIconBtn.addEventListener("click", () => { 
@@ -193,7 +183,7 @@ function renderTaskForm(taskContainer, colId){
   });
 }
 
-function renderTask(task, taskContainer){
+function createTask(task){
   const taskEl = document.createElement("div");
   taskEl.classList.add("task");
   getPrioColor(task, taskEl);
@@ -202,7 +192,6 @@ function renderTask(task, taskContainer){
 
   const header = document.createElement("div");
   header.classList.add("task-header");
-
   const name = document.createElement("p");
   name.classList.add("task-name");
   name.textContent = task.title;
@@ -211,11 +200,9 @@ function renderTask(task, taskContainer){
 
   const desc = document.createElement("div");
   desc.classList.add("task-description");
-
   const proj = document.createElement("p");
   proj.classList.add("task-proj");
   proj.textContent = task.project;
-
   const due = document.createElement("p");
   due.classList.add("task-due-date");
   due.textContent = formatDate(task.dueDate);
@@ -223,7 +210,15 @@ function renderTask(task, taskContainer){
   desc.append(proj, due);
 
   taskEl.append(header, desc);
+
+  return taskEl;
+}
+
+function renderTask(task, taskContainer){
+  const taskEl = createTask(task);
+
   taskContainer.appendChild(taskEl);
+  bindTaskEvents(taskEl, task);
 
   return taskEl;
 }
@@ -234,7 +229,6 @@ function renderTask(task, taskContainer){
 function renderTasks(tasks, taskContainer){
   tasks.forEach(task => {
     const taskEl = renderTask(task, taskContainer);
-    bindTaskEvents(taskEl, task);
   })
 }
 
@@ -244,13 +238,31 @@ function handleAddColSubmit(e, formElements){
 
   const colName = input.value.trim();
 
-    if(!colName) {
-      handleNameSubmission(error, input);
-      return;
-    }
+  if(!colName) {
+    handleNameSubmission(error, input);
+    return;
+  }
 
   const col = addCol(colName);
   renderCol(col);
+
+  form.remove();
+}
+
+function handleAddTaskSubmit(e, formElements, colId, taskContainer){
+  e.preventDefault();
+  const { form, input, error, xIconBtn } = formElements;
+
+  const taskName = input.value.trim();
+
+  if (!taskName) {
+    handleNameSubmission(error, input);
+    return;
+  }
+
+  const task = addTask(colId, taskName);
+  const taskEl = renderTask(task, taskContainer);
+
   form.remove();
 }
 
