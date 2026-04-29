@@ -243,6 +243,11 @@ header {
   transform: scale(0.97);
 }
 
+.x-icon{
+  background-color: transparent;
+  border: none;
+}
+
 /*  COLUMN CONTAINER  */
 .col-container{
   display: flex;
@@ -570,10 +575,14 @@ dialog::backdrop {
 #change-proj-name,
 #change-task-descr{
   padding: 8px;
-  width: 188px;
+  width: 240px;
   border-radius: var(--medium-radius);
   border: 1px solid var(--pastel-medium-grey);
   /*box-shadow: var(--box-shadow);*/
+}
+
+#change-col-name{
+  width: 188px;
 }
 
 .form-wrapper,

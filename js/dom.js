@@ -1,19 +1,19 @@
 import { state, addCol, addTask } from "./api.js";
 import { openTaskDialog } from "./taskDialog.js";
 import { initColDialog } from "./colDialog.js";
-import { getPrioColor, formatDate, toggleTasks, applyColState, applyColClr, updatePriorityColor, handleNameSubmission } from "./utils.js";
+import { getPrioColor, formatDate, toggleTasks, applyIsColOpen, applyColClr, handleNameSubmission } from "./utils.js";
 import { handleDragStart, handleDragEnd, handleDragOver, handleDrop } from "./drag.js";
 
+const container = document.querySelector(".kanban-container");
+const colContainer = document.querySelector(".col-container");
+
 export function renderColContainer(){
-  const colContainer = document.querySelector(".col-container");
   colContainer.innerHTML = "";
 
   state.columns.forEach(col => renderCol(col));
 }
 
-export function createColForm(){
-  const container = document.querySelector(".kanban-container");
-
+function createColForm(){
   if(container.querySelector(".add-col-form")) return;
 
   const form = document.createElement("form");
@@ -27,91 +27,70 @@ export function createColForm(){
 
   const btnWrapper = document.createElement("div");
   btnWrapper.classList.add("add-col-btns")
-
   const addBtn = document.createElement("button");
   addBtn.classList.add("add-col-btn");
   addBtn.type = "submit";
   addBtn.textContent = "Add list";
 
-  const xMark = document.createElement("button");
-  xMark.classList.add("x-mark");
+  const xIconBtn = document.createElement("button");
+  xIconBtn.classList.add("x-icon");
+  xIconBtn.type = "button";
+  const xIcon = document.createElement("i");
+  xIcon.classList.add("fas", "fa-xmark", "x-mark");
 
-  const faXMark = document.createElement("i");
-  faXMark.classList.add("fas", "fa-xmark");
-
-  xMark.appendChild(faXMark);
-  btnWrapper.append(addBtn, xMark);
+  xIconBtn.appendChild(xIcon);
+  btnWrapper.append(addBtn, xIconBtn);
 
   form.append(input, error, btnWrapper);
 
-  return { form, input, error, xMark };
+  return { form, input, error, xIconBtn };
 }
-
 export function renderColForm(){
-  const colContainer = document.querySelector(".col-container");
 
-  const { form, input, xMark, error } = createColForm();
-
-  let errorTimeout;
+  const formElements = createColForm();
+  if (!formElements) return;
+  const { form, input, xIconBtn, error } = formElements;
+    
 
   colContainer.after(form);
 
   form.addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    const colName = input.value.trim();
-
-    if(!colName) {
-      handleNameSubmission(error, input, errorTimeout);
-      return;
-    }
-
-    const col = addCol(colName);
-    renderCol(col);
-    form.remove();
+    handleAddColSubmit(e, { form, input, error});
   })  
 
-  xMark.addEventListener("click", () => {
+  xIconBtn.addEventListener("click", () => {
     form.remove();
   });
 }
 
-export function createCol(col){
+function createCol(col){
   const column = document.createElement("div");
   column.classList.add("column");
 
-  // HEADER
   const header = document.createElement("div");
   header.classList.add("col-header");
-
   const title = document.createElement("p");
   title.classList.add("col-title");
   title.classList.add("col-color");
   title.textContent = col.title;
-
   const chevron = document.createElement("i");
   chevron.classList.add("fa", "chevron", "fa-chevron-up");
 
   header.append(title, chevron);
 
-  // TASK CONTAINER
   const taskContainer = document.createElement("div");
   taskContainer.classList.add("task-container");
 
-  // FOOTER
   const footer = document.createElement("div");
   footer.classList.add("col-footer");
-
   const addTaskBtn = document.createElement("button");
   addTaskBtn.classList.add("add-task-btn");
-
   const plusIcon = document.createElement("i");
   plusIcon.classList.add("fas", "fa-plus");
 
   addTaskBtn.appendChild(plusIcon);
   footer.appendChild(addTaskBtn);
 
-  // ASSEMBLE COLUMN
   column.append(header, taskContainer, footer);
 
   return {
@@ -123,10 +102,7 @@ export function createCol(col){
     footer,
   };
 }
-
-export function renderCol(col){
-  const colContainer = document.querySelector(".col-container");
-
+function renderCol(col){
   const {
     column,
     title,
@@ -138,7 +114,7 @@ export function renderCol(col){
   
   colContainer.appendChild(column);
 
-  applyColState(col.open, taskContainer, chevron, footer);
+  applyIsColOpen(col.open, taskContainer, chevron, footer);
   applyColClr(col, title);
 
   bindColumnEvents(col, {
@@ -149,18 +125,10 @@ export function renderCol(col){
     footer,
   });
 
-  col.tasks.forEach(task => {
-    const taskEl = renderTask(task, taskContainer);
-    bindTaskEvents(taskEl, task);
-  });
+  renderTasks(col.tasks, taskContainer);
 }
 
-export function renderTaskForm(taskContainer, colId){
-  if (taskContainer.querySelector(".add-task-form")) return;
-
-  let errorTimeout;
-
-  // RENDERING TASK FORM
+function createTaskForm(){
   const form = document.createElement("form");
   form.classList.add("add-task-form");
 
@@ -172,48 +140,60 @@ export function renderTaskForm(taskContainer, colId){
 
   const btnWrapper = document.createElement("div");
   btnWrapper.classList.add("add-task-btns");
-
   const addBtn = document.createElement("button");
   addBtn.type = "submit";
   addBtn.id = "add-task-btn";
   addBtn.textContent = "Add task";
-
-  const xMark = document.createElement("button");
-  xMark.classList.add("x-mark");
-
+  const xIconBtn = document.createElement("button");
+  xIconBtn.classList.add("x-icon");
+  xIconBtn.type = "button";
   const xIcon = document.createElement("i");
-  xIcon.classList.add("fas", "fa-xmark");
+  xIcon.classList.add("fas", "fa-xmark", "x-mark");
+
 
   const error = document.createElement("p");
   error.classList.add("missing-title");
 
-  xMark.appendChild(xIcon);
-  btnWrapper.append(addBtn, xMark);
+  xIconBtn.appendChild(xIcon);
+  btnWrapper.append(addBtn, xIconBtn);
   containerEl.append(input, btnWrapper);
   form.append(containerEl, error);
 
+  return {
+    form,
+    input,
+    error,
+    xIconBtn,
+  }
+}
+function renderTaskForm(taskContainer, colId){
+  if (taskContainer.querySelector(".add-task-form")) return;
+
+  const { form, input, error, xIconBtn } = createTaskForm();
   taskContainer.appendChild(form);
 
-  // EVENT LISTENERS
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     const taskName = input.value.trim();
 
     if (!taskName) {
-      handleNameSubmission(error, input, errorTimeout);
+      handleNameSubmission(error, input);
       return;
     }
 
     const task = addTask(colId, taskName);
-    renderTask(task, taskContainer);
+    const taskEl = renderTask(task, taskContainer);
+    bindTaskEvents(taskEl, task);
 
     form.remove();
   });
 
-  xMark.addEventListener("click", () => form.remove());
+  xIconBtn.addEventListener("click", () => { 
+    form.remove();
+  });
 }
 
-export function renderTask(task, taskContainer){
+function renderTask(task, taskContainer){
   const taskEl = document.createElement("div");
   taskEl.classList.add("task");
   getPrioColor(task, taskEl);
@@ -248,8 +228,34 @@ export function renderTask(task, taskContainer){
   return taskEl;
 }
 
-function bindColumnEvents(col, elements){
-  const { title, chevron, taskContainer, addTaskBtn, footer } = elements;
+
+// internal DOM utilities :
+
+function renderTasks(tasks, taskContainer){
+  tasks.forEach(task => {
+    const taskEl = renderTask(task, taskContainer);
+    bindTaskEvents(taskEl, task);
+  })
+}
+
+function handleAddColSubmit(e, formElements){
+  e.preventDefault();
+  const {form, input, error} = formElements;
+
+  const colName = input.value.trim();
+
+    if(!colName) {
+      handleNameSubmission(error, input);
+      return;
+    }
+
+  const col = addCol(colName);
+  renderCol(col);
+  form.remove();
+}
+
+function bindColumnEvents(col, colElements){
+  const { title, chevron, taskContainer, addTaskBtn, footer } = colElements;
 
   title.addEventListener("click", () => {
     initColDialog(col, title)
