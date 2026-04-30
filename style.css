@@ -97,7 +97,7 @@ header {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  background-color: var(--extra-bright-grey);
+  background-color: rgba(255, 255, 255, 0.85);
   box-shadow: var(--box-shadow);
   padding: 16px 20px;
   font-size: 1rem;
@@ -630,12 +630,24 @@ dialog::backdrop {
   color: var(--light-grey-color);
 }
 
+
+#change-col-name:hover, 
+#change-task-name:hover,
+#change-proj-name:hover,
+#change-task-descr:hover{
+  outline: 1px solid var(--pastel-medium-grey);
+}
+
 #change-col-name:focus, 
 #change-task-name:focus,
 #change-proj-name:focus,
 #change-task-descr:focus{
   outline: 1px solid var(--pastel-medium-grey);
   color: var(--dark-grey);
+}
+
+#change-task-name{
+  border: 1px solid var(--bright-grey);
 }
 
 .del-btn-wrapper {
@@ -668,7 +680,7 @@ dialog::backdrop {
 
 .popup-xmark{
   color: var(--medium-grey);
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   cursor: pointer;
 }
 
@@ -693,6 +705,10 @@ dialog::backdrop {
 .task-n:hover,
 .proj-n:hover {
   cursor: default;
+}
+
+.proj-n{
+  color: var(--medium-grey)
 }
 
 
@@ -890,6 +906,7 @@ dialog::backdrop {
   overflow: hidden;
   resize: none;
   font-size: 0.85rem;
+  color: var(--medium-grey);
 }
 
 /*  delete & save buttons  */

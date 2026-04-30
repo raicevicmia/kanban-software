@@ -1,6 +1,6 @@
-import { saveState, state, changeTaskPriority, changeTaskDueDate, } from "./api.js";
+import { changeTaskField } from "./api.js";
 import { renderColContainer } from "./dom.js";
-import { autoResize, formatDate, handleNameSubmission, isTitleValid, setInputWidth, updateDialogDateUI, updatePriorityColor } from "./utils.js";
+import { autoResize, formatDate, handleNameSubmission, isTitleValid, setInputWidth, updateDialogDateUI, setPriorityColor } from "./utils.js";
 
 const dialog = document.getElementById("task-dialog");
 
@@ -14,7 +14,7 @@ const projectIn = dialog.querySelector("#change-proj-name");
 const assigneeWrap = dialog.querySelector(".task-assignee-wrapper");
 const assigneeIn = dialog.querySelector("#change-task-assignee");
 
-const descriptionEl = dialog.querySelector("#change-task-descr");
+const descriptionIn = dialog.querySelector("#change-task-descr");
 
 const priorityDiv = dialog.querySelector(".priority-task");
 const priorityEl = dialog.querySelector("#task-priority");
@@ -32,16 +32,15 @@ const notConfirmBtn = document.querySelector(".not-confirm-task-delete")
 
 let currentTask = null;
 
-// OPEN / CLOSE
+// open & close
 export function openTaskDialog(task) {
   currentTask = task;
   renderTaskDialog(task);
-  updatePriorityColor(priorityEl);
-  updateDialogDateUI(dueDateSpan, task);
   dialog.showModal();
 }
 export function closeTaskDialog() {
   dialog.close();
+  renderColContainer();
 }
 document.addEventListener("click", (e) => {
   if (e.target !== dialog) return;
@@ -68,23 +67,25 @@ document.addEventListener("keydown", (e) => {
 });
 
 
-// render data
+// render data on open
 export function renderTaskDialog(task) {
   titleIn.value = task.title || "";
   projectIn.value = task.project || "";
   assigneeIn.value = task.assignee || "";
-  setInputWidth(assigneeIn);
-  descriptionEl.value = task.description || "";
+  descriptionIn.value = task.description || "";
   priorityEl.value = task.priority || "select";
   dueDateEl.value = task.dueDate || "";
+
+  setInputWidth(assigneeIn);
+  setPriorityColor(priorityEl);
+  updateDialogDateUI(dueDateSpan, task);
+  requestAnimationFrame(() => {
+    autoResize(descriptionIn);
+  });
 }
 
-// SAVE
-export function saveAll() {
-  renderColContainer();
-}
 
-// DELETE
+// delete
 export function confirmDeleting(){
   confirmTaskDelete.showModal();
   confirmBtn.addEventListener("click", () => {
@@ -95,22 +96,9 @@ export function confirmDeleting(){
     confirmTaskDelete.close();
   });
 }
-export function deleteTask(){
-  for (const col of state.columns) {
-    const index = col.tasks.findIndex(t => t.id === currentTask.id);
-
-    if (index !== -1) { // aka if found (not NOT found)
-      col.tasks.splice(index, 1);
-      break;
-    }
-  }
-  saveState();
-  renderColContainer();
-  closeTaskDialog();
-}
 
 
-// EVENTS
+// events
 xmark.addEventListener("click", () => {
   if (!isTitleValid(titleIn)) {
     handleNameSubmission(error, titleIn);
@@ -123,9 +111,8 @@ xmark.addEventListener("click", () => {
 
 titleIn.addEventListener("change", () => {
   if(isTitleValid(titleIn)){
-    currentTask.title = titleIn.value.trim();
+    changeTaskField(currentTask, "title", titleIn.value.trim());
     titleIn.blur(); 
-    saveAll();
   } else {
     handleNameSubmission(error, titleIn);
     return;
@@ -148,10 +135,9 @@ assigneeIn.addEventListener("input", () => {
   setInputWidth(assigneeIn);
 });
 assigneeIn.addEventListener("change", () => {
-  currentTask.assignee = assigneeIn.value.trim();
+  changeTaskField(currentTask, "assignee", assigneeIn.value.trim());
   setInputWidth(assigneeIn);
   assigneeIn.blur();
-  saveAll();
 });
 
 
@@ -159,9 +145,8 @@ priorityDiv.addEventListener("click", () => {
   priorityEl.showPicker();
 });
 priorityEl.addEventListener("change", (e) => {
-  changeTaskPriority(currentTask, e.target.value);
-  updatePriorityColor(priorityEl);
-  saveAll();
+  changeTaskField(currentTask, "priority", e.target.value);
+  setPriorityColor(priorityEl);
 });
 
 
@@ -169,26 +154,33 @@ dueDateDiv.addEventListener("click", () => {
   dueDateEl.showPicker(); 
 });
 dueDateEl.addEventListener("change", (e) => {
-  changeTaskDueDate(currentTask, e.target.value);
+  changeTaskField(currentTask, "dueDate", e.target.value);
   updateDialogDateUI(dueDateSpan, currentTask);
-  saveAll();
 });
 
 
 projectIn.addEventListener("change", () => {
-  currentTask.project = projectIn.value.trim();
+  changeTaskField(currentTask, "project", projectIn.value.trim());
   projectIn.blur(); 
-  saveAll();
 });
 
 
-descriptionEl.addEventListener("input", () => {
-  currentTask.description = descriptionEl.value.trim();
-  autoResize(descriptionEl);
-  saveAll();
+descriptionIn.addEventListener("input", () => {
+  changeTaskField(currentTask, "description", descriptionIn.value.trim());
+});
+descriptionIn.addEventListener("keydown", (e) => {
+  if(e.key !== "Enter") return;
+
+  if(e.shiftKey){
+    return;
+  }
+  
+  changeTaskField(currentTask, "description", descriptionIn.value.trim());
+  descriptionIn.blur();
 });
 
 
-saveBtnEl.addEventListener("click", saveAll);
+saveBtnEl.addEventListener("click", () => {
+  closeTaskDialog();
+});
 deleteBtnEl.addEventListener("click", confirmDeleting);
-

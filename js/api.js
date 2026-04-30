@@ -65,16 +65,6 @@ export function addTask(colId, title) {
   return task;
 }
 
-export function changeTaskPriority(task, newPriority){
-  task.priority = newPriority;
-  saveState();
-}
-
-export function changeTaskDueDate(task, newDate){
-  task.dueDate = newDate;
-  saveState();
-}
-
 export function moveTask(taskId, colId, afterTaskId) {
   let movedTask = null;
 
@@ -105,3 +95,19 @@ export function moveTask(taskId, colId, afterTaskId) {
   saveState();
 }
 
+export function changeTaskField(task, field, value){
+  task[field] = value;
+  saveState();
+}
+
+export function deleteTask(taskId){
+  for (const col of state.columns) {
+    const index = col.tasks.findIndex(t => t.id === taskId);
+
+    if (index !== -1) { // aka if found (not NOT found)
+      col.tasks.splice(index, 1);
+      break;
+    }
+  }
+  saveState();
+}

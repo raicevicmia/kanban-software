@@ -36,7 +36,7 @@ export function applyColClr(col, title) {
   title.dataset.color = col.color;
 }
 
-export function updatePriorityColor(select){
+export function setPriorityColor(select){
   select.dataset.priority = select.value;
 }
 
