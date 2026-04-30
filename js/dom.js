@@ -281,9 +281,14 @@ function bindColumnEvents(col, colElements){
     renderTaskForm(taskContainer, col.id);
   });
 
+  taskContainer.addEventListener("dragleave", () => {
+    taskContainer.classList.remove("drag-over");
+  });
+
   taskContainer.addEventListener("dragover", handleDragOver);
 
   taskContainer.addEventListener("drop", () => {
+    taskContainer.classList.remove("drag-over");
     handleDrop(col.id);
   });
 }

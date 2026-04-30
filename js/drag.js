@@ -8,6 +8,7 @@ let afterTaskId = null;
 // DRAG START
 export function handleDragStart(e) {
   draggedTaskId = e.target.dataset.id;
+
   e.target.classList.add("dragging");
 }
 
@@ -24,9 +25,19 @@ export function handleDragOver(e) {
   e.preventDefault(); // to allow dropping
 
   const container = e.currentTarget;
-  const afterElement = getDragAfterElement(container, e.clientY);
+  container.classList.add("drag-over");
 
-  afterTaskId = afterElement?.dataset.id || null;
+  const afterElement = getDragAfterElement(container, e.clientY);
+  
+  const allTasks = container.querySelectorAll(".task");
+  allTasks.forEach(task => task.classList.remove("drag-over-item"));
+
+  if (afterElement) {
+    afterElement.classList.add("drag-over-item");
+    afterTaskId = afterElement.dataset.id;
+  } else {
+    afterTaskId = null;
+  }
 }
 
 // DROP

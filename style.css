@@ -35,11 +35,11 @@
   /*  PRIO PALETTE  */
   --pastel-grey: #EBECF0;
   --pastel-medium-grey: #e1e2e7;
-  --pastel-coral: #ffe2e2;
+  --pastel-coral: #fff2f2;
   --pastel-blue: #daeeff;
-  --pastel-green: #ceffd5;
-  --pastel-yellow: #ffffd1;
-  --pastel-red: #ffd2d2;
+  --pastel-green: #f1fff3;
+  --pastel-yellow: #fffff3;
+  --pastel-red: #ffe5e5;
 
   /*  COL TITLE PALETTE  */
   --strong-yellow: #ffffd1;
@@ -47,6 +47,14 @@
   --strong-blue: #cfe9ff;
   --strong-coral: #ffd2d2;
   --strong-grey: #EBECF0;
+
+  --medium-green: #55a952;
+  --medium-yellow: #babe4e;
+  --medium-coral: #a95252;
+
+  --medium-pastel-green:#d4ffdb;
+  --medium-pastel-yellow:#ffffcf;
+  --medium-pastel-coral:#ffe7e7;
 
 }
 
@@ -119,6 +127,7 @@ header {
 .fa-gear{
   font-size: 0.9rem;
   color: var(--dark-grey);
+  transition: color 0.2s ease;
 }
 
 /*  KANBAN BOARD  */
@@ -281,13 +290,19 @@ header {
   padding: 12px 20px;
   border-radius: var(--large-radius);
   cursor: pointer;
-  color: black;
+  color: var(--dark-grey);
   box-shadow: var(--box-shadow);
+}
+
+.col-title:hover{
+  color:black;
+  transition: color 0.1s ease;
 }
 
 .col-title:active{
   transform: scale(0.97);
 }
+
 
 .chevron{
   color: var(--medium-grey);
@@ -314,7 +329,6 @@ header {
   padding: 8px 16px;
   overflow: hidden;
   max-height: 440px;
-  overflow-y: auto;
 }
 
 .task-container.collapsed, .col-footer.collapsed {
@@ -340,6 +354,8 @@ header {
 
 .task-header{
   padding: 8px 0 24px;
+  background-color: rgba(255, 255, 255, 0.95);
+
 }
 
 .fa-circle{
@@ -348,15 +364,15 @@ header {
 }
 
 .green-border{
-  border-right: 16px solid var(--pastel-green);
+  border-right: 16px solid var(--strong-green);
 }
 
 .yellow-border{
-  border-right: 16px solid var(--pastel-yellow);
+  border-right: 16px solid var(--strong-yellow);
 }
 
 .red-border{
-  border-right: 16px solid var(--pastel-red);
+  border-right: 16px solid var(--strong-coral);
 }
 
 .task-description > * {
@@ -377,7 +393,7 @@ header {
   display: flex;
   flex-direction: column;
   /**/
-  background: var(--main-bg-color);
+  background-color: rgba(255, 255, 255, 0.55);
   border: none;
   box-shadow: var(--box-shadow);
   margin: 10px auto;
@@ -472,6 +488,8 @@ dialog::backdrop {
   border-radius: var(--medium-radius);
   padding: 20px 16px;
   box-shadow: var(--box-shadow);
+  background-color: rgba(255, 255, 255, 0.95);
+
 
   position: fixed;
   top: 50%;
@@ -484,7 +502,6 @@ dialog::backdrop {
   flex-direction: column;
   justify-content: space-between;
 }
-
 
 .col-palette{
   position: relative;
@@ -511,10 +528,8 @@ dialog::backdrop {
   padding: 8px;
 }
 
-#col-palette[open]{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+#col-palette:hover{
+    outline: 2px solid var(--pastel-medium-grey);
 }
 
 #col-palette > * {
@@ -578,6 +593,7 @@ dialog::backdrop {
   width: 240px;
   border-radius: var(--medium-radius);
   border: 1px solid var(--pastel-medium-grey);
+  color: var(--medium-grey);
   /*box-shadow: var(--box-shadow);*/
 }
 
@@ -599,11 +615,12 @@ dialog::backdrop {
  {
   content: "";
   position: absolute;
-  left: 16px;
+  left: 20px;
   bottom: -20px;
   width: 85%;
   height: 2px;
   background: var(--pastel-medium-grey);
+  border-radius: var(--large-radius);
 }
 
 #change-col-name::placeholder, 
@@ -618,6 +635,7 @@ dialog::backdrop {
 #change-proj-name:focus,
 #change-task-descr:focus{
   outline: 1px solid var(--pastel-medium-grey);
+  color: var(--dark-grey);
 }
 
 .del-btn-wrapper {
@@ -636,7 +654,7 @@ dialog::backdrop {
   overflow-y: auto;
   border-radius: var(--big-radius);
   border: none;
-  background-color: var(--main-bg-color);
+  background-color: rgba(255, 255, 255, 0.95);
   font-size: 0.9rem;
   box-shadow: var(--box-shadow);
 }
@@ -671,12 +689,19 @@ dialog::backdrop {
   margin: 8px 4px;
 }
 
+.col-n:hover, 
+.task-n:hover,
+.proj-n:hover {
+  cursor: default;
+}
+
+
 .task-upper-wrapper, 
 .proj-name-wrapper,
 .task-descr-wrapper{
   display: flex;
   flex-direction: column;
-  margin: auto 24px 40px 4px;
+  margin-bottom: 40px;
 }
 
 .proj-name-wrapper,
@@ -696,14 +721,17 @@ dialog::backdrop {
   align-items: center;
   gap: 4px;
   margin: 12px 0 0 4px;
-  color: var(--pale-blue);
+  color: var(--dark-grey);
   cursor: pointer;
 }
 
 .task-assignee-wrapper:hover{
-  color: var(--dark-blue);
+  color: black;
   .task-assignee-icon{
-    color: var(--dark-blue);
+    color: black;
+  }
+  #change-task-assignee{
+    color:black;
   }
 }
 
@@ -727,13 +755,18 @@ dialog::backdrop {
   border: none;
   padding: 4px 0;
   width: 2ch;
+  color: var(--dark-grey);
+  cursor: pointer;
+}
+
+.task-assignee-wrapper:focus-within {
   color: var(--dark-blue);
 }
 
 #change-task-assignee:focus{
   border: none;
   outline: none;
-  color: black;
+  color: var(--dark-blue);
 }
 
 .prio-and-date-wrapper{
@@ -752,7 +785,7 @@ dialog::backdrop {
 
 .priority-task:hover{
   .task-tag {
-    color: var(--medium-grey);
+    color: black;
   }
 }
 
@@ -770,15 +803,32 @@ dialog::backdrop {
 }
 
 #task-priority[data-priority="low"]{
-  background-color: var(--strong-green);
+  background-color: var(--pastel-green);
+  border: 1px solid var(--medium-green);
+  color: var(--medium-green);
 }
 
 #task-priority[data-priority="medium"]{
-  background-color: var(--strong-yellow);
+  background-color: var(--pastel-yellow);
+  border: 1px solid var(--medium-yellow);
+  color: var(--medium-yellow);
 }
 
 #task-priority[data-priority="high"]{
-  background-color: var(--strong-coral);
+  background-color: var(--pastel-coral);
+  border: 1px solid var(--medium-coral);
+  color: var(--medium-coral);
+}
+
+
+#task-priority[data-priority="low"]:hover{
+  background-color: var(--medium-pastel-green);
+}
+#task-priority[data-priority="medium"]:hover{
+  background-color: var(--medium-pastel-yellow);
+}
+#task-priority[data-priority="high"]:hover{
+  background-color: var(--medium-pastel-coral);
 }
 
 .prio-low{
@@ -810,15 +860,15 @@ dialog::backdrop {
 }
 
 .date-added{
-  color: black !important;
+  color: black;
 }
 
 .due-date-opt:hover{
   .task-tag{
-    color: var(--medium-grey);
+    color: black;
   }
   #due-date-display{
-    color: var(--dark-grey);
+    color: black;
   }
 }
 
@@ -847,7 +897,7 @@ dialog::backdrop {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin: 48px 0 20px;
+  margin: 24px 0;
 }
 
 #popup-save, .popup-delete{
@@ -954,7 +1004,7 @@ dialog::backdrop {
   border-radius: var(--small-radius);
   padding: 16px;
   box-shadow: var(--box-shadow);
-  background-color: var(--main-bg-color);
+  background-color: rgba(255, 255, 255, 0.95);
 
   position: fixed;
   top: 50%;
@@ -1040,6 +1090,24 @@ dialog::backdrop {
   margin-top: 5px;
 }
 
+
+/* DRAGGING STYLE  */
+
+.task.dragging{
+  opacity: 1;
+  transform: scale(1.05);
+  transform: rotate(2deg);
+}
+
+.task.drag-over-item{
+  transform: rotate(-2deg);
+}
+/*
+.task-container.drag-over {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+*/
+
 /*  RESPONSIVE DESIGN  */
 
 @media (max-width: 840px){
@@ -1061,11 +1129,14 @@ dialog::backdrop {
   .task-details-wrapper{
     flex-direction: column;
     gap: 4px;
-    padding-left: 28px;
+  }
+
+  .task-assignee-wrapper{
+    margin: 12px auto;
   }
 
   .prio-and-date-wrapper{
-    padding-right: 28px;
+    padding: 0 28px 0 0;
   }
 
   .task-name-wrapper,
@@ -1079,11 +1150,14 @@ dialog::backdrop {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-bottom: 20px;
   }
 
   .task-descr-wrapper{
     padding: auto 20px;
+  }
+
+  #change-task-descr{
+    width: 240px;
   }
 
 
