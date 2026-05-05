@@ -1,6 +1,14 @@
-import { changeTaskField } from "./api.js";
+import { changeTaskField, deleteTask } from "./api.js";
 import { renderColContainer } from "./dom.js";
-import { autoResize, formatDate, handleNameSubmission, isTitleValid, setInputWidth, updateDialogDateUI, setPriorityColor } from "./utils.js";
+import {
+  autoResize,
+  formatDate,
+  handleNameSubmission,
+  isTitleValid,
+  setInputWidth,
+  updateDialogDateUI,
+  setPriorityColor,
+} from "./utils.js";
 
 const dialog = document.getElementById("task-dialog");
 
@@ -28,7 +36,7 @@ const deleteBtnEl = dialog.querySelector(".popup-delete");
 
 const confirmTaskDelete = document.getElementById("confirm-task-dialog");
 const confirmBtn = document.querySelector(".confirm-task-delete");
-const notConfirmBtn = document.querySelector(".not-confirm-task-delete")
+const notConfirmBtn = document.querySelector(".not-confirm-task-delete");
 
 let currentTask = null;
 
@@ -66,7 +74,6 @@ document.addEventListener("keydown", (e) => {
   dialog.close();
 });
 
-
 // render data on open
 export function renderTaskDialog(task) {
   titleIn.value = task.title || "";
@@ -84,19 +91,18 @@ export function renderTaskDialog(task) {
   });
 }
 
-
 // delete
-export function confirmDeleting(){
+export function confirmDeleting() {
   confirmTaskDelete.showModal();
   confirmBtn.addEventListener("click", () => {
     confirmTaskDelete.close();
-    deleteTask();
+    deleteTask(currentTask.id);
+    renderColContainer();
   });
   notConfirmBtn.addEventListener("click", () => {
     confirmTaskDelete.close();
   });
 }
-
 
 // events
 xmark.addEventListener("click", () => {
@@ -108,11 +114,10 @@ xmark.addEventListener("click", () => {
   closeTaskDialog();
 });
 
-
 titleIn.addEventListener("change", () => {
-  if(isTitleValid(titleIn)){
+  if (isTitleValid(titleIn)) {
     changeTaskField(currentTask, "title", titleIn.value.trim());
-    titleIn.blur(); 
+    titleIn.blur();
   } else {
     handleNameSubmission(error, titleIn);
     return;
@@ -126,10 +131,12 @@ titleIn.addEventListener("keydown", (e) => {
   }
 });
 
-
 assigneeWrap.addEventListener("click", () => {
   assigneeIn.focus();
-  assigneeIn.setSelectionRange(assigneeIn.value.length, assigneeIn.value.length);
+  assigneeIn.setSelectionRange(
+    assigneeIn.value.length,
+    assigneeIn.value.length,
+  );
 });
 assigneeIn.addEventListener("input", () => {
   setInputWidth(assigneeIn);
@@ -140,7 +147,6 @@ assigneeIn.addEventListener("change", () => {
   assigneeIn.blur();
 });
 
-
 priorityDiv.addEventListener("click", () => {
   priorityEl.showPicker();
 });
@@ -149,36 +155,32 @@ priorityEl.addEventListener("change", (e) => {
   setPriorityColor(priorityEl);
 });
 
-
 dueDateDiv.addEventListener("click", () => {
-  dueDateEl.showPicker(); 
+  dueDateEl.showPicker();
 });
 dueDateEl.addEventListener("change", (e) => {
   changeTaskField(currentTask, "dueDate", e.target.value);
   updateDialogDateUI(dueDateSpan, currentTask);
 });
 
-
 projectIn.addEventListener("change", () => {
   changeTaskField(currentTask, "project", projectIn.value.trim());
-  projectIn.blur(); 
+  projectIn.blur();
 });
-
 
 descriptionIn.addEventListener("input", () => {
   changeTaskField(currentTask, "description", descriptionIn.value.trim());
 });
 descriptionIn.addEventListener("keydown", (e) => {
-  if(e.key !== "Enter") return;
+  if (e.key !== "Enter") return;
 
-  if(e.shiftKey){
+  if (e.shiftKey) {
     return;
   }
-  
+
   changeTaskField(currentTask, "description", descriptionIn.value.trim());
   descriptionIn.blur();
 });
-
 
 saveBtnEl.addEventListener("click", () => {
   closeTaskDialog();
